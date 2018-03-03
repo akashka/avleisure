@@ -31,6 +31,25 @@
         data: {
           pageTitle: '{{ articleResolve.title }}'
         }
+      })
+      .state('articles.create', {
+        url: '/create',
+        templateUrl: '/modules/articles/client/views/admin/form-article.client.view.html',
+        controller: 'ArticlesAdminController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['*']
+        }
+      })
+      .state('articles.edit', {
+        url: '/:articleId/edit',
+        templateUrl: '/modules/articles/client/views/admin/form-article.client.view.html',
+        controller: 'ArticlesAdminController',
+        controllerAs: 'vm',
+        data: {
+          roles: ['*'],
+          pageTitle: '{{ articleResolve.title }}'
+        }
       });
   }
 
