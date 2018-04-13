@@ -107,7 +107,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['user', 'admin', 'marketing', 'executive']
     }],
     default: ['user'],
     required: 'Please provide at least one role'
@@ -125,6 +125,35 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
+  },
+  aadhaar_no: {
+    type: String
+  },
+  pan_no: {
+    type: String    
+  },
+  pf_no: {
+    type: String        
+  },
+  esi_no: {
+    type: String    
+  },
+  phone_no: {
+    type: String    
+  },
+  alternate_no: {
+    type: String    
+  },
+  address: {
+    type: String        
+  },
+  user_type: {
+    type: [{
+      type: String,
+      enum: ['permanent', 'temporary', 'outsourced']
+    }],
+    default: ['permanent'],
+    required: 'Please provide at least one User Type'
   }
 });
 

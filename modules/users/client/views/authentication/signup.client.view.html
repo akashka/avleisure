@@ -1,23 +1,23 @@
 <div>
-  <h3 class="col-xs-12 text-center">sign up</h3>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-4 col-md-4">
+  <h3 class="col-xs-12 text-center">SIGN UP</h3>
+  <div class="col-md-12">
     <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
-        <div class="form-group" show-errors>
+        <div class="form-group col-md-6" show-errors>
           <label for="firstName">First Name</label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName" placeholder="First Name" required autofocus>
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group col-md-6" show-errors>
           <label for="lastName">Last Name</label>
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName" placeholder="Last Name" required>
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group col-md-6" show-errors>
           <label for="email">Email</label>
           <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" placeholder="Email" lowercase required>
           <div ng-messages="vm.userForm.email.$error" role="alert">
@@ -25,7 +25,7 @@
             <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group col-md-6" show-errors>
           <label for="roles">Roles</label>
           <select class="form-control" id="roles" ng-model="vm.credentials.roles" ng-list required>
               <option disabled selected value="">-- choose a Role --</option>
@@ -36,7 +36,7 @@
             <p class="help-block error-text" ng-message="required">At least one role is required.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
+        <div class="form-group col-md-6" show-errors>
           <label for="username">Username</label>
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" placeholder="Username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
@@ -44,21 +44,72 @@
             <p class="help-block error-text" ng-message="pattern">Please enter a valid username: 3+ characters long, non restricted word, characters "_-.", no consecutive dots, does not begin or end with dots, letters a-z and numbers 0-9.</p>
           </div>
         </div>
-        <div class="form-group" show-errors>
-          <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
-          <div ng-messages="vm.userForm.password.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Password is required.</p>
-            <div ng-repeat="passwordError in passwordErrors">
-              <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
-            </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="aadhaar_no">Aadhaar No.</label>
+          <input type="text" id="aadhaar_no" name="aadhaar_no" class="form-control" ng-model="vm.credentials.aadhaar_no" placeholder="Aadhaar No." required>
+          <div ng-messages="vm.userForm.aadhaar_no.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Aadhaar Number is required.</p>
           </div>
         </div>
-        <div class="form-group" ng-show="!vm.userForm.password.$error.required">
-          <label>Password Requirements</label>
-          <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+        <div class="form-group col-md-6" show-errors>
+          <label for="pan_no">PAN No.</label>
+          <input type="text" id="pan_no" name="pan_no" class="form-control" ng-model="vm.credentials.pan_no" placeholder="PAN No.">
         </div>
-        <div class="text-center form-group">
+        <div class="form-group col-md-6" show-errors>
+          <label for="pf_no">PF No.</label>
+          <input type="text" id="pf_no" name="pf_no" class="form-control" ng-model="vm.credentials.pf_no" placeholder="PF No.">
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="esi_no">ESI No.</label>
+          <input type="text" id="esi_no" name="esi_no" class="form-control" ng-model="vm.credentials.esi_no" placeholder="ESI No.">
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="phone_no">Phone No.</label>
+          <input type="text" id="phone_no" name="phone_no" class="form-control" ng-model="vm.credentials.phone_no" placeholder="Phone No." required>
+          <div ng-messages="vm.userForm.phone_no.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Phone Number is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="alternate_no">Alternate No.</label>
+          <input type="text" id="alternate_no" name="alternate_no" class="form-control" ng-model="vm.credentials.alternate_no" placeholder="Alternate No.">
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="types">Types</label>
+          <select class="form-control" id="types" ng-model="vm.credentials.user_type" ng-list required>
+              <option disabled selected value="">-- choose a Type --</option>
+              <option value="permanent">Permanent</option>
+              <option value="temporary">Temporary</option>
+              <option value="outsourced">Outsourced</option>
+          </select>
+          <div ng-messages="vm.userForm.types.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">At least one type is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label for="address">Address</label>
+          <textarea rows="2" type="text" id="address" name="address" class="form-control" ng-model="vm.credentials.address" placeholder="Address" required></textarea>
+          <div ng-messages="vm.userForm.address.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Address is required.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" show-errors>
+            <label for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
+            <div ng-messages="vm.userForm.password.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Password is required.</p>
+              <div ng-repeat="passwordError in passwordErrors">
+                <p class="help-block error-text" ng-show="vm.userForm.password.$error.requirements">{{passwordError}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-show="!vm.userForm.password.$error.required">
+            <label>Password Requirements</label>
+            <uib-progressbar value="requirementsProgress" type="{{requirementsColor}}"><span style="color:white; white-space:nowrap;">{{requirementsProgress}}%</span></uib-progressbar>
+          </div>
+        </div>
+        <div class="text-center form-group col-md-12">
           <button type="submit" class="btn btn-primary">Sign up</button>
           <!-- &nbsp; or&nbsp;
           <a ui-sref="authentication.signin" class="show-signup">Sign in</a> -->

@@ -1,0 +1,95 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.itinery._id ? 'Edit Itinery' : 'New Itinery'}}</h1>
+  </div>
+  <div class="pull-right">
+    <a ng-show="vm.itinery._id" class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.itineryForm" ng-submit="vm.save(vm.form.itineryForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group col-md-12" show-errors>
+          <label class="control-label" for="title">Title</label>
+          <input name="title" type="text" ng-model="vm.itinery.title" id="title" class="form-control" placeholder="Title" required autofocus>
+          <div ng-messages="vm.form.itineryForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Itinery title is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="sstate">State</label>
+          <div class="controls">
+            <select class="form-control" id="sstate" ng-model="vm.user.sstate" ng-list>
+                <option disabled selected value="">-- choose a State --</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+            </select>
+          </div>
+        </div>        
+        <div class="form-group col-md-6">
+          <label class="control-label" for="plan">Plan</label>
+          <input name="plan" type="text" ng-model="vm.itinery.plan" id="plan" class="form-control" placeholder="Plan">
+        </div>
+        <div class="form-group col-md-3">
+          <label class="control-label" for="nights">Nights</label>
+          <input name="nights" type="text" ng-model="vm.itinery.nights" id="nights" class="form-control" placeholder="Nights">
+        </div>
+        <div class="form-group col-md-3">
+          <label class="control-label" for="days">Days</label>
+          <input name="days" type="text" ng-model="vm.itinery.days" id="days" class="form-control" placeholder="Days">
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="international">National / International</label>
+          <div class="controls">
+            <select class="form-control" id="sstate" ng-model="vm.user.international" ng-list>
+                <option selected value="false">National</option>
+                <option value="true">International</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" data-ng-model="vm.itinery.description" id="description" class="form-control" rows="10" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.itinery._id ? 'Update' : 'Create'}}</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

@@ -163,7 +163,15 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
             displayName: providerUserProfile.displayName,
             profileImageURL: providerUserProfile.profileImageURL,
             provider: providerUserProfile.provider,
-            providerData: providerUserProfile.providerData
+            providerData: providerUserProfile.providerData,
+            aadhaar_no: providerUserProfile.aadhaar_no,
+            pan_no: providerUserProfile.pan_no,
+            pf_no: providerUserProfile.pf_no,
+            esi_no: providerUserProfile.esi_no,
+            phone_no: providerUserProfile.phone_no,
+            alternate_no: providerUserProfile.alternate_no,
+            address: providerUserProfile.address,
+            user_type: providerUserProfile.user_type
           });
 
           // Email intentionally added later to allow defaults (sparse settings) to be applid.

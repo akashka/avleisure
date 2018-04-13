@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Itineries</h1>
+  </div>
+  <div class="list-group" ng-repeat="itinery in vm.itineries">
+    <a ui-sref="itineries.view({ itineryId: itinery._id })" class="list-group-item col-md-11">
+      <small class="list-group-item-text" style="float:right;">
+        Created on
+        <span ng-bind="itinery.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="itinery.user" ng-bind="itinery.user.displayName"></span>
+        <span ng-if="!itinery.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="itinery.title"></h4>
+      <p class="list-group-item-text">Plan - {{itinery.plan}}</p>
+      <p class="list-group-item-text">Nights / Days - {{itinery.nights}} N / {{itinery.days}} D</p>
+      <p class="list-group-item-text" ng-if="!itinery.international">State - {{itinery.sstate}}</p>
+      <p class="list-group-item-text" ng-if="itinery.international">International</p>
+    </a>
+    <btn type="submit" class="btn btn-default col-md-1" style="float:right;margin-top:40px;margin-left:5px;width:7.5%;" ui-sref="itineries.edit({ itineryId: itinery._id })">Edit</btn>
+  </div>
+</section>
