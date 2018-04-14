@@ -6,7 +6,9 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a ui-sref="home" class="navbar-brand">A V Leisure</a>
+    <a ui-sref="home" class="navbar-brand">
+      <img src="https://avleisure.herokuapp.com/modules/core/client/img/brand/logo.png" style="height:51px;margin-top:-15px;">
+    </a>
   </div>
   <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
     <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">

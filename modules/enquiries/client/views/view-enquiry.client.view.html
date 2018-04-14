@@ -1,19 +1,71 @@
+<style>
+  .mr5 {
+    margin-right: 5px;
+  }
+
+  .Section2 {
+    box-shadow: 0 1px 2px #8a8383;
+  }
+</style>
 <section>
+
   <div class="page-header">
-    <h1 ng-bind="vm.enquiry.title"></h1>
+    <h1>View Enquiry</h1>
   </div>
-  <small>
-    <em class="text-muted" style="float:right;">
-      Enquired on
-      <span ng-bind="vm.enquiry.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.enquiry.user" ng-bind="vm.enquiry.user.displayName"></span>
-      <span ng-if="!vm.enquiry.user">Deleted User</span>
-    </em>
-  </small>
-  <p class="lead" ng-if="!vm.enquir.international">College  - {{vm.enquiry.college_name}}</p>
-  <p class="lead">Plan  - {{vm.enquir.plan}}</p>
-  <p class="lead">Nights / Days  - {{vm.enquir.nights}} N / {{vm.enquir.days}} D</p>
-  <br>
-  <p class="lead" ng-bind="vm.enquir.content"></p>
+
+  <form name="vm.form.enquiryForm" ng-submit="vm.save()" novalidate>
+    <fieldset>
+
+      <div class="col-md-12">
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}} </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">School Email: {{vm.enquiry.school_email_id}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_address">School Address: {{vm.enquiry.school_address}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_phone_no">School Phone: {{vm.enquiry.school_phone_no}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_gprs">School GPRS: {{vm.enquiry.school_gprs}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_photo">School Photo: {{vm.enquiry.school_photo}}</label>
+        </div>
+      </div>
+      
+      <div class="col-md-12 Section2" ng-repeat="enquiry in vm.enquiry.enquiries">
+        <br>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="itinery">Itinery: {{enquiry.itineries}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="plan">Plan: {{enquiry.plan}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="transport">Mode of transport: {{enquiry.transport[0]}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="food">Food: {{enquiry.food[0]}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="accomodation">Accomodation: {{enquiry.accomodation[0]}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="itinery">Sharing: {{enquiry.sharing[0]}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="contactPerson">Contact Person: {{enquiry.school_contact_person}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="class">Class: {{enquiry.school_class}}</label>
+        </div>
+      </div>
+
+    </fieldset>
+  </form>
+
 </section>

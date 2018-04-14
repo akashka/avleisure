@@ -46,8 +46,8 @@
         if(searched.length > 0) {
             vm.enquiry = searched[0];
             for(var v=0; v<vm.enquiry.enquiries.length; v++) {
-              vm.enquiry.enquiries[v].quotations.push({
-                  createdon: moment(),
+              vm.enquiry.enquiries[v].quotations.unshift({
+                  createdon: new Date(),
                   itinery: 0,
                   plan: 0,
                   transport: 0,
@@ -67,7 +67,7 @@
     vm.findItineryName = function(id) {
       for(var v = 0; v < vm.itineries.length; v++) {
         if(vm.itineries[v]._id === id) {
-          return m.itineries[v].title;
+          return vm.itineries[v].title;
         }
       }
       return "";
@@ -91,21 +91,24 @@
       return sum;
     }
 
-    // Save Enquiry
     function save() {
-      // Create a new enquiry, or update the current instance
-      vm.enquiry.createOrUpdate()
-        .then(successCallback)
-        .catch(errorCallback);
+			// Create a new enquiry, or update the current instance
+			EnquiriesService.createOrUpdate(vm.enquiry).then( successCallback ).catch( errorCallback );
 
-      function successCallback(res) {
-        $state.go('enquiries.list'); // should we send the User to the list or the updated enquiries view?
-        Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> Enquiry saved successfully!' });
-      }
+			function successCallback( res ) {
+				$state.go( 'enquiries.list' ); // should we send the User to the list or the updated enquiries view?
+				Notification.success( {
+					message: '<i class="glyphicon glyphicon-ok"></i> Enquiry saved successfully!'
+				} );
+			}
 
-      function errorCallback(res) {
-        Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> Enquiries save error!' });
-      }
+			function errorCallback( res ) {
+				Notification.error( {
+					message: res.data.message,
+					title: '<i class="glyphicon glyphicon-remove"></i> Enquiries save error!'
+				} );
+			}
     }
+    
   }
 }());

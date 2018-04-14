@@ -50,34 +50,48 @@
           <label class="control-label" for="school_address">Address: {{vm.enquiry.school_address}}</label>
         </div>
         <hr>
-        <div class="form-group col-md-12" ng-repeat="enq in vm.enquiry.enquiries">
+        <div class="form-group col-md-12 table_rows_set" ng-repeat="enq in vm.enquiry.enquiries">
           <hr>
           <div class="col-md-4">
-              <div class="row">Date:</div>
-              <div class="row">Itinery ({{vm.findItineryName(enq.itinery)}})</div>
-              <div class="row">Plan ({{enq.plan}})</div>
-              <div class="row">Transport ({{enq.transport}})</div>
-              <div class="row">Accomodation ({{enq.accomodation}})</div>
-              <div class="row">Food ({{enq.food}})</div>
-              <div class="row">Entry</div>
+              <div class="row"><b>Date:</b></div>
+              <div class="row"><b>Itinery </b>  -   {{vm.findItineryName(enq.itineries)}}</div>
+              <div class="row"><b>Plan </b>   -   {{enq.plan}}</div>
+              <div class="row"><b>Transport </b>   -   {{enq.transport[0]}}</div>
+              <div class="row"><b>Accomodation </b>   -   {{enq.accomodation[0]}}</div>
+              <div class="row"><b>Food </b>   -   {{enq.food[0]}}</div>
+              <div class="row"><b>Entry</b></div>
               <div class="row">
-                Other Expenses
+                <b>Other Expenses</b>
                 <span ng-click="vm.addExtra($index)"> + </span>
                 <span ng-click="vm.removeExtra($index)"> - </span>
               </div>
               <div class="row" ng-repeat="ext in enq.extras">{{ext.name}}</div>
-              <div class="row"> Total </div>
+              <div class="row"> <b>Total</b> </div>
           </div>
           <div class="col-md-2">
-                <div class="row">{{enq.quotations[0].createdon}]</div>
-                <div class="row">{{enq.quotations[0].itinery}}</div>
-                <div class="row">{{enq.quotations[0].plan}}</div>
-                <div class="row">{{enq.quotations[0].transport}}</div>
-                <div class="row">{{enq.quotations[0].accomodation}}</div>
-                <div class="row">{{enq.quotations[0].food}}</div>
-                <div class="row">{{enq.quotations[0].entry}}</div>
-                <div class="row"></div>
-                <div class="row" ng-repeat="ext in enq.quotations[0].extras">{{ext}}</div>
+                <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
+                <div class="row">
+                    <input name="itinery" type="text" ng-model="enq.quotations[0].itinery" class="form-control" required autofocus>
+                </div>
+                <div class="row">
+                    <input name="plan" type="text" ng-model="enq.quotations[0].plan" class="form-control" required autofocus>
+                </div>
+                <div class="row">
+                    <input name="transport" type="text" ng-model="enq.quotations[0].transport" class="form-control" required autofocus>
+                </div>
+                <div class="row">
+                    <input name="accomodation" type="text" ng-model="enq.quotations[0].accomodation" class="form-control" required autofocus>
+                </div>
+                <div class="row">
+                    <input name="food" type="text" ng-model="enq.quotations[0].food" class="form-control" required autofocus>
+                </div>
+                <div class="row">
+                    <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required autofocus>
+                </div>
+                <div class="row"> &nbsp; </div>
+                <div class="row" ng-repeat="ext in enq.quotations[0].extras">
+                    <input type="text" ng-model="ext" class="form-control" required autofocus>
+                </div>
                 <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
           </div>
           <div class="col-md-6" style="overflow-x:auto;">
@@ -89,12 +103,12 @@
                   <div class="row">{{quot.accomodation}}</div>
                   <div class="row">{{quot.food}}</div>
                   <div class="row">{{quot.entry}}</div>
-                  <div class="row"></div>
+                  <div class="row"> &nbsp; </div>
                   <div class="row" ng-repeat="ext in quot.extras">{{ext}}</div> 
                   <div class="row">{{vm.findTotal(quot)}}</div>           
               </div>            
           </div>
-          <div class="form-group">
+          <div class="form-group col-md-12">
             <button class="btn btn-default" ng-click="vm.save()">Save</button>
           </div>
         </div>
@@ -104,3 +118,12 @@
   </div>
 
 </section>
+
+<style>
+  .table_rows_set .row {
+    font-size: 16px;
+    line-height: 2.128571;
+    color: #333;
+    border-bottom: 2px solid grey;
+  }
+</style>

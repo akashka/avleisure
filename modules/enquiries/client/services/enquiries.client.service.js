@@ -16,16 +16,31 @@
           provider: '@provider'
         }
       },
-      save: {
+      saveEnquiry: {
         method: 'POST',
         url: '/api/enquiries'
       }
     });
 
-    angular.extend(Enquiry.prototype, {
-      createOrUpdate: function () {
-        var enquiry = this;
-        return createOrUpdate(enquiry);
+    // Handle successful response
+    function onSuccess(enquiry) {
+      // Any required internal processing from inside the service, goes here.
+    }
+
+    // Handle error response
+    function onError(errorResponse) {
+      var error = errorResponse.data;
+      // Handle error internally
+      handleError(error);
+    }
+
+    angular.extend(Enquiry, {
+      createOrUpdate: function (enquiry) {
+        if (enquiry._id) {
+          return enquiry.$update(onSuccess, onError);
+        } else {
+          return this.saveEnquiry(enquiry).$promise;
+        }
       }
     });
 
@@ -35,7 +50,7 @@
       if (enquiry._id) {
         return enquiry.$update(onSuccess, onError);
       } else {
-        return enquiry.$save(onSuccess, onError);
+        return this.saveEnquiry(enquiry).$promise;
       }
 
       // Handle successful response
@@ -49,11 +64,6 @@
         // Handle error internally
         handleError(error);
       }
-    }
-
-    function handleError(error) {
-      // Log error
-      $log.error(error);
     }
   }
 }());
