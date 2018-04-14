@@ -2,29 +2,29 @@
   'use strict';
 
   angular
-    .module('itineries')
+    .module('bookings')
     .run(menuConfig);
 
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
-      title: 'Itineries',
-      state: 'itineries',
+      title: 'Bookings',
+      state: 'bookings',
       type: 'dropdown',
       roles: ['admin','user']
     });
 
     // Add the dropdown list item
-    menuService.addSubMenuItem('topbar', 'itineries', {
-      title: 'List Itineries',
-      state: 'itineries.list',
+    menuService.addSubMenuItem('topbar', 'bookings', {
+      title: 'List Bookings',
+      state: 'bookings.list',
       roles: ['*']
     });
 
-    menuService.addSubMenuItem('topbar', 'itineries', {
-      title: 'Create Itineries',
-      state: 'itineries.create',
+    menuService.addSubMenuItem('topbar', 'bookings', {
+      title: 'Create Bookings',
+      state: 'bookings.create',
       roles: ['*']
     });
 

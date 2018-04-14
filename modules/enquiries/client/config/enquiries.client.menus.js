@@ -12,13 +12,13 @@
       title: 'Enquiries',
       state: 'enquiries',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin','user']
     });
 
     menuService.addMenuItem('topbar', {
       title: 'Quotations',
       state: 'quotations',
-      roles: ['*']
+      roles: ['admin','user']
     });
 
     // Add the dropdown list item
