@@ -17,7 +17,7 @@
         method: 'POST',
         url: '/api/users/password'
       },
-      deleteProvider: {
+      deleteProvider: { 
         method: 'DELETE',
         url: '/api/users/accounts',
         params: {

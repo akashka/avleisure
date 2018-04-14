@@ -15,6 +15,12 @@
       roles: ['*']
     });
 
+    menuService.addMenuItem('topbar', {
+      title: 'Quotations',
+      state: 'quotations',
+      roles: ['*']
+    });
+
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'List Enquiries',

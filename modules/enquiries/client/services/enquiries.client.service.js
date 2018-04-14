@@ -8,11 +8,17 @@
   EnquiriesService.$inject = ['$resource', '$log'];
 
   function EnquiriesService($resource, $log) {
-    var Enquiry = $resource('/api/enquiries/:enquiryId', {
-      enquiryId: '@_id'
-    }, {
+    var Enquiry = $resource('/api/enquiries', {}, {
       update: {
-        method: 'PUT'
+        method: 'PUT',
+        url: '/api/enquiries',
+        params: {
+          provider: '@provider'
+        }
+      },
+      save: {
+        method: 'POST',
+        url: '/api/enquiries'
       }
     });
 

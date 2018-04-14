@@ -17,6 +17,9 @@ var EnquirySchema = new Schema({
     type: Date,
     default: Date.now
   },
+  enquiry_id: {
+    type: String
+  },
   school_name: {
     type: String
   },
@@ -32,35 +35,11 @@ var EnquirySchema = new Schema({
   school_email_id: {
     type: String
   },
-  itineries: {
-    type: String
-  },
   school_phone_no: {
     type: String
   },
-  school_contact_person: {
-    type: String    
-  },
-  school_class: {
-    type: String    
-  },
-  transport: {
-    type: String 
-  },
-  food:{
-    type: String
-  },
-  sharing: {
-    type: String
-  },
-  accomodation: {
-    type: String    
-  },
-  quotations: {
-    type: Array
-  },
-  bookings: {
-    type: Array    
+  enquiries: {
+    ttype: Array
   },
   user: {
     type: Schema.ObjectId,
