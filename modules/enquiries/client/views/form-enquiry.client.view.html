@@ -1,95 +1,166 @@
+<style>
+  .mr5 {
+    margin-right: 5px;
+  }
+
+  .Section2 {
+    box-shadow: 0 1px 2px #8a8383;
+  }
+</style>
 <section>
   <div class="page-header">
-    <h1>{{vm.itinery._id ? 'Edit Itinery' : 'New Itinery'}}</h1>
+    <h1>{{vm.enquiry._id ? 'Edit Enquiry' : 'New Enquiry'}}</h1>
   </div>
   <div class="pull-right">
-    <a ng-show="vm.itinery._id" class="btn btn-primary" ng-click="vm.remove()">
+    <a ng-show="vm.enquiry._id" class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.itineryForm" ng-submit="vm.save(vm.form.itineryForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group col-md-12" show-errors>
-          <label class="control-label" for="title">Title</label>
-          <input name="title" type="text" ng-model="vm.itinery.title" id="title" class="form-control" placeholder="Title" required autofocus>
-          <div ng-messages="vm.form.itineryForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Itinery title is required.</p>
+  <form name="vm.form.enquiryForm" ng-submit="vm.save(vm.form.enquiryForm.$valid)" novalidate>
+    <fieldset>
+      <div class="col-md-12">
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_name">School Name: </label>
+          <input name="school_name" type="text" ng-model="vm.enquiry.school_name" id="school_name" class="form-control" placeholder="School Name" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school name is required.</p>
           </div>
         </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="sstate">State</label>
-          <div class="controls">
-            <select class="form-control" id="sstate" ng-model="vm.user.sstate" ng-list>
-                <option disabled selected value="">-- choose a State --</option>
-                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                <option value="Andhra Pradesh">Andhra Pradesh</option>
-                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                <option value="Assam">Assam</option>
-                <option value="Bihar">Bihar</option>
-                <option value="Chandigarh">Chandigarh</option>
-                <option value="Chhattisgarh">Chhattisgarh</option>
-                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                <option value="Daman and Diu">Daman and Diu</option>
-                <option value="Delhi">Delhi</option>
-                <option value="Goa">Goa</option>
-                <option value="Gujarat">Gujarat</option>
-                <option value="Haryana">Haryana</option>
-                <option value="Himachal Pradesh">Himachal Pradesh</option>
-                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                <option value="Jharkhand">Jharkhand</option>
-                <option value="Karnataka">Karnataka</option>
-                <option value="Kerala">Kerala</option>
-                <option value="Lakshadweep">Lakshadweep</option>
-                <option value="Madhya Pradesh">Madhya Pradesh</option>
-                <option value="Maharashtra">Maharashtra</option>
-                <option value="Manipur">Manipur</option>
-                <option value="Meghalaya">Meghalaya</option>
-                <option value="Mizoram">Mizoram</option>
-                <option value="Nagaland">Nagaland</option>
-                <option value="Odisha">Odisha</option>
-                <option value="Puducherry">Puducherry</option>
-                <option value="Punjab">Punjab</option>
-                <option value="Rajasthan">Rajasthan</option>
-                <option value="Sikkim">Sikkim</option>
-                <option value="Tamil Nadu">Tamil Nadu</option>
-                <option value="Telangana">Telangana</option>
-                <option value="Tripura">Tripura</option>
-                <option value="Uttar Pradesh">Uttar Pradesh</option>
-                <option value="Uttarakhand">Uttarakhand</option>
-                <option value="West Bengal">West Bengal</option>
-            </select>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_email_id">School Email: </label>
+          <input name="school_email_id" type="text" ng-model="vm.enquiry.school_email_id" id="school_email_id" class="form-control" placeholder="School Email" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_email_id.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school email is required.</p>
           </div>
-        </div>        
-        <div class="form-group col-md-6">
-          <label class="control-label" for="plan">Plan</label>
-          <input name="plan" type="text" ng-model="vm.itinery.plan" id="plan" class="form-control" placeholder="Plan">
         </div>
-        <div class="form-group col-md-3">
-          <label class="control-label" for="nights">Nights</label>
-          <input name="nights" type="text" ng-model="vm.itinery.nights" id="nights" class="form-control" placeholder="Nights">
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_address">School Address: </label>
+          <textarea name="school_address" data-ng-model="vm.enquiry.school_address" id="school_address" class="form-control" rows="5" placeholder="School Address" required autofocus></textarea>
+          <div ng-messages="vm.form.enquiryForm.school_address.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school address is required.</p>
+          </div>
         </div>
-        <div class="form-group col-md-3">
-          <label class="control-label" for="days">Days</label>
-          <input name="days" type="text" ng-model="vm.itinery.days" id="days" class="form-control" placeholder="Days">
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_phone_no">School Phone: </label>
+          <input name="school_phone_no" type="text" ng-model="vm.enquiry.school_phone_no" id="school_phone_no" class="form-control" placeholder="School Phone" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_phone_no.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school phone is required.</p>
+          </div>
         </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="international">National / International</label>
-          <div class="controls">
-            <select class="form-control" id="sstate" ng-model="vm.user.international" ng-list>
-                <option selected value="false">National</option>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_gprs">School GPRS: </label>
+          <input name="school_gprs" type="text" ng-model="vm.enquiry.school_gprs" id="school_gprs" class="form-control" placeholder="School GPRS" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_gprs.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school GPRS is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_photo">School Photo: </label>
+          <input name="school_photo" type="text" ng-model="vm.enquiry.school_photo" id="school_photo" class="form-control" placeholder="School Photo" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_photo.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enenquiry school photo is required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 Section2">
+        <div class="col-md-12 " ng-repeat="enquiry in vm.enquiry.enquiries">
+          <div class="form-group col-md-6">
+            <label class="control-label" for="itinery">Itinery</label>
+            <div class="controls">
+              <select class="form-control" id="itinery" ng-model="enquiry.itineries" ng-list>
+                <option selected value="true">National</option>
                 <option value="true">International</option>
             </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.itinery.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry itinery is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="plan">Plan</label>
+            <input name="plan" type="text" ng-model="enquiry.plan" id="plan" class="form-control" placeholder="Plan">
+            <div ng-messages="vm.form.enquiryForm.school_photo.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry school photo is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="transport">Mode of transport</label>
+            <div class="controls">
+              <select class="form-control" id="transport" ng-model="enquiry.transport" ng-list>
+                <option selected value="true">A/C bus</option>
+                <option value="true">Non A/C bus</option>
+                <option value="true">A/C train</option>
+                <option value="true">Non A/C train</option>
+                <option value="true">Flight</option>
+            </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.transport.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry mode of transport is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="food">Food</label>
+            <div class="controls">
+              <select class="form-control" id="food" ng-model="enquiry.food" ng-list>
+                <option selected value="true">Self catering</option>
+                <option value="true">Hotel</option>
+            </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.food.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry food is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="accomodation">Accomodation</label>
+            <div class="controls">
+              <select class="form-control" id="accomodation" ng-model="enquiry.accomodation" ng-list>
+                <option selected value="true">A/C</option>
+                <option value="true">Non A/C</option>
+            </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.accomodation.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry accomodation is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="itinery">Sharing</label>
+            <div class="controls">
+              <select class="form-control" id="sharing" ng-model="enquiry.sharing" ng-list>
+                <option selected value="true">Twin</option>
+                <option value="true">Tripple</option>
+                <option value="true">Quadruple</option>
+            </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.sharing.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry sharing is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="contactPerson">Contact Person</label>
+            <input name="plan" type="text" ng-model="enquiry.school_contact_person" id="contactPerson" class="form-control" placeholder="Contact Person">
+            <div ng-messages="vm.form.enquiryForm.contactPerson.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry contact person is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="class">Class</label>
+            <input name="plan" type="text" ng-model="enquiry.school_class" id="class" class="form-control" placeholder="Class">
+            <div ng-messages="vm.form.enquiryForm.class.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enenquiry class is required.</p>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label class="control-label" for="description">Description</label>
-          <textarea name="description" data-ng-model="vm.itinery.description" id="description" class="form-control" rows="10" placeholder="Description"></textarea>
+        <div class="form-group pull-right">
+          <button type="button" ng-click="vm.rmEnquiry()" class="btn btn-default">Delete</button>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.itinery._id ? 'Update' : 'Create'}}</button>
+        <div class="form-group pull-right mr5">
+          <button type="button" ng-click="vm.add()" class="btn btn-default">Add</button>
         </div>
-      </fieldset>
-    </form>
-  </div>
+      </div>
+      <!-- <div class="co-md-12 mr5" style="display:block !important;"> -->
+      <button type="submit" class="btn btn-default">{{vm.enquiry._id ? 'Update' : 'Save'}}</button>
+      <!-- </div> -->
+    </fieldset>
+  </form>
+  <!-- </div> -->
 </section>

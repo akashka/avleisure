@@ -21,7 +21,6 @@
       state: 'enquiries.list',
       roles: ['*']
     });
-
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'Create Enquiries',
       state: 'enquiries.create',
