@@ -7,6 +7,7 @@
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
+		vm.bookings = BookingsService.query();
 		vm.booking = booking;
 		vm.authentication = Authentication;
 		vm.form = {};
@@ -33,6 +34,13 @@
 				isOpened: false
 			},
 		};
+    vm.convert = function (amount){
+      if(vm.booking.amount_paid === amount){
+        vm.amount_paid = parseInt(vm.booking.amount_paid);
+      }else if(vm.booking.booking_amount === amount){
+        vm.booking_amount = parseInt(vm.booking.booking_amount);
+      }
+    }
 		vm.searches = function () {
 			vm.enquiry = null;
 			var searched = [];
@@ -48,6 +56,7 @@
 			if ( searched.length > 0 ) {
 				vm.enquiry = searched[ 0 ];
 				vm.booking.enquiry_id = vm.enquiry.enquiry_id;
+				vm.booking.booking_id = 'BKNG'+ vm.bookings.length;
 				vm.booking.school_name = vm.enquiry.school_name;
 				vm.booking.contact_person = vm.enquiry.school_contact_person;
 				vm.booking.contact_email = vm.enquiry.school_email_id;
