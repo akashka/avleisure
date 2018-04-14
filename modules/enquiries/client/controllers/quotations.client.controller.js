@@ -56,9 +56,9 @@
                   entry: 0,
                   extras: []
               });
-              for(var i=0; i<vm.enquiry.enquiries[v].extras.length; i++) {
-                  vm.enquiry.enquiries[v].quotations.extras.push(0);
-              }
+              // for(var i=0; i<vm.enquiry.enquiries[v].extras.length; i++) {
+              //     vm.enquiry.enquiries[v].quotations.extras.push(0);
+              // }
             }
             vm.isSearched = true;
         }
@@ -74,11 +74,17 @@
     }
 
     vm.addExtra = function(index) {
-        vm.enquiry.enquiries[index].extras.push("extra");
+        vm.enquiry.enquiries[index].extras.push("extra"+vm.enquiry.enquiries[index].extras.length);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].extras.push(0);
+        }
     }
 
     vm.removeExtra = function(index) {
         vm.enquiry.enquiries[index].extras.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].extras.splice(vm.enquiry.enquiries[index].quotations[v].extras.length-1, 1);
+        }
     }
 
     vm.findTotal = function(quot) {
@@ -86,12 +92,13 @@
       sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.transport) + Number(quot.accomodation)
                 + Number(quot.food) + Number(quot.entry));
       for(var k=0; k<quot.extras.length; k++) {
-        sum += quot.extras[k];
+        sum += Number(quot.extras[k]);
       }
       return sum;
     }
 
     function save() {
+      
 			// Create a new enquiry, or update the current instance
 			EnquiriesService.createOrUpdate(vm.enquiry).then( successCallback ).catch( errorCallback );
 

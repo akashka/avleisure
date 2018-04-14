@@ -5,9 +5,9 @@
     .module('enquiries.services')
     .factory('EnquiriesService', EnquiriesService);
 
-  EnquiriesService.$inject = ['$resource', '$log'];
+  EnquiriesService.$inject = ['$resource', '$log', '$http'];
 
-  function EnquiriesService($resource, $log) {
+  function EnquiriesService($resource, $log, $http) {
     var Enquiry = $resource('/api/enquiries', {}, {
       update: {
         method: 'PUT',
@@ -37,7 +37,7 @@
     angular.extend(Enquiry, {
       createOrUpdate: function (enquiry) {
         if (enquiry._id) {
-          return enquiry.$update(onSuccess, onError);
+          return $http.put('/api/enquiries/' + enquiry._id, enquiry);
         } else {
           return this.saveEnquiry(enquiry).$promise;
         }
@@ -48,7 +48,7 @@
 
     function createOrUpdate(enquiry) {
       if (enquiry._id) {
-        return enquiry.$update(onSuccess, onError);
+        return this.update(enquiry).$promise;
       } else {
         return this.saveEnquiry(enquiry).$promise;
       }
