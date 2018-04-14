@@ -1,0 +1,51 @@
+<style>
+  .mr5 {
+    margin-right: 5px;
+  }
+</style>
+<section>
+
+  <div class="page-header">
+    <h1>View Booking</h1>
+  </div>
+
+  <form name="vm.form.bookingForm" ng-submit="vm.save()" novalidate>
+    <fieldset>
+
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_name">Booking Date: {{vm.booking.booking_date}} </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_name">School Name: {{vm.booking.school_name}} </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">Contact Name: {{vm.booking.contact_person}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">Contact Email: {{vm.booking.contact_email}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_phone_no">Contact Phone: {{vm.booking.contact_phone}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_gprs">No. of Students: {{vm.booking.no_of_students}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_photo">Staff: {{vm.booking.no_of_staff}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="itinery">Class: {{vm.booking.class}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="plan">Destination: {{vm.booking.destination}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="transport">Amount paid: {{vm.booking.amount_paid}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="food">Booking Amount: {{vm.booking.booking_amount}}</label>
+        </div>
+    </fieldset>
+  </form>
+
+</section>

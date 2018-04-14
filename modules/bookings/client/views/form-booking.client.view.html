@@ -28,14 +28,13 @@
   </div>
   <hr>
 
-  <!-- <div class="col-md-12" ng-show="vm.isSearched"> -->
-  <div class="col-md-12">
+  <div class="col-md-12" ng-show="vm.isSearched">
     <form name="vm.form.bookingForm" ng-submit="vm.save(vm.form.bookingForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group col-md-6" show-errors style="margin-bottom: 5px ! important;">
           <label class="control-label" for="booking_date">Booking Date: </label>
           <p class="input-group">
-            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.bookingForm.lr_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
+            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.booking_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
             <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -63,8 +62,8 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="contact_destination">Contact Destination: </label>
-          <input name="contact_destination" type="text" ng-model="vm.booking.contact_destination" id="contact_destination" class="form-control" placeholder="Contact Destination" required autofocus>
+          <label class="control-label" for="contact_destination">Contact Designation: </label>
+          <input name="contact_destination" type="text" ng-model="vm.booking.contact_destination" id="contact_destination" class="form-control" placeholder="Contact Designation" required autofocus>
           <div ng-messages="vm.form.bookingForm.contact_destination.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking contact destination is required.</p>
           </div>

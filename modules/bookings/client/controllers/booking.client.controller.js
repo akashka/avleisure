@@ -7,6 +7,7 @@
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
+		vm.bookings = BookingsService.query();
 		vm.booking = booking;
 		vm.authentication = Authentication;
 		vm.form = {};
@@ -55,6 +56,7 @@
 			if ( searched.length > 0 ) {
 				vm.enquiry = searched[ 0 ];
 				vm.booking.enquiry_id = vm.enquiry.enquiry_id;
+				vm.booking.booking_id = 'BKNG'+ vm.bookings.length;
 				vm.booking.school_name = vm.enquiry.school_name;
 				vm.booking.contact_person = vm.enquiry.school_contact_person;
 				vm.booking.contact_email = vm.enquiry.school_email_id;
