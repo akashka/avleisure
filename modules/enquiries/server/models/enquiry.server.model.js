@@ -39,7 +39,7 @@ var EnquirySchema = new Schema({
     type: String
   },
   enquiries: {
-    ttype: Array
+    type: Array
   },
   user: {
     type: Schema.ObjectId,
