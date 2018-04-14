@@ -18,35 +18,35 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/bookings',
       permissions: '*'
     }, {
-      resources: '/api/bookings/:bookingId',
+      resources: '/api/bookings/create',
       permissions: '*'
     }, {
-      resources: '/api/downloads',
+      resources: '/api/bookings/:bookingId',
       permissions: '*'
     }]
   }, {
     roles: ['user'],
     allows: [{
       resources: '/api/bookings',
-      permissions: '*'
+       permissions: '*'
+    }, {
+      resources: '/api/bookings/create',
+       permissions: '*'
     }, {
       resources: '/api/bookings/:bookingId',
-      permissions: '*'
-    },{
-      resources: '/api/downloads',
-      permissions: '*'
+       permissions: '*'
     }]
   }, {
     roles: ['guest'],
     allows: [{
       resources: '/api/bookings',
-      permissions: ['get']
+       permissions: '*'
+    }, {
+      resources: '/api/bookings/create',
+       permissions: '*'
     }, {
       resources: '/api/bookings/:bookingId',
-      permissions: ['get']
-    }, {
-      resources: '/api/downloads',
-      permissions: '*'
+       permissions: '*'
     }]
   }]);
 };
@@ -57,7 +57,7 @@ exports.invokeRolesPolicies = function () {
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
-  // If an booking is being processed and the current user created it then allow any manipulation
+  // If an bookings is being processed and the current user created it then allow any manipulation
   if (req.booking && req.user && req.booking.user && req.booking.user.id === req.user.id) {
     return next();
   }

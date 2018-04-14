@@ -14,6 +14,12 @@
         url: '/enquiries',
         template: '<ui-view/>'
       })
+      .state('quotations', {
+        url: '/quotations',
+        templateUrl: '/modules/enquiries/client/views/quotations.client.view.html',
+        controller: 'QuotationsController',
+        controllerAs: 'vm'
+      })
       .state('enquiries.list', {
         url: '',
         templateUrl: '/modules/enquiries/client/views/list-enquiries.client.view.html',

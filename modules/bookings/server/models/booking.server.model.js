@@ -10,126 +10,57 @@ var mongoose = require('mongoose'),
   chalk = require('chalk');
 
 /**
- * Booking Schema
+ * bookings Schema
  */
 var BookingSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
   },
-  lr_date: {
-    type: Date,
-    default: Date.now
-  },
-  lr_number: {
+  enquiry_no: {
     type: String,
     default: '',
-    trim: true,
-    required: 'LR Number cannot be blank'
+    required: 'Enquiry No. cannot be blank'
   },
-  challan_number: {
-    type: String,
-    default: ''
+  booking_date: {
+    type: Date
   },
-  branch_area: {
-    type: String,
-    default: ''
+  booking_amount: {
+    type: String
   },
-  from: {
-    type: String,
-    default: ''
+  school_name: {
+    type: String
   },
-  to: {
-    type: String,
-    default: ''
+  contact_person: {
+    type: String
   },
-  package: {
-    type: String,
-    default: ''
+  contact_destination: {
+    type: String
   },
-  weight: {
-    type: String,
-    default: ''
+  contact_phone: {
+    type: String
   },
-  consignor: {
+  contact_email: {
+    type: String
   },
-  consignee: {
+  amount_paid: {
+    type: Array
   },
-  invoice_number: {
-    type: String,
-    default: ''
+  no_of_students: {
+    type: String
   },
-  invoice_date: {
-    type: Date,
-    default: Date.now
+  no_of_staff: {
+    type: String
   },
-  vehicle_number: {
-    type: String,
-    default: ''
+  class: {
+    type: String
   },
-  basic_amount: {
-    type: String,
-    default: ''
+  tour_managers: {
+    type: Array
   },
-  service_tax: {
-    type: String,
-    default: ''
+  destination: {
+    type: String
   },
-  other_charge: {
-    type: String,
-    default: ''
-  },
-  booking_method: {
-    type: String,
-    default: ''
-  },
-  vehicle_owner_broker_name: {
-  },
-  commission: {
-    type: String,
-    default: ''
-  },
-  interest: {
-    type: String,
-    default: ''
-  },
-  extra: {
-    type: String,
-    default: ''
-  },
-  crane_charge: {
-    type: String,
-    default: ''
-  },
-  halting: {
-    type: String,
-    default: ''
-  },
-  hire: {
-    type: String,
-    default: ''
-  },
-  vehicle_type: {
-    type: String,
-    default: ''
-  },
-  advance: {
-    type: String,
-    default: ''
-  },
-  payments: {},
-  balance: {},
-  payments_cleared: {
-    type: String,
-    default: ''
-  },
-  balance_cleared: {
-    type: String,
-    default: ''
-  },
-  pod: {},
-  remarks: "",
-  driver: {},
   user: {
     type: Schema.ObjectId,
     ref: 'User'
@@ -187,7 +118,7 @@ function seed(doc, options) {
       return new Promise(function (resolve, reject) {
         Booking
           .findOne({
-            lr_number: doc.lr_number
+            title: doc.title
           })
           .exec(function (err, existing) {
             if (err) {
@@ -219,7 +150,7 @@ function seed(doc, options) {
       return new Promise(function (resolve, reject) {
         if (skip) {
           return resolve({
-            message: chalk.yellow('Database Seeding: Booking\t' + doc.lr_number + ' skipped')
+            message: chalk.yellow('Database Seeding: Booking\t' + doc.title + ' skipped')
           });
         }
 
@@ -231,7 +162,7 @@ function seed(doc, options) {
           }
 
           return resolve({
-            message: 'Database Seeding: Booking\t' + booking.lr_number + ' added'
+            message: 'Database Seeding: Booking\t' + booking.title + ' added'
           });
         });
       });

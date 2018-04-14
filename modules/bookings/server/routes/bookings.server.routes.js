@@ -10,18 +10,18 @@ module.exports = function (app) {
   // Bookings collection routes
   app.route('/api/bookings').all(bookingsPolicy.isAllowed)
     .get(bookings.list)
-    .put(bookings.update)    
     .post(bookings.create);
 
-  app.route('/api/downloads/:bookingId')
-    .get(bookings.downloadByID);
+  app.route('/api/bookings/create').all(bookingsPolicy.isAllowed)
+    .get(bookings.list)
+    .post(bookings.create);
 
-  // Single booking routes
+  // Single bookings routes
   app.route('/api/bookings/:bookingId').all(bookingsPolicy.isAllowed)
     .get(bookings.read)
     .put(bookings.update)
     .delete(bookings.delete);
 
   // Finish by binding the booking middleware
-  // app.param('bookingId', bookings.bookingByID);
+  app.param('bookingId', bookings.bookingByID);
 };

@@ -8,47 +8,18 @@
   BookingsService.$inject = ['$resource', '$log'];
 
   function BookingsService($resource, $log) {
-    var Booking = $resource('/api/bookings', {}, {
+    var Booking = $resource('/api/bookings/:bookingId', {
+      bookingId: '@_id'
+    }, {
       update: {
-        method: 'PUT',
-        url: '/api/bookings',
-        params: {
-          provider: '@provider'
-        }
-      },
-      saveBooking: {
-        method: 'POST',
-        url: '/api/bookings'
-      },
-      download: {
-        method: 'POST',
-        url: '/api/downloads'
+        method: 'PUT'
       }
     });
 
-    // Handle successful response
-    function onSuccess(booking) {
-      // Any required internal processing from inside the service, goes here.
-    }
-
-    // Handle error response
-    function onError(errorResponse) {
-      var error = errorResponse.data;
-      // Handle error internally
-      handleError(error);
-    }
-
-    angular.extend(Booking, {
-      createOrUpdate: function (booking) {
-        if (booking._id) {
-          return booking.$update(onSuccess, onError);
-        } else {
-          return this.saveBooking(booking).$promise;
-        }
-      },
-      downloads: function(bookingId) {
-        var params = {"bookingId": bookingId};
-        return this.download(params).$promise;
+    angular.extend(Booking.prototype, {
+      createOrUpdate: function () {
+        var booking = this;
+        return createOrUpdate(booking);
       }
     });
 
@@ -58,7 +29,7 @@
       if (booking._id) {
         return booking.$update(onSuccess, onError);
       } else {
-        return this.saveBooking(booking).$promise;
+        return booking.$save(onSuccess, onError);
       }
 
       // Handle successful response
@@ -78,6 +49,5 @@
       // Log error
       $log.error(error);
     }
-
   }
 }());

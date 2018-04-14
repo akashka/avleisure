@@ -15,22 +15,17 @@
       roles: ['admin','user']
     });
 
+    // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'bookings', {
-      title: 'List Booking',
+      title: 'List Bookings',
       state: 'bookings.list',
-      roles: ['admin','user']
+      roles: ['*']
     });
 
     menuService.addSubMenuItem('topbar', 'bookings', {
-      title: 'New Booking',
+      title: 'Create Bookings',
       state: 'bookings.create',
-      roles: ['admin','user']
-    });
-
-    menuService.addMenuItem('topbar', {
-      title: 'Quotations',
-      state: 'bookings.cheque',
-      roles: ['admin','user']
+      roles: ['*']
     });
 
   }

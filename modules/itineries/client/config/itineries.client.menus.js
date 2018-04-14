@@ -12,7 +12,7 @@
       title: 'Itineries',
       state: 'itineries',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin','user']
     });
 
     // Add the dropdown list item

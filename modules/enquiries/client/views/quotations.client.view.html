@@ -1,0 +1,106 @@
+<section>
+  <div class="page-header">
+    <h1>Quotations</h1>
+  </div>
+
+  <div class="row">
+        <div class="col-sm-4 col-md-5">
+            <div class="form-group">
+                <label for="enquiry_id" class="col-sm-5 control-label">Enquiry Id:</label>
+                <div class="col-sm-7">
+                    <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id" 
+                        placeholder="Enter Enquiry Id"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-5">
+            <div class="form-group">
+                <label for="school_name" class="col-sm-5 control-label">School Name:</label>
+                <div class="col-sm-7">
+                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" 
+                        placeholder="Enter School Name"/>
+                </div>
+            </div>
+        </div>
+        <div class="page-controls col-sm-2" style="text-align: center;">
+            <div class="row" role="toolbar">
+                <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
+            </div>
+        </div>
+  </div>
+  <hr>
+
+  <div class="col-md-12" ng-show="vm.isSearched">
+    <form name="vm.form.itineryForm" novalidate>
+      <fieldset>
+
+        <div class="form-group col-md-4">
+          <label class="control-label" for="enquiry_id">Enquiry ID: {{vm.enquiry.enquiry_id}}</label>
+        </div>
+        <div class="form-group col-md-4">
+          <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}}</label>
+        </div>
+        <div class="form-group col-md-4">
+          <label class="control-label" for="school_email_id">Email ID: {{vm.enquiry.school_email_id}}</label>
+        </div>
+        <div class="form-group col-md-4">
+          <label class="control-label" for="school_phone_no">Phone No: {{vm.enquiry.school_phone_no}}</label>
+        </div>
+        <div class="form-group col-md-8">
+          <label class="control-label" for="school_address">Address: {{vm.enquiry.school_address}}</label>
+        </div>
+        <hr>
+        <div class="form-group col-md-12" ng-repeat="enq in vm.enquiry.enquiries">
+          <hr>
+          <div class="col-md-4">
+              <div class="row">Date:</div>
+              <div class="row">Itinery ({{vm.findItineryName(enq.itinery)}})</div>
+              <div class="row">Plan ({{enq.plan}})</div>
+              <div class="row">Transport ({{enq.transport}})</div>
+              <div class="row">Accomodation ({{enq.accomodation}})</div>
+              <div class="row">Food ({{enq.food}})</div>
+              <div class="row">Entry</div>
+              <div class="row">
+                Other Expenses
+                <span ng-click="vm.addExtra($index)"> + </span>
+                <span ng-click="vm.removeExtra($index)"> - </span>
+              </div>
+              <div class="row" ng-repeat="ext in enq.extras">{{ext.name}}</div>
+              <div class="row"> Total </div>
+          </div>
+          <div class="col-md-2">
+                <div class="row">{{enq.quotations[0].createdon}]</div>
+                <div class="row">{{enq.quotations[0].itinery}}</div>
+                <div class="row">{{enq.quotations[0].plan}}</div>
+                <div class="row">{{enq.quotations[0].transport}}</div>
+                <div class="row">{{enq.quotations[0].accomodation}}</div>
+                <div class="row">{{enq.quotations[0].food}}</div>
+                <div class="row">{{enq.quotations[0].entry}}</div>
+                <div class="row"></div>
+                <div class="row" ng-repeat="ext in enq.quotations[0].extras">{{ext}}</div>
+                <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
+          </div>
+          <div class="col-md-6" style="overflow-x:auto;">
+              <div class="col-md-2" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
+                  <div class="row">{{quot.createdon}]</div>
+                  <div class="row">{{quot.itinery}}</div>
+                  <div class="row">{{quot.plan}}</div>
+                  <div class="row">{{quot.transport}}</div>
+                  <div class="row">{{quot.accomodation}}</div>
+                  <div class="row">{{quot.food}}</div>
+                  <div class="row">{{quot.entry}}</div>
+                  <div class="row"></div>
+                  <div class="row" ng-repeat="ext in quot.extras">{{ext}}</div> 
+                  <div class="row">{{vm.findTotal(quot)}}</div>           
+              </div>            
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default" ng-click="vm.save()">Save</button>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
+</section>

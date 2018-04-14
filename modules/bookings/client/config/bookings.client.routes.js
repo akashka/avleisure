@@ -20,36 +20,6 @@
         controller: 'BookingsListController',
         controllerAs: 'vm'
       })
-      .state('bookings.cheque', {
-        url: '/cheques',
-        templateUrl: '/modules/bookings/client/views/list-cheques.client.view.html',
-        controller: 'ChequesListController',
-        controllerAs: 'vm'
-      })
-      .state('bookings.create', {
-        url: '/create',
-        templateUrl: '/modules/bookings/client/views/create-booking.client.view.html',
-        controller: 'BookingsAdminController',
-        controllerAs: 'vm',
-        data: {
-          pageTitle: 'Create Booking'
-        },
-        resolve: {
-          bookingResolve: newBooking
-        }
-      })
-      .state('bookings.edit', {
-        url: '/:bookingId/edit',
-        templateUrl: '/modules/bookings/client/views/create-booking.client.view.html',
-        controller: 'BookingsAdminController',
-        controllerAs: 'vm',
-        data: {
-          pageTitle: 'Edit Booking'
-        },
-        resolve: {
-          bookingResolve: getBooking
-        }
-      })
       .state('bookings.view', {
         url: '/:bookingId',
         templateUrl: '/modules/bookings/client/views/view-booking.client.view.html',
@@ -59,7 +29,28 @@
           bookingResolve: getBooking
         },
         data: {
-          pageTitle: 'View Booking'
+          pageTitle: '{{ bookingResolve.title }}'
+        }
+      })
+      .state('bookings.create', {
+        url: '/create',
+        templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
+        controller: 'BookingsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: newBooking
+        }
+      })
+      .state('bookings.edit', {
+        url: '/:bookingId/edit',
+        templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
+        controller: 'BookingsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: getBooking
+        },
+        data: {
+          pageTitle: '{{ bookingResolve.title }}'
         }
       });
   }
@@ -67,15 +58,15 @@
   getBooking.$inject = ['$stateParams', 'BookingsService'];
 
   function getBooking($stateParams, BookingsService) {
-    return BookingsService.query(
-      {isArray: true}
-    ).$promise;
+    return BookingsService.get({
+      bookingId: $stateParams.bookingId
+    });
   }
 
   newBooking.$inject = ['BookingsService'];
 
-  function newBooking(BookingsService) {
-    return new BookingsService();
+  function newBooking(bookingsService) {
+    return new bookingsService();
   }
 
 }());
