@@ -26,19 +26,19 @@
         vm.enquiry = null;
         var searched = [];
         for(var e=0; e<vm.enquiries.length;e++) {
-          if(vm.search.enquiry_id != null && vm.search.enquiry_id != undefined && vm.search.enquiry_id != ""
+          if(vm.search.enquiry_id != null && vm.search.enquiry_id != undefined && vm.search.enquiry_id != "" &&
               (vm.search.school_name == null || vm.search.school_name == undefined || vm.search.school_name == "") &&
               vm.search.enquiry_id == vm.enquiries[e].enquiry_id) {
                     searched.push(vm.enquiries[e]);
           }
-          else if((vm.search.enquiry_id == null || vm.search.enquiry_id == undefined || vm.search.enquiry_id == "") && 
+          else if((vm.search.enquiry_id == null || vm.search.enquiry_id == undefined || vm.search.enquiry_id == "") &&
               vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" &&
               vm.search.school_name.toLowerCase() == vm.enquiries[e].school_name.toLowerCase()) {
                     searched.push(vm.enquiries[e]);
           }
           else if(vm.search.enquiry_id != null && vm.search.enquiry_id != undefined && vm.search.enquiry_id != "" &&
               vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" &&
-              vm.search.school_name.toLowerCase() == vm.enquiries[e].school_name.toLowerCase() && 
+              vm.search.school_name.toLowerCase() == vm.enquiries[e].school_name.toLowerCase() &&
               vm.search.enquiry_id == vm.enquiries[e].enquiry_id) {
                     searched.push(vm.enquiries[e]);
           }

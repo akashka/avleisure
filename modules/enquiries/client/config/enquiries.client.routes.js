@@ -26,6 +26,15 @@
         controller: 'EnquiriesListController',
         controllerAs: 'vm'
       })
+      .state('enquiries.create', {
+        url: '/create',
+        templateUrl: '/modules/enquiries/client/views/form-enquiry.client.view.html',
+        controller: 'EnquiriesAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          enquiryResolve: newEnquiry
+        }
+      })
       .state('enquiries.view', {
         url: '/:enquiryId',
         templateUrl: '/modules/enquiries/client/views/view-enquiry.client.view.html',
@@ -36,15 +45,6 @@
         },
         data: {
           pageTitle: '{{ enquiryResolve.title }}'
-        }
-      })
-      .state('enquiries.create', {
-        url: '/create',
-        templateUrl: '/modules/enquiries/client/views/form-enquiry.client.view.html',
-        controller: 'EnquiriesAdminController',
-        controllerAs: 'vm',
-        resolve: {
-          enquiryResolve: newEnquiry
         }
       })
       .state('enquiries.edit', {

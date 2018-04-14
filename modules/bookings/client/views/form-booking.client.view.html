@@ -1,0 +1,142 @@
+<section>
+  <div class="page-header">
+    <h1>Bookings</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-4 col-md-5">
+      <div class="form-group">
+        <label for="enquiry_id" class="col-sm-5 control-label">Enquiry Id:</label>
+        <div class="col-sm-7">
+          <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id" placeholder="Enter Enquiry Id" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-5">
+      <div class="form-group">
+        <label for="school_name" class="col-sm-5 control-label">School Name:</label>
+        <div class="col-sm-7">
+          <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" placeholder="Enter School Name" />
+        </div>
+      </div>
+    </div>
+    <div class="page-controls col-sm-2" style="text-align: center;">
+      <div class="row" role="toolbar">
+        <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <!-- <div class="col-md-12" ng-show="vm.isSearched"> -->
+  <div class="col-md-12">
+    <form name="vm.form.bookingForm" ng-submit="vm.save(vm.form.bookingForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group col-md-6" show-errors style="margin-bottom: 5px ! important;">
+          <label class="control-label" for="booking_date">Booking Date: </label>
+          <p class="input-group">
+            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.bookingForm.lr_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="booking_amount">Booking Amount: </label>
+          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus>
+          <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_name">School Name: </label>
+          <input name="school_name" type="text" ng-model="vm.booking.school_name" id="school_name" class="form-control" placeholder="School Name" required autofocus>
+          <div ng-messages="vm.form.bookingForm.school_name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking school name is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="contact_person">Contact Person: </label>
+          <input name="contact_person" type="text" ng-model="vm.booking.contact_person" id="contact_person" class="form-control" placeholder="Contact Person" required autofocus>
+          <div ng-messages="vm.form.bookingForm.contact_person.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking contact person is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="contact_destination">Contact Destination: </label>
+          <input name="contact_destination" type="text" ng-model="vm.booking.contact_destination" id="contact_destination" class="form-control" placeholder="Contact Destination" required autofocus>
+          <div ng-messages="vm.form.bookingForm.contact_destination.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking contact destination is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="contact_email">Contact Email: </label>
+          <input name="contact_email" type="text" ng-model="vm.booking.contact_email" id="contact_email" class="form-control" placeholder="Contact Email" required autofocus>
+          <div ng-messages="vm.form.bookingForm.contact_email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking contact email is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="amount_paid">Amount Paid: </label>
+          <input name="amount_paid" data-ng-model="vm.booking.amount_paid" id="amount_paid" class="form-control" rows="5" placeholder="Amount Paid" required autofocus>
+          <div ng-messages="vm.form.bookingForm.amount_paid.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking amount paid is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="contact_phone">Contact Phone: </label>
+          <input name="contact_phone" type="text" ng-model="vm.booking.contact_phone" id="contact_phone" class="form-control" placeholder="Contact Phone" required autofocus>
+          <div ng-messages="vm.form.bookingForm.contact_phone.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking contact phone is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="no_of_students">No. of Students: </label>
+          <input name="no_of_students" type="text" ng-model="vm.booking.no_of_students" id="no_of_students" class="form-control" placeholder="No. of Students" required autofocus>
+          <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">No. of Students is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="balance_payable">Balance Payable: </label>
+          <input name="balance_payable" type="text" ng-model="vm.balance_payable" id="balance_payable" class="form-control" placeholder="Balance Payable" required autofocus readonly>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="no_of_staff">No. of Staff: </label>
+          <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff" required autofocus>
+          <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">No. of Staff is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="class">Class: </label>
+          <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff" required autofocus>
+          <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">No. of Staff is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="tour_managers">Tour Managers</label>
+          <div class="controls">
+            <select multiple="multiple" multi-select class="form-control" id="tour_managers" ng-model="vm.booking.tour_managers" ng-list>
+              <option selected value="true">National</option>
+              <option value="true">International</option>
+          </select>
+          </div>
+          <div ng-messages="vm.form.bookingForm.tour_managers.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking tour managers is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="destination">Destination: </label>
+          <input name="destination" type="text" ng-model="vm.booking.destination" id="destination" class="form-control" placeholder="Destination" required autofocus>
+          <div ng-messages="vm.form.bookingForm.destination.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking destination is required.</p>
+          </div>
+        </div>
+        <button class="pull-right" type="submit" class="btn btn-default">{{vm.booking._id ? 'Update' : 'Save'}}</button>
+      </fieldset>
+    </form>
+  </div>
+
+</section>

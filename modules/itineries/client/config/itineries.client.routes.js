@@ -20,6 +20,15 @@
         controller: 'ItineriesListController',
         controllerAs: 'vm'
       })
+      .state('itineries.create', {
+        url: '/create',
+        templateUrl: '/modules/itineries/client/views/form-itinery.client.view.html',
+        controller: 'ItineriesAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          itineryResolve: newItinery
+        }
+      })
       .state('itineries.view', {
         url: '/:itineryId',
         templateUrl: '/modules/itineries/client/views/view-itinery.client.view.html',
@@ -32,15 +41,7 @@
           pageTitle: '{{ itineryResolve.title }}'
         }
       })
-      .state('itineries.create', {
-        url: '/create',
-        templateUrl: '/modules/itineries/client/views/form-itinery.client.view.html',
-        controller: 'ItineriesAdminController',
-        controllerAs: 'vm',
-        resolve: {
-          itineryResolve: newItinery
-        }
-      })
+
       .state('itineries.edit', {
         url: '/:itineryId/edit',
         templateUrl: '/modules/itineries/client/views/form-itinery.client.view.html',

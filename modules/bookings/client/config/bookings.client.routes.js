@@ -20,6 +20,15 @@
         controller: 'BookingsListController',
         controllerAs: 'vm'
       })
+      .state('bookings.create', {
+        url: '/create',
+        templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
+        controller: 'BookingsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: newBooking
+        }
+      })
       .state('bookings.view', {
         url: '/:bookingId',
         templateUrl: '/modules/bookings/client/views/view-booking.client.view.html',
@@ -32,15 +41,7 @@
           pageTitle: '{{ bookingResolve.title }}'
         }
       })
-      .state('bookings.create', {
-        url: '/create',
-        templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
-        controller: 'BookingsAdminController',
-        controllerAs: 'vm',
-        resolve: {
-          bookingResolve: newBooking
-        }
-      })
+
       .state('bookings.edit', {
         url: '/:bookingId/edit',
         templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',

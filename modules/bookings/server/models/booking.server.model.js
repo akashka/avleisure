@@ -17,7 +17,12 @@ var BookingSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  enquiry_no: {
+  enquiry_id: {
+    type: String,
+    default: '',
+    required: 'Enquiry No. cannot be blank'
+  },
+  booking_id: {
     type: String,
     default: '',
     required: 'Enquiry No. cannot be blank'
