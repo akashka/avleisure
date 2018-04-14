@@ -43,7 +43,7 @@
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="booking_amount">Booking Amount: </label>
-          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus>
+          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus ng-change = "vm.convert(vm.booking.booking_amount)">
           <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
           </div>
@@ -78,7 +78,7 @@
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="amount_paid">Amount Paid: </label>
-          <input name="amount_paid" data-ng-model="vm.booking.amount_paid" id="amount_paid" class="form-control" rows="5" placeholder="Amount Paid" required autofocus>
+          <input name="amount_paid" data-ng-model="vm.booking.amount_paid" id="amount_paid" class="form-control" rows="5" placeholder="Amount Paid" required autofocus ng-change = "vm.convert(vm.booking.amount_paid)">
           <div ng-messages="vm.form.bookingForm.amount_paid.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking amount paid is required.</p>
           </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="balance_payable">Balance Payable: </label>
-          <input name="balance_payable" type="text" ng-model="vm.balance_payable" id="balance_payable" class="form-control" placeholder="Balance Payable" required autofocus readonly>
+          <input name="balance_payable" type="text" ng-model="vm.balance_payable = vm.booking.amount_paid != ''? vm.booking_amount - vm.amount_paid : 0" id="balance_payable" class="form-control" placeholder="Balance Payable" required autofocus readonly>
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="no_of_staff">No. of Staff: </label>
@@ -110,9 +110,9 @@
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="class">Class: </label>
-          <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff" required autofocus>
-          <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">No. of Staff is required.</p>
+          <input name="class" type="text" ng-model="vm.booking.class" id="class" class="form-control" placeholder="class" required autofocus>
+          <div ng-messages="vm.form.bookingForm.class.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking class is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6">

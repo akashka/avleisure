@@ -33,6 +33,13 @@
 				isOpened: false
 			},
 		};
+    vm.convert = function (amount){
+      if(vm.booking.amount_paid === amount){
+        vm.amount_paid = parseInt(vm.booking.amount_paid);
+      }else if(vm.booking.booking_amount === amount){
+        vm.booking_amount = parseInt(vm.booking.booking_amount);
+      }
+    }
 		vm.searches = function () {
 			vm.enquiry = null;
 			var searched = [];
