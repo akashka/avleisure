@@ -62,10 +62,12 @@
               <div class="row"><b>Entry</b></div>
               <div class="row">
                 <b>Other Expenses</b>
-                <span ng-click="vm.addExtra($index)"> + </span>
-                <span ng-click="vm.removeExtra($index)"> - </span>
+                <span ng-click="vm.addExtra($index)" style="cursor:pointer;padding:10px;background:green;color:white;"> + </span>
+                <span ng-click="vm.removeExtra($index)" ng-show="enq.extras.length > 0" style="cursor:pointer;margin-left:15px;padding:10px;background:red;color:white;"> - </span>
               </div>
-              <div class="row" ng-repeat="ext in enq.extras">{{ext.name}}</div>
+              <div class="row" ng-repeat="ext in enq.extras track by $index">
+                    <input name="ext" type="text" ng-model="ext" class="form-control" required autofocus>
+              </div>
               <div class="row"> <b>Total</b> </div>
           </div>
           <div class="col-md-2">
@@ -89,14 +91,14 @@
                     <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required autofocus>
                 </div>
                 <div class="row"> &nbsp; </div>
-                <div class="row" ng-repeat="ext in enq.quotations[0].extras">
+                <div class="row" ng-repeat="ext in enq.quotations[0].extras track by $index">
                     <input type="text" ng-model="ext" class="form-control" required autofocus>
                 </div>
                 <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
           </div>
-          <div class="col-md-6" style="overflow-x:auto;">
-              <div class="col-md-2" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
-                  <div class="row">{{quot.createdon}]</div>
+          <div class="col-md-6" style="overflow-x: scroll;padding: 0;float: left;display: flex;">
+              <div class="col-md-4" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
+                  <div class="row">{{quot.createdon| date:'dd/MMM/yyyy'}}</div>
                   <div class="row">{{quot.itinery}}</div>
                   <div class="row">{{quot.plan}}</div>
                   <div class="row">{{quot.transport}}</div>
@@ -104,7 +106,7 @@
                   <div class="row">{{quot.food}}</div>
                   <div class="row">{{quot.entry}}</div>
                   <div class="row"> &nbsp; </div>
-                  <div class="row" ng-repeat="ext in quot.extras">{{ext}}</div> 
+                  <div class="row" ng-repeat="ext in quot.extras track by $index">{{ext}}</div> 
                   <div class="row">{{vm.findTotal(quot)}}</div>           
               </div>            
           </div>

@@ -31,7 +31,7 @@
   <div class="col-md-12" ng-show="vm.isSearched">
     <form name="vm.form.bookingForm" ng-submit="vm.save(vm.form.bookingForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group col-md-6" show-errors style="margin-bottom: 5px ! important;">
+        <div class="form-group col-md-6" style="margin-bottom: 5px ! important;">
           <label class="control-label" for="booking_date">Booking Date: </label>
           <p class="input-group">
             <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.booking_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
@@ -96,7 +96,7 @@
             <p class="help-block error-text" ng-message="required">No. of Students is required.</p>
           </div>
         </div>
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6">
           <label class="control-label" for="balance_payable">Balance Payable: </label>
           <input name="balance_payable" type="text" ng-model="vm.balance_payable = vm.booking.amount_paid != ''? vm.booking_amount - vm.amount_paid : 0" id="balance_payable" class="form-control" placeholder="Balance Payable" required autofocus readonly>
         </div>

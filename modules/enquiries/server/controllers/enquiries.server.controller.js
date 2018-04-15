@@ -13,17 +13,16 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var enquiry = new Enquiry(req.body);
-  enquiry.user = req.user;
-
-  enquiry.save(function (err) {
-    if (err) {
-      return res.status(422).send({
-        message: errorHandler.getErrorMessage(err)
+      enquiry.user = req.user;
+      enquiry.save(function (err) {
+        if (err) {
+          return res.status(422).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.json(enquiry);
+        }
       });
-    } else {
-      res.json(enquiry);
-    }
-  });
 };
 
 /**
@@ -46,8 +45,16 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var enquiry = req.enquiry;
 
-  enquiry.title = req.body.title;
-  enquiry.content = req.body.content;
+  // enquiry._id = req.body._id;
+  enquiry.user  = req.body.user;
+  enquiry.enquiry_id = req.body.enquiry_id;
+  enquiry.school_name = req.body.school_name;
+  enquiry.school_address = req.body.school_address;
+  enquiry.school_gprs = req.body.school_gprs;
+  enquiry.school_photo = req.body.school_photo;
+  enquiry.school_email_id = req.body.school_email_id;
+  enquiry.school_phone_no = req.body.school_phone_no;
+  enquiry.enquiries = req.body.enquiries;
 
   enquiry.save(function (err) {
     if (err) {
