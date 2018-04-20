@@ -19,7 +19,8 @@ var config = require('../config'),
   hbs = require('express-hbs'),
   path = require('path'),
   _ = require('lodash'),
-  lusca = require('lusca');
+  lusca = require('lusca'),
+  cors = require('cors');
 
 /**
  * Initialize local variables
@@ -81,14 +82,17 @@ module.exports.initMiddleware = function (app) {
 
   // Request body parsing middleware should be above methodOverride
   app.use(bodyParser.urlencoded({
+    parameterLimit: 10000000,
+    limit: '5000mb',
     extended: true
   }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({limit: '5000mb'}));
   app.use(methodOverride());
 
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
   app.use(flash());
+  app.use(cors());
 };
 
 /**

@@ -117,9 +117,9 @@
         <div class="form-group col-md-6">
           <label class="control-label" for="tour_managers">Tour Managers</label>
           <div class="controls">
-            <select multiple="multiple" multi-select class="form-control" id="tour_managers" ng-model="vm.booking.tour_managers" ng-list>
-              <option selected value="true">National</option>
-              <option value="true">International</option>
+            <select class="form-control" id="tour_managers" ng-model="vm.booking.tour_managers" ng-options="obj._id as obj.displayName for obj in vm.users">
+                <option value=""disabled>Select Tour Managers</option>                
+            </select>
           </select>
           </div>
           <div ng-messages="vm.form.bookingForm.tour_managers.$error" role="alert">
