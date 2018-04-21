@@ -1,32 +1,32 @@
 <section>
   <div class="page-header">
-    <h1>Enquiries</h1>
+    <h1>Trips</h1>
   </div>
 
   <div class="row">
         <div class="col-sm-4 col-md-4">
             <div class="form-group">
-                <label for="enquiry_id" class="col-sm-5 control-label">Enquiry Id:</label>
+                <label for="trip_id" class="col-sm-5 control-label">Trip Id:</label>
                 <div class="col-sm-7">
-                    <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id" 
-                        placeholder="Enter Enquiry Id"/>
+                    <input id="trip_id" type="text" class="form-control" ng-model="vm.search.trip_id" 
+                        placeholder="Enter Trip Id"/>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 col-md-4">
             <div class="form-group">
-                <label for="school_name" class="col-sm-5 control-label">School Name:</label>
+                <label for="booking_id" class="col-sm-5 control-label">Booking ID:</label>
                 <div class="col-sm-7">
-                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" 
-                        placeholder="Enter School Name"/>
+                    <input id="booking_id" type="text" class="form-control" ng-model="vm.search.booking_id" 
+                    placeholder="Enter Booking Id"/>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="page-controls col-sm-4" style="text-align: center;">
             <div class="row" role="toolbar">
                 <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
                 <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
-                <button type="button" class="btn btn-default" ng-click="vm.gotoNewEnquiry()">New Enquiry</button>
+                <button type="button" class="btn btn-default" ui-sref="trips.start()">Start Trip</button>
             </div>
         </div>
   </div>
@@ -36,22 +36,37 @@
     <table class="table table-hover" id="myTable2">
         <thead>
           <tr>
-            <th ng-click="vm.sortTable(0)">Enquiry Date</th>
-            <th ng-click="vm.sortTable(1)">Enquiry ID</th>
-            <th ng-click="vm.sortTable(2)">Enquired By</th>
-            <th ng-click="vm.sortTable(3)">School Name</th>
+            <th ng-click="vm.sortTable(0)">Trip ID</th>
+            <th ng-click="vm.sortTable(1)">Booking ID</th>
+            <th ng-click="vm.sortTable(2)">Executive Name</th>
+            <th ng-click="vm.sortTable(3)">Trip Status</th>
+            <th ng-click="vm.sortTable(3)">Balance Amount</th>
+            <th> </th>
+            <th> </th>
             <th> </th>
             <th> </th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="enquiry in vm.enquiries">
-            <td>{{enquiry.created | date:'dd/MMM/yyyy'}}</td>
-            <td>{{enquiry.enquiry_id}}</td>
-            <td>{{enquiry.user.displayName}}</td>
-            <td>{{enquiry.school_name}}</td>
-            <td> <a class="btn btn-primary" ui-sref="enquiries.view({enquiryId: enquiry._id})">VIEW</a> </td>
-            <td> <a class="btn btn-primary" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td> 
+          <tr ng-repeat="trip in vm.trips">
+            <td>{{trip.trip_id}}</td>
+            <td>{{trip.booking_id}}</td>
+            <td>{{vm.findExecutiveName(trip.executive_id)}}</td>
+            <td>{{vm.findTripStatus(trip)}}</td>
+            <td>{{vm.calculateBalance(trip.transactions)}}</td>
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'">
+                <a class="btn btn-primary" ui-sref="trips.end({tripId: trip._id})">End Trip</a> 
+            </td>
+            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"></td>
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
+                <a class="btn btn-primary" ui-sref="trips.add-expenses({tripId: trip._id})">Add Expenses</a> 
+            </td>
+            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
+            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
+                <a class="btn btn-primary" ui-sref="trips.add-balance({tripId: trip._id})">Add Balance</a> 
+            </td>
+            <td> <a class="btn btn-primary" ui-sref="trips.view-passbook({tripId: trip._id})">View Passbook</a> </td> 
           </tr>
         </tbody>
     </table>

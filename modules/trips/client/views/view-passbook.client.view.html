@@ -1,71 +1,69 @@
-<style>
-  .mr5 {
-    margin-right: 5px;
-  }
-
-  .Section2 {
-    box-shadow: 0 1px 2px #8a8383;
-  }
-</style>
 <section>
-
   <div class="page-header">
-    <h1>View Enquiry</h1>
+    <h1>Passbook</h1>
   </div>
 
-  <form name="vm.form.enquiryForm" ng-submit="vm.save()" novalidate>
-    <fieldset>
+  <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="tripId">Trip ID: {{vm.trip.trip_id}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="bookingId">Booking ID: {{vm.trip.booking_id}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_date">Start Date: {{vm.trip.trip_start_date | date:'dd/MMM/yyyy'}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_end_date">End Date: {{vm.trip.trip_end_date | date:'dd/MMM/yyyy'}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_by">Start By: {{vm.findExecutive(vm.trip.trip_start_by)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_end_by">End By: {{vm.findExecutive(vm.trip.trip_end_by)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip.executiveId">Executive: {{vm.findExecutiveName(vm.trip.executive_id)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="balance_amount">Balance Amount: {{vm.calculateBalance(vm.trip.transactions)}}</label>
+          </div>
+        </div>
+  </div>
+  <br/><hr/>
 
-      <div class="col-md-12">
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}} </label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_email_id">School Email: {{vm.enquiry.school_email_id}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_address">School Address: {{vm.enquiry.school_address}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_phone_no">School Phone: {{vm.enquiry.school_phone_no}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_gprs">School GPRS: {{vm.enquiry.school_gprs}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="school_photo">School Photo: {{vm.enquiry.school_photo}}</label>
-        </div>
-      </div>
+  <div class="list-group table-responsive">
+    <table class="table table-hover" id="myTable2">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Reason</th>
+            <th>Credit</th>
+            <th>Debit</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="transaction in vm.trip.transactions">
+            <td>{{transaction.transaction_date | date:'dd/MMM/yyyy   hh:m a'}}</td>
+            <td>
+              {{transaction.category}}
+              <span ng-if="transaction.sub_category != ''"> - {{transaction.sub_category}} </span>
+              <span ng-if="transaction.remarks != ''"> ({{transaction.remarks}}) </span>
+            </td>
+            <td>
+              <span ng-if="transaction.credit">{{transaction.amount}}</span>
+            </td>
+            <td>
+              <span ng-if="!transaction.credit">{{transaction.amount}}</span>
+            </td>
+            <td>{{transaction.balance}}</td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
 
-      <div class="col-md-12 Section2" ng-repeat="enquiry in vm.enquiry.enquiries">
-        <br>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="itinery">Itinery: {{enquiry.itineries}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="plan">Plan: {{enquiry.plan}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="transport">Mode of transport: {{enquiry.transport[0]}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="food">Food: {{enquiry.food[0]}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="accomodation">Accomodation: {{enquiry.accomodation[0]}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="itinery">Sharing: {{enquiry.sharing[0]}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="contactPerson">Contact Person: {{enquiry.school_contact_person}}</label>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="class">Class: {{enquiry.school_class}}</label>
-        </div>
-      </div>
-
-    </fieldset>
-  </form>
-
+  <uib-pagination boundary-links="true" max-size="10" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  
 </section>

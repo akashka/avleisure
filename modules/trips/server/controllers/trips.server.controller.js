@@ -46,9 +46,16 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var trip = req.trip;
 
-  trip.title = req.body.title;
-  trip.content = req.body.content;
-
+  trip.user = req.body.user ;
+  trip.executive_id = req.body.executive_id ;
+  trip.trip_start_date = req.body.trip_start_date ;
+  trip.booking_id = req.body.booking_id ;
+  trip.trip_id = req.body.trip_id ;
+  trip.trip_start_by = req.body.trip_start_by ;
+  trip.transactions = req.body.transactions ;
+  trip.trip_end_by = req.body.trip_end_by ;
+  trip.trip_end_date = req.body.trip_end_date ;
+  
   trip.save(function (err) {
     if (err) {
       return res.status(422).send({

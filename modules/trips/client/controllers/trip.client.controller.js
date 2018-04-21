@@ -39,12 +39,17 @@
 			minDate: new Date( 1920, 5, 22 ),
 			startingDay: 1
 		};
+
 		vm.dateset = {
 			lr_date: {
 				isOpened: false
 			},
 		};
 
+		vm.gotoNewTrip = function() {
+
+		}
+		
 		// Remove existing trip
 		function remove() {
 			if ( $window.confirm( 'Are you sure you want to delete?' ) ) {
@@ -60,7 +65,10 @@
 		// Save Trip
 		function save(transactionType) {
 			// Create a new trip, or update the current instance
-			if(vm.trip.trip_id == "") vm.trip.trip_id = ("TRIP" + vm.allTrips.length);
+			if(vm.trip.trip_id == "" || vm.trip.trip_id == undefined) 
+					vm.trip.trip_id = ("TRIP" + vm.allTrips.length);
+			if(vm.trip.trip_start_by == "" || vm.trip.trip_start_by == undefined)
+					vm.trip.trip_start_by = vm.authentication.user.email;
 			vm.updateTransactions(transactionType);
 			TripsService.createOrUpdate(vm.trip).then( successCallback ).catch( errorCallback );
 
@@ -82,16 +90,18 @@
     // add new trips in tripForm
     function updateTransactions(transactionType){
       if(transactionType === 'receivedAmount'){
-				vm.trip.transactions.push({
-					amount:vm.amount,
-					credit: true,
-					category:'',
-					sub_category: '',
-					remarks:'',
-					image:''
-				});
-			};
-		}
+		  	if(vm.trip.transactions == undefined) vm.trip.transactions = [];
+			vm.trip.transactions.push({
+				amount:vm.amount,
+				credit: true,
+				category: 'Opening Balance to Tour Manager',
+				sub_category: '',
+				remarks:'',
+				image:'',
+				transaction_date: new Date()
+			});
+		};
+	}
 
     // delete last trips in tripForm
     function rmTrip(){

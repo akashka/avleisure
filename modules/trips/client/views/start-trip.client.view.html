@@ -14,12 +14,12 @@
   <form name="vm.form.tripForm" ng-submit="vm.save('receivedAmount')" novalidate>
     <fieldset>
       <div class="col-md-12">
-        <div class="form-group col-md-6 col-md-offset-3" show-errors>
+        <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="trip.executiveId">Executive: </label>
           <div class="col-md-9">
             <div class="controls">
-              <select class="form-control" id="trip.executiveId" ng-model="vm.trip.trip_start_by" ng-options="obj._id as obj.displayName for obj in vm.users">
-                <option value=""disabled>Select Execcutive</option>
+              <select class="form-control" id="trip.executiveId" ng-model="vm.trip.executive_id" ng-options="obj._id as obj.displayName for obj in vm.users">
+                <option value=""disabled>Select Executive</option>
             </select>
             <div ng-messages="vm.form.tripForm.trip.executiveId.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Trip executive name is required.</p>
@@ -27,7 +27,7 @@
         </div>
         </div>
       </div>
-        <div class="form-group col-md-6 col-md-offset-3" show-errors>
+        <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="tranactionAmount">Start Date: </label>
           <div class="col-md-9">
             <p class="input-group">
@@ -38,7 +38,7 @@
             </p>
         </div>
         </div>
-        <div class="form-group col-md-6 col-md-offset-3" show-errors>
+        <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="tranactionAmount">Amount: </label>
           <div class="col-md-9">
           <input name="tranactionAmount" type="text" ng-model="vm.amount" id="tranactionAmount" class="form-control" placeholder="amount received" required autofocus>
@@ -47,7 +47,7 @@
           </div>
         </div>
         </div>
-        <div class="form-group col-md-6 col-md-offset-3" show-errors>
+        <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="bookingId">Booking ID.: </label>
           <div class="col-md-9">
           <input name="bookingId" type="text" ng-model="vm.trip.booking_id" id="bookingId" class="form-control" placeholder="Booking Id" required autofocus>
@@ -56,7 +56,9 @@
           </div>
         </div>
         </div>
-        <button class="pull-right" type="submit" class="btn btn-default">{{vm.trip._id ? 'Update' : 'Save'}}</button>
+        <div class="form-group col-md-6 col-md-offset-3">
+          <button style="text-align:center;" type="submit" class="btn btn-default">Start Ride</button>
+        </div>
       </div>
       <!-- <div class="co-md-12 mr5" style="display:block !important;"> -->
       <!-- </div> -->

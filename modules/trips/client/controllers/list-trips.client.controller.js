@@ -5,17 +5,40 @@
     .module('trips')
     .controller('TripsListController', TripsListController);
 
-  TripsListController.$inject = ['TripsService', '$state'];
+  TripsListController.$inject = ['TripsService', '$state', 'UsersService'];
 
-  function TripsListController(TripsService, $state) {
+  function TripsListController(TripsService, $state, UsersService) {
     var vm = this;
 
     vm.trips = TripsService.query();
     vm.allTrips = TripsService.query();
+    vm.users = UsersService.query();
 
     vm.search = {
       trip_id: "",
-      school_name: ""
+      booking_id: ""
+    }
+
+    vm.findExecutiveName = function(executive_id) {
+        for(var i=0; i<vm.users.length; i++) {
+          if(vm.users[i]._id == executive_id) return vm.users[i].displayName;
+        }
+    }
+
+    vm.findTripStatus = function(trip) {
+        if(trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
+        && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != "")
+          return "Completed";
+        return "Ongoing";
+    }
+
+    vm.calculateBalance = function(transactions) {
+        var sum = 0;
+        for(var i=0; i<transactions.length; i++) {
+          if(transactions[i].credit) sum += Number(transactions[i].amount);
+          else sum -= Number(transactions[i].amount);
+        }
+        return sum;
     }
 
     vm.searches = function() {
@@ -23,19 +46,18 @@
         var searched = [];
         for(var e=0; e<vm.trips.length;e++) {
           if(vm.search.trip_id != null && vm.search.trip_id != undefined && vm.search.trip_id != "" &&
-              (vm.search.school_name == null || vm.search.school_name == undefined || vm.search.school_name == "") &&
+              (vm.search.booking_id == null || vm.search.booking_id == undefined || vm.search.booking_id == "") &&
               vm.search.trip_id == vm.trips[e].trip_id) {
                     searched.push(vm.trips[e]);
           }
           else if((vm.search.trip_id == null || vm.search.trip_id == undefined || vm.search.trip_id == "") && 
-              vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" &&
-              vm.search.school_name.toLowerCase() == vm.trips[e].school_name.toLowerCase()) {
+              vm.search.booking_id != null && vm.search.booking_id != undefined && vm.search.booking_id != "" &&
+              vm.search.booking_id == vm.trips[e].booking_id) {
                     searched.push(vm.trips[e]);
           }
           else if(vm.search.trip_id != null && vm.search.trip_id != undefined && vm.search.trip_id != "" &&
-              vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" &&
-              vm.search.school_name.toLowerCase() == vm.trips[e].school_name.toLowerCase() && 
-              vm.search.trip_id == vm.trips[e].trip_id) {
+              vm.search.booking_id != null && vm.search.booking_id != undefined && vm.search.booking_id != "" &&
+              vm.search.booking_id == vm.trips[e].booking_id && vm.search.trip_id == vm.trips[e].trip_id) {
                     searched.push(vm.trips[e]);
           }
         }
@@ -46,10 +68,8 @@
       vm.trips = vm.allTrips;
       vm.search = {
         trip_id: "",
-        school_name: ""
+        booking_id: ""
       };
-      // vm.lr_from = {isOpened: false};
-      // vm.lr_to = {isOpened: false}; 
     }
 
     vm.gotoNewTrip = function() {

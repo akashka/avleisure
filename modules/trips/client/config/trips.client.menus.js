@@ -24,24 +24,29 @@
       roles: ['*']
     });
     menuService.addSubMenuItem('topbar', 'trips', {
-      title: 'Start Trips',
+      title: 'Start Trip',
       state: 'trips.start',
       roles: ['*']
     });
     menuService.addSubMenuItem('topbar', 'trips', {
-      title: 'End Trips',
+      title: 'End Trip',
       state: 'trips.end',
-      roles: ['*']
+      roles: []
     });
     menuService.addSubMenuItem('topbar', 'trips', {
-      title: 'Add Expenses',
+      title: 'Add Expense',
       state: 'trips.add-expenses',
-      roles: ['*']
+      roles: []
+    });
+    menuService.addSubMenuItem('topbar', 'trips', {
+      title: 'Add Balance',
+      state: 'trips.add-balance',
+      roles: []
     });
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'View PassBook',
       state: 'trips.view-passbook',
-      roles: ['*']
+      roles: []
     });
 
   }

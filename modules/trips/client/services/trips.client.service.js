@@ -5,9 +5,9 @@
     .module('trips.services')
     .factory('TripsService', TripsService);
 
-  TripsService.$inject = ['$resource', '$log'];
+  TripsService.$inject = ['$resource', '$log', '$http'];
 
-  function TripsService($resource, $log) {
+  function TripsService($resource, $log, $http) {
     var Trip = $resource('/api/trips', {}, {
       update: {
         method: 'PUT',
@@ -37,7 +37,7 @@
     angular.extend(Trip, {
       createOrUpdate: function (trip) {
         if (trip._id) {
-          return trip.$update(onSuccess, onError);
+          return $http.put('/api/trips/' + trip._id, trip);
         } else {
           return this.saveTrip(trip).$promise;
         }

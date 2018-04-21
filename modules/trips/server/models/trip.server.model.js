@@ -23,6 +23,9 @@ var TripSchema = new Schema({
   booking_id: {
     type: String
   },
+  executive_id: {
+    type: String    
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

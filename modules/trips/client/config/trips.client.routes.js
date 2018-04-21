@@ -32,7 +32,7 @@
       .state('trips.end', {
         url: '/:tripId/end',
         templateUrl: '/modules/trips/client/views/end-trip.client.view.html',
-        controller: 'TripsAdminController',
+        controller: 'EndTripsAdminController',
         controllerAs: 'vm',
         resolve: {
           tripResolve: getTrip
@@ -44,7 +44,19 @@
       .state('trips.add-expenses', {
         url: '/:tripId/add-expenses',
         templateUrl: '/modules/trips/client/views/add-expenses.client.view.html',
-        controller: 'TripsAdminController',
+        controller: 'ExpensesTripsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          tripResolve: getTrip
+        },
+        data: {
+          pageTitle: '{{ tripResolve.title }}'
+        }
+      })
+      .state('trips.add-balance', {
+        url: '/:tripId/add-balance',
+        templateUrl: '/modules/trips/client/views/add-balance.client.view.html',
+        controller: 'BalanceTripsAdminController',
         controllerAs: 'vm',
         resolve: {
           tripResolve: getTrip
@@ -54,9 +66,9 @@
         }
       })
       .state('trips.view-passbook', {
-        url: '/passbook',
+        url: '/:tripId/passbook',
         templateUrl: '/modules/trips/client/views/view-passbook.client.view.html',
-        controller: 'TripsAdminController',
+        controller: 'PassbookTripsAdminController',
         controllerAs: 'vm',
         resolve: {
           tripResolve: getTrip

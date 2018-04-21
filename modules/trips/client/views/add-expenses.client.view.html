@@ -1,129 +1,173 @@
-<section>
-  <div class="page-header">
-    <h1>Quotations</h1>
-  </div>
-
-  <div class="row">
-        <div class="col-sm-4 col-md-5">
-            <div class="form-group">
-                <label for="enquiry_id" class="col-sm-5 control-label">Enquiry Id:</label>
-                <div class="col-sm-7">
-                    <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id" 
-                        placeholder="Enter Enquiry Id"/>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4 col-md-5">
-            <div class="form-group">
-                <label for="school_name" class="col-sm-5 control-label">School Name:</label>
-                <div class="col-sm-7">
-                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" 
-                        placeholder="Enter School Name"/>
-                </div>
-            </div>
-        </div>
-        <div class="page-controls col-sm-2" style="text-align: center;">
-            <div class="row" role="toolbar">
-                <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
-            </div>
-        </div>
-  </div>
-  <hr>
-
-  <div class="col-md-12" ng-show="vm.isSearched">
-    <form name="vm.form.itineryForm" novalidate>
-      <fieldset>
-
-        <div class="form-group col-md-4">
-          <label class="control-label" for="enquiry_id">Enquiry ID: {{vm.enquiry.enquiry_id}}</label>
-        </div>
-        <div class="form-group col-md-4">
-          <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}}</label>
-        </div>
-        <div class="form-group col-md-4">
-          <label class="control-label" for="school_email_id">Email ID: {{vm.enquiry.school_email_id}}</label>
-        </div>
-        <div class="form-group col-md-4">
-          <label class="control-label" for="school_phone_no">Phone No: {{vm.enquiry.school_phone_no}}</label>
-        </div>
-        <div class="form-group col-md-8">
-          <label class="control-label" for="school_address">Address: {{vm.enquiry.school_address}}</label>
-        </div>
-        <hr>
-        <div class="form-group col-md-12 table_rows_set" ng-repeat="enq in vm.enquiry.enquiries">
-          <hr>
-          <div class="col-md-4">
-              <div class="row"><b>Date:</b></div>
-              <div class="row"><b>Itinery </b>  -   {{vm.findItineryName(enq.itineries)}}</div>
-              <div class="row"><b>Plan </b>   -   {{enq.plan}}</div>
-              <div class="row"><b>Transport </b>   -   {{enq.transport[0]}}</div>
-              <div class="row"><b>Accomodation </b>   -   {{enq.accomodation[0]}}</div>
-              <div class="row"><b>Food </b>   -   {{enq.food[0]}}</div>
-              <div class="row"><b>Entry</b></div>
-              <div class="row">
-                <b>Other Expenses</b>
-                <span ng-click="vm.addExtra($index)"> + </span>
-                <span ng-click="vm.removeExtra($index)"> - </span>
-              </div>
-              <div class="row" ng-repeat="ext in enq.extras">{{ext.name}}</div>
-              <div class="row"> <b>Total</b> </div>
-          </div>
-          <div class="col-md-2">
-                <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
-                <div class="row">
-                    <input name="itinery" type="text" ng-model="enq.quotations[0].itinery" class="form-control" required autofocus>
-                </div>
-                <div class="row">
-                    <input name="plan" type="text" ng-model="enq.quotations[0].plan" class="form-control" required autofocus>
-                </div>
-                <div class="row">
-                    <input name="transport" type="text" ng-model="enq.quotations[0].transport" class="form-control" required autofocus>
-                </div>
-                <div class="row">
-                    <input name="accomodation" type="text" ng-model="enq.quotations[0].accomodation" class="form-control" required autofocus>
-                </div>
-                <div class="row">
-                    <input name="food" type="text" ng-model="enq.quotations[0].food" class="form-control" required autofocus>
-                </div>
-                <div class="row">
-                    <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required autofocus>
-                </div>
-                <div class="row"> &nbsp; </div>
-                <div class="row" ng-repeat="ext in enq.quotations[0].extras">
-                    <input type="text" ng-model="ext" class="form-control" required autofocus>
-                </div>
-                <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
-          </div>
-          <div class="col-md-6" style="overflow-x:auto;">
-              <div class="col-md-2" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
-                  <div class="row">{{quot.createdon}]</div>
-                  <div class="row">{{quot.itinery}}</div>
-                  <div class="row">{{quot.plan}}</div>
-                  <div class="row">{{quot.transport}}</div>
-                  <div class="row">{{quot.accomodation}}</div>
-                  <div class="row">{{quot.food}}</div>
-                  <div class="row">{{quot.entry}}</div>
-                  <div class="row"> &nbsp; </div>
-                  <div class="row" ng-repeat="ext in quot.extras">{{ext}}</div> 
-                  <div class="row">{{vm.findTotal(quot)}}</div>           
-              </div>            
-          </div>
-          <div class="form-group col-md-12">
-            <button class="btn btn-default" ng-click="vm.save()">Save</button>
-          </div>
-        </div>
-
-      </fieldset>
-    </form>
-  </div>
-
-</section>
-
 <style>
-  .table_rows_set .row {
-    font-size: 16px;
-    line-height: 2.128571;
-    color: #333;
-    border-bottom: 2px solid grey;
+  .mr5 {
+    margin-right: 5px;
+  }
+
+  .Section2 {
+    box-shadow: 0 1px 2px #8a8383;
   }
 </style>
+<section>
+  <div class="page-header">
+    <h1>Add Expenses</h1>
+  </div>
+  <form name="vm.form.tripForm" ng-submit="vm.save()" novalidate>
+    <fieldset>
+        
+        <div class="col-md-12">
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip.executiveId">Executive: {{vm.findExecutiveName(vm.trip.executive_id)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="bookingId">Booking ID: {{vm.trip.booking_id}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_date">Start Date: {{vm.trip.trip_start_date | date:'dd/MMM/yyyy'}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_by">Start By: {{vm.findExecutiveName(vm.trip.trip_start_by)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="balance_amount">Balance Amount: {{vm.calculateBalance(vm.trip.transactions)}}</label>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group col-md-6 col-md-offset-3">
+                <label class="control-label col-md-3" for="expense.category">Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.category" ng-model="vm.expense.category">
+                            <option value="" disabled>Select Category</option>
+                            <option value="Entry">Entry</option>
+                            <option value="Teachers Allowance">Teachers Allowance</option>
+                            <option value="Students Allowance">Students Allowance</option>
+                            <option value="Cook">Cook</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Tour Manager Expenses">Tour Manager Expenses</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3" ng-show="vm.expense.category == 'Tour Manager Expenses'">
+                <label class="control-label col-md-3" for="expense.sub_category">Sub Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.sub_category" ng-model="vm.expense.sub_category">
+                            <option value="" disabled>Select Sub-Category</option>
+                            <option value="Bata">Bata</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.sub_category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Sub-Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3" ng-show="vm.expense.category == 'Transport'">
+                <label class="control-label col-md-3" for="expense.sub_category">Sub Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.sub_category" ng-model="vm.expense.sub_category">
+                            <option value="" disabled>Select Sub-Category</option>
+                            <option value="Tips">Tips</option>
+                            <option value="Advance">Advance</option>
+                            <option value="Bata">Bata</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.sub_category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Sub-Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3" ng-show="vm.expense.category == 'Cook'">
+                <label class="control-label col-md-3" for="expense.sub_category">Sub Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.sub_category" ng-model="vm.expense.sub_category">
+                            <option value="" disabled>Select Sub-Category</option>
+                            <option value="Tips">Tips</option>
+                            <option value="Advance">Advance</option>
+                            <option value="Gas">Gas</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.sub_category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Sub-Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3" ng-show="vm.expense.category == 'Teachers Allowance'">
+                <label class="control-label col-md-3" for="expense.sub_category">Sub Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.sub_category" ng-model="vm.expense.sub_category">
+                            <option value="" disabled>Select Sub-Category</option>
+                            <option value="Coffee Or Tea Or Juice">Coffee/Tea/Juice</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.sub_category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Sub-Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3" ng-show="vm.expense.category == 'Students Allowance'">
+                <label class="control-label col-md-3" for="expense.sub_category">Sub Category: </label>
+                <div class="col-md-9">
+                    <div class="controls">
+                        <select class="form-control" id="expense.sub_category" ng-model="vm.expense.sub_category">
+                            <option value="" disabled>Select Sub-Category</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <div ng-messages="vm.form.tripForm.expense.sub_category.$error" role="alert">
+                            <p class="help-block error-text" ng-message="required">Expense Sub-Category is required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3">
+                <label class="control-label col-md-3" for="tranactionAmount">Amount: </label>
+                <div class="col-md-9">
+                    <input name="tranactionAmount" type="text" ng-model="vm.expense.amount" id="tranactionAmount" class="form-control" placeholder="Amount Paid" required autofocus>
+                    <div ng-messages="vm.form.tripForm.tranactionAmount.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Expense amount is required.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3">
+                <label class="control-label col-md-3" for="remarks">Remarks: </label>
+                <div class="col-md-9">
+                    <input name="remarks" type="text" ng-model="vm.expense.remarks" id="remarks" class="form-control" placeholder="Remarks">
+                </div>
+            </div>
+
+            <div class="form-group col-md-6 col-md-offset-3">
+                <label class="control-label col-md-3" for="image">Image: </label>
+                <div class="col-md-9">
+                    <input name="image" type="text" ng-model="vm.expense.image" id="image" class="form-control" placeholder="Image">
+                </div>
+            </div>
+            
+            <div class="form-group col-md-6 col-md-offset-3">
+                <button style="text-align:center;" type="submit" class="btn btn-default">Save</button>
+            </div>
+        </div>
+
+    </fieldset>
+  </form>
+</section>
