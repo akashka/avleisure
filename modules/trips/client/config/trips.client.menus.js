@@ -12,7 +12,8 @@
       title: 'Trips',
       state: 'trips',
       type: 'dropdown',
-      roles: ['admin','user']
+      roles: ['admin','user'],
+      position: 1
     });
 
     

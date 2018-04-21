@@ -12,13 +12,15 @@
       .state('enquiries', {
         abstract: true,
         url: '/enquiries',
-        template: '<ui-view/>'
+        template: '<ui-view/>',
+        position: 4
       })
       .state('quotations', {
         url: '/quotations',
         templateUrl: '/modules/enquiries/client/views/quotations.client.view.html',
         controller: 'QuotationsController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        position: 3
       })
       .state('enquiries.list', {
         url: '',

@@ -12,7 +12,8 @@
       title: 'Bookings',
       state: 'bookings',
       type: 'dropdown',
-      roles: ['admin','user']
+      roles: ['admin','user'],
+      position: 2
     });
 
     // Add the dropdown list item
