@@ -25,6 +25,7 @@ module.exports = {
         'public/lib/angular-ui-router/release/angular-ui-router.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/moment/moment.js',
+        'public/lib/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js',
         'public/lib/angular-moment/angular-moment.js',
         'public/lib/pdfmake/build/pdfmake.min.js',
         'public/lib/pdfmake/build/vfs_fonts.js',

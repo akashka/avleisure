@@ -54,6 +54,7 @@ exports.update = function (req, res) {
   enquiry.school_photo = req.body.school_photo;
   enquiry.school_email_id = req.body.school_email_id;
   enquiry.school_phone_no = req.body.school_phone_no;
+  enquiry.school_contact_person = req.body.school_contact_person;
   enquiry.enquiries = req.body.enquiries;
 
   enquiry.save(function (err) {

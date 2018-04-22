@@ -29,7 +29,7 @@ var ItinerySchema = new Schema({
     trim: true
   },
   sstate: {
-    type: String
+    type: Array
   },
   plan: {
     type: String
@@ -41,8 +41,7 @@ var ItinerySchema = new Schema({
     type: String
   },
   international: {
-    type: Boolean,
-    default: false
+    type: String
   },
   user: {
     type: Schema.ObjectId,

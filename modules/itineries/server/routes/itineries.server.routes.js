@@ -22,6 +22,9 @@ module.exports = function (app) {
     .put(itineries.update)
     .delete(itineries.delete);
 
+  app.route('/api/getCities/:alphacode').all()
+    .get(itineries.getCities)
+
   // Finish by binding the itinery middleware
   app.param('itineryId', itineries.itineryByID);
 };

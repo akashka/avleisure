@@ -23,6 +23,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/itineries/:itineryId',
       permissions: '*'
+    },{
+      resources: '/api/getCities/:alphacode',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -35,6 +38,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/itineries/:itineryId',
        permissions: '*'
+    }, {
+      resources: '/api/getCities/:alphacode',
+      permissions: '*'
     }]
   }, {
     roles: ['guest'],
@@ -47,6 +53,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/itineries/:itineryId',
        permissions: '*'
+    }, {
+      resources: '/api/getCities/:alphacode',
+      permissions: '*'
     }]
   }]);
 };

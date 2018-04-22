@@ -13,6 +13,7 @@
 		  school_photo: "",
 		  school_email_id: "",
 		  school_phone_no: "",
+  		  school_contact_person: "",
 		  enquiries: [{
 				itineries: '',
   				plan: '',
@@ -21,9 +22,10 @@
   				transport: '',
   				food: '',
   				sharing: '',
-  				accomodation: '',
-					quotations: [],
-					extras: []
+				accomodation: '',
+				package_type: '',  
+				quotations: [],
+				extras: []
 			}]
 		};
 		vm.allEnquiries = EnquiriesService.query();
@@ -90,9 +92,10 @@
   				transport: '',
   				food: '',
   				sharing: '',
+				package_type: '',  
   				accomodation: '',
   				quotations: [],
-					extras: []
+				extras: []
 		}
       );
 		}

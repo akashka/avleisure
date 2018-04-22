@@ -115,3 +115,19 @@ exports.itineryByID = function (req, res, next, id) {
     next();
   });
 };
+
+exports.getCities = function(req, res, next, id) {
+        var req = {
+          method: 'GET',
+          url: 'http://services.groupkt.com/state/get/' + req.alphacode + '/all',
+          headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+          }
+        }
+        $http(req).then(function(result){
+            vm.allStates = result.RestResponse.result; 
+        }, function(error){
+              console.log(error);
+        });
+}

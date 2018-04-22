@@ -27,6 +27,7 @@ module.exports = {
         'public/lib/ng-file-upload/ng-file-upload.min.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
         'public/lib/moment/moment.js',
+        'public/lib/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js',
         'public/lib/angular-moment/angular-moment.js'
         // endbower
       ]

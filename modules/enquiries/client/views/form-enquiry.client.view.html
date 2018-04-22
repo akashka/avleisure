@@ -28,18 +28,25 @@
             <p class="help-block error-text" ng-message="required">Enquiry school email is required.</p>
           </div>
         </div>
-        <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="school_address">School Address: </label>
-          <textarea name="school_address" data-ng-model="vm.enquiry.school_address" id="school_address" class="form-control" rows="5" placeholder="School Address" required autofocus></textarea>
-          <div ng-messages="vm.form.enquiryForm.school_address.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Enquiry school address is required.</p>
-          </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" for="contactPerson">Contact Person</label>
+            <input name="plan" type="text" ng-model="vm.enquiry.school_contact_person" id="contactPerson" class="form-control" placeholder="Contact Person">
+            <div ng-messages="vm.form.enquiryForm.contactPerson.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Enquiry contact person is required.</p>
+            </div>
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="school_phone_no">School Phone: </label>
           <input name="school_phone_no" type="text" ng-model="vm.enquiry.school_phone_no" id="school_phone_no" class="form-control" placeholder="School Phone" required autofocus>
           <div ng-messages="vm.form.enquiryForm.school_phone_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Enquiry school phone is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_address">School Address: </label>
+          <textarea name="school_address" data-ng-model="vm.enquiry.school_address" id="school_address" class="form-control" rows="5" placeholder="School Address" required autofocus></textarea>
+          <div ng-messages="vm.form.enquiryForm.school_address.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enquiry school address is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
@@ -114,7 +121,8 @@
                 <option value="" disabled>Select Accomodation</option>
                 <option selected value="A/C">A/C</option>
                 <option value="Non A/C">Non A/C</option>
-            </select>
+                <option value="Dormitory">Dormitory</option>
+              </select>
             </div>
             <div ng-messages="vm.form.enquiryForm.accomodation.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry accomodation is required.</p>
@@ -135,10 +143,18 @@
             </div>
           </div>
           <div class="form-group col-md-6">
-            <label class="control-label" for="contactPerson">Contact Person</label>
-            <input name="plan" type="text" ng-model="enquiry.school_contact_person" id="contactPerson" class="form-control" placeholder="Contact Person">
-            <div ng-messages="vm.form.enquiryForm.contactPerson.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Enquiry contact person is required.</p>
+            <label class="control-label" for="package_type">Package Type</label>
+            <div class="controls">
+              <select class="form-control" id="package_type" ng-model="enquiry.package_type" ng-list>
+                <option value="" disabled>Select Package Type</option>
+                <option value="Resort Package">Resort Package</option>
+                <option value="Day Return Package">Day Return Package</option>
+                <option value="Outstation">Outstation</option>
+                <option value="International">International</option>
+            </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.package_type.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Package type is required.</p>
             </div>
           </div>
           <div class="form-group col-md-6">

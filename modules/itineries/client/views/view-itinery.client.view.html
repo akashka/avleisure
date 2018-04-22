@@ -11,8 +11,10 @@
       <span ng-if="!vm.itinery.user">Deleted User</span>
     </em>
   </small>
-  <p class="lead" ng-if="!vm.itinery.international">State  - {{vm.itinery.sstate}}</p>
-  <p class="lead" ng-if="vm.itinery.international">International</p>
+  <p class="lead">Country - {{vm.itinery.international}}</p>
+  <p class="lead">State - 
+    <span ng-repeat="st in vm.itinery.sstate"> {{st.id}}, </span>
+  </p>
   <p class="lead">Plan  - {{vm.itinery.plan}}</p>
   <p class="lead">Nights / Days  - {{vm.itinery.nights}} N / {{vm.itinery.days}} D</p>
   <br>

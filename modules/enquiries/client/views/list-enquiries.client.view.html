@@ -40,6 +40,9 @@
             <th ng-click="vm.sortTable(1)">Enquiry ID</th>
             <th ng-click="vm.sortTable(2)">Enquired By</th>
             <th ng-click="vm.sortTable(3)">School Name</th>
+            <th ng-click="vm.sortTable(3)">Email</th>
+            <th ng-click="vm.sortTable(3)">Phone Number</th>
+            <th ng-click="vm.sortTable(3)">Contact Person</th>
             <th> </th>
             <th> </th>
           </tr>
@@ -50,6 +53,9 @@
             <td>{{enquiry.enquiry_id}}</td>
             <td>{{enquiry.user.displayName}}</td>
             <td>{{enquiry.school_name}}</td>
+            <td>{{enquiry.school_email_id}}</td>
+            <td>{{enquiry.school_phone_no}}</td>
+            <td>{{enquiry.school_contact_person}}</td>
             <td> <a class="btn btn-primary" ui-sref="enquiries.view({enquiryId: enquiry._id})">VIEW</a> </td>
             <td> <a class="btn btn-primary" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td> 
           </tr>
