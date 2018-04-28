@@ -50,6 +50,7 @@
             <td>{{booking.booking_id}}</td>
             <td>{{booking.user.displayName}}</td>
             <td>{{booking.school_name}}</td>
+            <td> <a class="btn btn-primary" ui-sref="bookings.expense({bookingId: booking._id})">ADD EXPENSE</a> </td>
             <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
             <!-- <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> -->
           </tr>

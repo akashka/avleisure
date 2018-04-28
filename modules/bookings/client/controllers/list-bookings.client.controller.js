@@ -5,9 +5,9 @@
     .module('bookings')
     .controller('BookingsListController', BookingsListController);
 
-  BookingsListController.$inject = ['BookingsService','$state'];
+  BookingsListController.$inject = ['BookingsService','$state','TripsService'];
 
-  function BookingsListController(BookingsService,$state) {
+  function BookingsListController(BookingsService,$state,TripsService) {
     var vm = this;
 
     vm.bookings = BookingsService.query();
@@ -128,5 +128,6 @@
             }
         }
     }
+
   }
 }());

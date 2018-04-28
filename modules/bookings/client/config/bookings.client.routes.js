@@ -53,6 +53,18 @@
           pageTitle: '{{ bookingResolve.title }}'
         }
       })
+      .state('bookings.expense', {
+        url: '/:bookingId/add-expense',
+        templateUrl: '/modules/bookings/client/views/add-expense.client.view.html',
+        controller: 'BookingsAddExpenseController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: getBooking
+        },
+        data: {
+          pageTitle: '{{ bookingResolve.title }}'
+        }
+      })
       
       .state('accounts', {
         abstract: true,

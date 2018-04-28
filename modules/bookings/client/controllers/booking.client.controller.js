@@ -25,6 +25,10 @@
 			}
 		};
 
+		vm.selectDates = function ( $event, num ) {
+			num.isOpened = true;
+		};
+
 		vm.dateOptions = {
 			formatYear: 'yy',
 			maxDate: new Date( 2030, 5, 22 ),
@@ -122,7 +126,31 @@
 		}
 
 		vm.calculateSchoolPayment = function(tocal){
-			return "";
+			var paid = 0
+			if(vm.booking.amount_paid == undefined && tocal == 'paid') return 0;
+			if(vm.booking.booking_amount == undefined && tocal == 'balance') return 0;
+			for(var i=0; i<vm.booking.amount_paid.length; i++) {
+				paid += Number(vm.booking.amount_paid[i].amount_paid);
+			}
+			if(tocal == 'paid') return paid;
+			if(tocal == 'balance') return (Number(vm.booking.booking_amount)-paid);
+		}
+
+		vm.addExtraPay = function() {
+			if(vm.booking.amount_paid == undefined) vm.booking.amount_paid = [];
+			vm.booking.amount_paid.push({
+				amount_paid: 0,
+				payment_date: moment(),
+				isOpened: false,
+				cheque_number: "",
+				bank_name: "",
+				cheque_photo: "",
+				transaction_number: ""
+			});
+		}
+
+		vm.removeExtraPay = function() {
+			vm.booking.amount_paid.splice(vm.booking.amount_paid.length-1, 1);
 		}
 	}
 }() );

@@ -66,6 +66,12 @@ var BookingSchema = new Schema({
   destination: {
     type: String
   },
+  billing: {
+    type: Array    
+  },
+  expenses: {
+    type: Array
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

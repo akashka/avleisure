@@ -46,8 +46,21 @@ exports.read = function (req, res) {
 exports.update = function (req, res) {
   var booking = req.booking;
 
-  booking.title = req.body.title;
-  booking.content = req.body.content;
+  booking.booking_date = req.body.booking_date;
+  booking.booking_amount = req.body.booking_amount;
+  booking.school_name = req.body.school_name;
+  booking.contact_person = req.body.contact_person;
+  booking.contact_destination = req.body.contact_destination;
+  booking.contact_phone = req.body.contact_phone;
+  booking.contact_email = req.body.contact_email;
+  booking.amount_paid = req.body.amount_paid;
+  booking.no_of_students = req.body.no_of_students;
+  booking.no_of_staff = req.body.no_of_staff;
+  booking.class = req.body.class;
+  booking.tour_managers = req.body.tour_managers;
+  booking.destination = req.body.destination;
+  booking.billing = req.body.billing;
+  booking.expenses = req.body.expenses;
 
   booking.save(function (err) {
     if (err) {
