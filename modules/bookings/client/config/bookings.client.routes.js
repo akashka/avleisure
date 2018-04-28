@@ -41,11 +41,28 @@
           pageTitle: '{{ bookingResolve.title }}'
         }
       })
-
       .state('bookings.edit', {
         url: '/:bookingId/edit',
         templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
         controller: 'BookingsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: getBooking
+        },
+        data: {
+          pageTitle: '{{ bookingResolve.title }}'
+        }
+      })
+      
+      .state('accounts', {
+        abstract: true,
+        url: '/accounts',
+        template: '<ui-view/>'
+      })
+      .state('accounts.list', {
+        url: '',
+        templateUrl: '/modules/bookings/client/views/list-accounts.client.view.html',
+        controller: 'AccountsListController',
         controllerAs: 'vm',
         resolve: {
           bookingResolve: getBooking

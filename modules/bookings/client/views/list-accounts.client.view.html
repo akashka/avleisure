@@ -1,0 +1,81 @@
+<section>
+  <div class="page-header">
+    <h1>Accounts</h1>
+  </div>
+
+  <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <div class="form-group">
+                <label for="booking_id" class="col-sm-5 control-label">Booking Id:</label>
+                <div class="col-sm-7">
+                    <input id="booking_id" type="text" class="form-control" ng-model="vm.search.booking_id"
+                        placeholder="Enter Booking Id"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="form-group">
+                <label for="school_name" class="col-sm-5 control-label">School Name:</label>
+                <div class="col-sm-7">
+                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name"
+                        placeholder="Enter School Name"/>
+                </div>
+            </div>
+        </div>
+        <div class="page-controls col-sm-4" style="text-align: center;">
+            <div class="row" role="toolbar">
+                <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
+                <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
+                <button type="button" class="btn btn-default" ng-click="vm.gotoNewBooking()">New Booking</button>
+            </div>
+        </div>
+  </div>
+  <br/><hr/>
+
+  <div class="list-group table-responsive">
+    <table class="table table-hover" id="myTable2">
+        <thead>
+            <tr>
+                <th colspan="5" style="text-align:center;border:1px solid grey;"></th>
+                <th colspan="3" style="text-align:center;border:1px solid grey;">Incomings (A)</th>
+                <th colspan="2" style="text-align:center;border:1px solid grey;">Outgoings (B)</th>
+                <th style="text-align:center;border:1px solid grey;"> A - B </th>
+            </tr>
+          <tr>
+            <th ng-click="vm.sortTable(0)">Booking Date</th>
+            <th ng-click="vm.sortTable(1)">Booking ID</th>
+            <th ng-click="vm.sortTable(2)">Booked By</th>
+            <th ng-click="vm.sortTable(3)">Tour Manager</th>
+            <th ng-click="vm.sortTable(4)">School Name</th>
+            <th ng-click="vm.sortTable(5)">Booking Amount</th>
+            <th ng-click="vm.sortTable(6)">Amount Paid</th>
+            <th ng-click="vm.sortTable(7)">Amount Pending</th>
+            <th ng-click="vm.sortTable(8)">Total Expenses</th>
+            <th ng-click="vm.sortTable(9)">Balance Expenses</th>
+            <th ng-click="vm.sortTable(10)">Balance</th>
+            <th> </th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="booking in vm.bookings">
+            <td>{{booking.booking_date | date:'dd/MMM/yyyy'}}</td>
+            <td>{{booking.booking_id}}</td>
+            <td>{{booking.user.displayName}}</td>
+            <td>
+                <span ng-repeat="tm in booking.tour_managers">{{tm}},</span>
+            </td>
+            <td>{{booking.school_name}}</td>
+            <td>{{booking.booking_amount}}</td>
+            <td>{{calculatePaidAmount(booking.amount_paid)}}</td>
+            <td>{{calculatePendingAmount(booking.amount_paid, booking.booking_amount)}}</td>
+            <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
+            <!-- <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> -->
+          </tr>
+        </tbody>
+    </table>
+  </div>
+
+  <uib-pagination boundary-links="true" max-size="10" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+
+</section>

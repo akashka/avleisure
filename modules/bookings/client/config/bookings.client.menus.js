@@ -16,6 +16,14 @@
       position: 2
     });
 
+    menuService.addMenuItem('topbar', {
+      title: 'Accounts',
+      state: 'accounts',
+      type: 'dropdown',
+      roles: ['admin','user'],
+      position: 4
+    });
+
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'bookings', {
       title: 'List Bookings',
@@ -26,6 +34,13 @@
     menuService.addSubMenuItem('topbar', 'bookings', {
       title: 'Create Bookings',
       state: 'bookings.create',
+      roles: ['*']
+    });
+
+
+    menuService.addSubMenuItem('topbar', 'accounts', {
+      title: 'List Accounts',
+      state: 'accounts.list',
       roles: ['*']
     });
 

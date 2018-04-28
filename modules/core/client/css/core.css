@@ -1,6 +1,20 @@
 .content {
   margin-top: 50px;
 }
+
+.bg_home {
+    margin-left: -7%;
+    margin-top: -5%;
+    width: 113%;
+    min-height: 100vh;
+    background-image: url('../img/leisure.jpg');
+}
+
+.navbar-fixed-top {
+  margin: 0;
+  width: 100%;
+}
+
 .undecorated-link:hover {
   text-decoration: none;
 }
