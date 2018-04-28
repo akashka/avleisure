@@ -41,13 +41,6 @@
           </p>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="booking_amount">Booking Amount: </label>
-          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus ng-change = "vm.convert(vm.booking.booking_amount)">
-          <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
-          </div>
-        </div>
-        <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="school_name">School Name: </label>
           <input name="school_name" type="text" ng-model="vm.booking.school_name" id="school_name" class="form-control" placeholder="School Name" required autofocus>
           <div ng-messages="vm.form.bookingForm.school_name.$error" role="alert">
@@ -76,13 +69,6 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="amount_paid">Amount Paid: </label>
-          <input name="amount_paid" data-ng-model="vm.booking.amount_paid" id="amount_paid" class="form-control" rows="5" placeholder="Amount Paid" required autofocus ng-change = "vm.convert(vm.booking.amount_paid)">
-          <div ng-messages="vm.form.bookingForm.amount_paid.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Booking amount paid is required.</p>
-          </div>
-        </div>
-        <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="contact_phone">Contact Phone: </label>
           <input name="contact_phone" type="text" ng-model="vm.booking.contact_phone" id="contact_phone" class="form-control" placeholder="Contact Phone" required autofocus>
           <div ng-messages="vm.form.bookingForm.contact_phone.$error" role="alert">
@@ -95,10 +81,6 @@
           <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
             <p class="help-block error-text" ng-message="required">No. of Students is required.</p>
           </div>
-        </div>
-        <div class="form-group col-md-6">
-          <label class="control-label" for="balance_payable">Balance Payable: </label>
-          <input name="balance_payable" type="text" ng-model="vm.balance_payable = vm.booking.amount_paid != ''? vm.booking_amount - vm.amount_paid : 0" id="balance_payable" class="form-control" placeholder="Balance Payable" required autofocus readonly>
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="no_of_staff">No. of Staff: </label>
@@ -133,6 +115,75 @@
             <p class="help-block error-text" ng-message="required">Booking destination is required.</p>
           </div>
         </div>
+        <div class="form-group col-md-6"> </div>
+
+        <div class="form-group col-md-12"> <hr> </div>
+        
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="booking_amount">Booking Amount: </label>
+          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus ng-change = "vm.convert(vm.booking.booking_amount)">
+          <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" style="min-height:59px;" show-errors>
+          <label class="control-label" for="booking_amount">Total Payment Done from School: {{vm.calculateSchoolPayment('paid')}}</label>
+        </div>
+        <div class="form-group col-md-6" style="min-height:59px;" show-errors>
+          <label class="control-label" for="booking_amount">Balance from School: {{vm.calculateSchoolPayment('balance')}}</label>
+        </div>
+        <div style="min-height:59px;" class="form-group col-md-6"> 
+            <span ng-click="vm.addExtraPay()" style="cursor:pointer;padding:10px;background:green;color:white;min-width:25px;"> + </span>
+            <span ng-click="vm.removeExtraPay()" ng-show="enq.extras.length > 0" style="cursor:pointer;margin-left:15px;padding:10px;background:red;color:white;min-width:25px;"> - </span>
+        </div>
+        
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="amount_paid">Amount Paid: </label>
+          <input name="amount_paid" data-ng-model="vm.booking.amount_paid" id="amount_paid" class="form-control" placeholder="Amount Paid" required>
+          <div ng-messages="vm.form.bookingForm.amount_paid.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Booking amount paid is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="payment_mode">Payment Mode:</label>
+          <div class="controls">
+            <select class="form-control" id="payment_mode" ng-model="vm.booking.payment_mode" ng-list>
+              <option value=""disabled>Select Payment Mode</option>
+              <option value="Cash">Cash</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Online">Online</option>
+          </select>
+          </div>
+          <div ng-messages="vm.form.bookingForm.payment_mode.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Payment mode is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="payment_date">Payment Date: </label>
+          <p class="input-group">
+            <input type="text" name="amount_paid" class="input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.amount_paid" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+        <div class="form-group col-md-6" ng-if="vm.booking.payment_mode == 'Cheque'">
+          <label class="control-label" for="cheque_number">Cheque No: </label>
+          <input name="cheque_number" data-ng-model="vm.booking.cheque_number" id="cheque_number" class="form-control" placeholder="Cheque Number">
+        </div>
+        <div class="form-group col-md-6" ng-if="vm.booking.payment_mode == 'Cheque'">
+          <label class="control-label" for="bank_name">Bank Name: </label>
+          <input name="bank_name" data-ng-model="vm.booking.bank_name" id="bank_name" class="form-control" placeholder="Bank Name">
+        </div>
+        <div class="form-group col-md-6" ng-if="vm.booking.payment_mode == 'Cheque'">
+          <label class="control-label" for="cheque_photo">Cheque Photo: </label>
+          <input name="cheque_photo" data-ng-model="vm.booking.cheque_photo" id="cheque_photo" class="form-control" placeholder="Cheque Photo">
+        </div>
+        <div class="form-group col-md-6" ng-if="vm.booking.payment_mode == 'Online'">
+          <label class="control-label" for="transaction_number">Transaction No: </label>
+          <input name="transaction_number" data-ng-model="vm.booking.transaction_number" id="transaction_number" class="form-control" placeholder="Transaction Number">
+        </div>
+
         <button class="pull-right" type="submit" class="btn btn-default">{{vm.booking._id ? 'Update' : 'Save'}}</button>
       </fieldset>
     </form>

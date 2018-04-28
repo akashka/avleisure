@@ -18,29 +18,34 @@
 			enquiry_id: "",
 			school_name: ""
 		}
+
 		vm.selectDate = function ( $event, num ) {
 			if ( num == 1 ) {
 				vm.dateset.lr_date.isOpened = true;
 			}
 		};
+
 		vm.dateOptions = {
 			formatYear: 'yy',
 			maxDate: new Date( 2030, 5, 22 ),
 			minDate: new Date( 1920, 5, 22 ),
 			startingDay: 1
 		};
+
 		vm.dateset = {
 			lr_date: {
 				isOpened: false
 			},
 		};
-    vm.convert = function (amount){
-      if(vm.booking.amount_paid === amount){
-        vm.amount_paid = parseInt(vm.booking.amount_paid);
-      }else if(vm.booking.booking_amount === amount){
-        vm.booking_amount = parseInt(vm.booking.booking_amount);
-      }
-    }
+
+		vm.convert = function (amount){
+			if(vm.booking.amount_paid === amount){
+				vm.amount_paid = parseInt(vm.booking.amount_paid);
+			}else if(vm.booking.booking_amount === amount){
+				vm.booking_amount = parseInt(vm.booking.booking_amount);
+			}
+		}
+	
 		vm.searches = function () {
 			vm.enquiry = null;
 			var searched = [];
@@ -79,6 +84,7 @@
 				vm.isSearched = true;
 			}
 		}
+
 		// Remove existing booking
 		function remove() {
 			if ( $window.confirm( 'Are you sure you want to delete?' ) ) {
@@ -90,6 +96,7 @@
 				} );
 			}
 		}
+
 		// Save Booking
 		function save( isValid ) {
 			if ( !isValid ) {
@@ -112,6 +119,10 @@
 					title: '<i class="glyphicon glyphicon-remove"></i> Bookings save error!'
 				} );
 			}
+		}
+
+		vm.calculateSchoolPayment = function(tocal){
+			return "";
 		}
 	}
 }() );
