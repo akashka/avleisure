@@ -12,7 +12,7 @@ module.exports = {
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
         // endbower
       ],
-      js: [
+      js: [ 
         // bower:js
         'public/lib/pdfmake/build/pdfmake.min.js',
         'public/lib/pdfmake/build/vfs_fonts.js',
