@@ -2,9 +2,9 @@
   <div class="page-header">
     <h1 ng-bind="vm.itinery.title"></h1>
   </div>
-  <small>
+  <small style="float:right;">
     <em class="text-muted">
-      Posted on
+      Created on
       <span ng-bind="vm.itinery.created | date:'mediumDate'"></span>
       by
       <span ng-if="vm.itinery.user" ng-bind="vm.itinery.user.displayName"></span>
@@ -17,6 +17,7 @@
   </p>
   <p class="lead">Plan  - {{vm.itinery.plan}}</p>
   <p class="lead">Nights / Days  - {{vm.itinery.nights}} N / {{vm.itinery.days}} D</p>
+  <p class="lead">Package Type  - {{vm.itinery.package_type}}</p>
   <br>
   <p class="lead" ng-bind="vm.itinery.content"></p>
 </section>

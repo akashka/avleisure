@@ -12,6 +12,7 @@
 		vm.users = UsersService.query();
 		vm.form = {};
 		vm.save = save;
+		vm.remarks = "";
 
 		$timeout(function() {
 			if($state.params.tripId) {
@@ -53,6 +54,15 @@
 					vm.trip.trip_end_by = vm.authentication.user.email;
 			if(vm.trip.trip_end_date == "" || vm.trip.trip_end_date == undefined)
 					vm.trip.trip_end_date = new Date();
+			vm.trip.transactions.push({
+					amount:vm.calculateBalance(vm.trip.transactions),
+					credit: false,
+					category: 'Closing Account',
+					sub_category: '',
+					remarks: vm.remarks,
+					image:'',
+					transaction_date: new Date()
+			});
 			TripsService.createOrUpdate(vm.trip).then( successCallback ).catch( errorCallback );
 			function successCallback( res ) {
 				$state.go( 'trips.list' ); // should we send the User to the list or the updated trips view?

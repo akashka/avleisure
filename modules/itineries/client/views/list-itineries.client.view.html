@@ -1,6 +1,5 @@
 <section>
   <div class="page-header">
-    <div class="page-header">
       <div class="row">
         <div class="col-md-2">
           <h1>Itineries</h1>
@@ -14,7 +13,51 @@
           </a>
         </div>
       </div>
-    </div>
+      <div class="row" style="margin-top:10px;">
+            <div class="col-md-3">
+              <label style="margin-top: 10px;vertical-align: top; margin-right:5px;">Resort Packages</label>
+              <label class="switch resort_package">
+                <input type="checkbox" ng-model="vm.resort_package" ng-change="vm.resortPackage()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-md-2">
+              <label style="margin-top: 10px;vertical-align: top; margin-right:5px;">Day Returns</label>
+              <label class="switch day_return">
+                <input type="checkbox" ng-model="vm.day_returns" ng-change="vm.dayReturns()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-md-2">
+              <label style="margin-top: 10px;vertical-align: top; margin-right:5px;">Island</label>
+              <label class="switch island">
+                <input type="checkbox" ng-model="vm.island" ng-change="vm.islands()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-md-2">
+              <label style="margin-top: 10px;vertical-align: top; margin-right:5px;">International</label>
+              <label class="switch international">
+                <input type="checkbox" ng-model="vm.international" ng-change="vm.internationals()">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-md-3" ng-show="!vm.international">
+              <label style="margin-top: 10px;vertical-align: top; margin-right:5px; float:left;">State</label>
+              <div class="controls" style="float:left; width:85%;">
+                <select class="form-control" id="south_india" ng-model="vm.south_india" ng-list ng-change="vm.southIndia()">
+                  <option value="">All States</option>
+                  <option value="North India">North India</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Tamil Nadu">TamilNadu</option>
+                  <option value="Andhra Pradesh">Andhra Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Kerala">Kerala</option>
+                </select>
+              </div>
+            </div>
+      </div>
   </div>
   <div class="list-group" ng-repeat="itinery in vm.itineries">
     <a ui-sref="itineries.view({ itineryId: itinery._id })" class="list-group-item col-md-11">
@@ -32,6 +75,7 @@
       <p class="list-group-item-text">State - 
         <span ng-repeat="st in itinery.sstate"> {{st.id}}, </span>
       </p>
+      <p class="list-group-item-text">Package Type - {{itinery.package_type}}</p>
     </a>
     <btn type="submit" class="btn btn-default col-md-1" style="float:right;margin-top:40px;margin-left:5px;width:7.5%;" ui-sref="itineries.edit({ itineryId: itinery._id })">Edit</btn>
   </div>

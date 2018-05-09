@@ -1,9 +1,9 @@
 ( function () {
 	'use strict';
 	angular.module( 'enquiries' ).controller( 'EnquiriesAdminController', EnquiriesAdminController );
-	EnquiriesAdminController.$inject = [ '$scope', '$state', '$window', 'enquiryResolve', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout' ];
+	EnquiriesAdminController.$inject = [ '$scope', '$state', '$window', 'enquiryResolve', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout', 'AdminService' ];
 
-	function EnquiriesAdminController( $scope, $state, $window, enquiry, Authentication, Notification, EnquiriesService, ItineriesService, $timeout ) {
+	function EnquiriesAdminController( $scope, $state, $window, enquiry, Authentication, Notification, EnquiriesService, ItineriesService, $timeout, AdminService ) {
 		var vm = this;
 		vm.enquiry = {
 		  enquiry_id: "",
@@ -13,23 +13,26 @@
 		  school_photo: "",
 		  school_email_id: "",
 		  school_phone_no: "",
-  		  school_contact_person: "",
+		  school_contact_person: "",
+		  enquiry_by: "",
 		  enquiries: [{
 				itineries: '',
   				plan: '',
   				school_contact_person: '',
   				school_class: '',
-  				transport: '',
-  				food: '',
-  				sharing: '',
-				accomodation: '',
-				package_type: '',  
+  				transport: [],
+  				food: [],
+  				sharing: [],
+				accomodation: [],
+				package_type: [],  
 				quotations: [],
-				extras: []
+				extras: [],
+				remarks: ''
 			}]
 		};
 		vm.allEnquiries = EnquiriesService.query();
 		vm.itineries = ItineriesService.query();
+		vm.users = AdminService.query();
 		vm.authentication = Authentication;
 		vm.form = {};
 		vm.remove = remove;
@@ -37,15 +40,25 @@
 		vm.rmEnquiry  = rmEnquiry;
 		vm.add = add;
 
+		vm.transportOptions = ["A/C bus", "Non A/C bus", "A/C train", "Non A/C train", "Flight"];
+		vm.foodOptions = ["Self catering", "Hotel"];
+		vm.accomodationOptions = ["A/C", "Non A/C", "Dormitory"];
+		vm.sharingOptions = ["Twin", "Tripple", "Quadruple"];
+		vm.packageOptions = ["Resort Package", "Day Return Package", "Outstation", "International"];
+		vm.multiselectSettings = { template: '{{option}}', smartButtonTextConverter(skip, option) { return option; }, };
+
 		$timeout( function(){
 			if($state.params.enquiryId) {
 				var allEnquiries = (vm.allEnquiries);
 				for(var i=0; i<allEnquiries.length; i++) {
 					if(allEnquiries[i]._id == $state.params.enquiryId) {
-						vm.enquiry = allEnquiries[i];
+						vm.enquiry 
+						= allEnquiries[i];
 					}
 				}
 			}
+			vm.enquiry.enquiry_by = [];
+			vm.enquiry.enquiry_by.push(vm.authentication.user.displayName);
 		}, 1000 );
 		
 		// Remove existing enquiry
@@ -89,13 +102,14 @@
   				plan: '',
   				school_contact_person: '',
   				school_class: '',
-  				transport: '',
-  				food: '',
-  				sharing: '',
-				package_type: '',  
-  				accomodation: '',
+  				transport: [],
+  				food: [],
+  				sharing: [],
+				package_type: [],  
+  				accomodation: [],
   				quotations: [],
-				extras: []
+				extras: [],
+				remarks: ''
 		}
       );
 		}

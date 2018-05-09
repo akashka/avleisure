@@ -26,6 +26,11 @@
 					}
 				}
 			}
+			vm.ongoingTrip = _.filter(vm.trip, function(trip) { 
+				return (trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
+        			&& trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != ""); 
+			});
+
 		}, 1000 );
 
 		vm.selectDate = function ( $event, num ) {
@@ -87,26 +92,31 @@
 			}
 		}
 
-    // add new trips in tripForm
-    function updateTransactions(transactionType){
-      if(transactionType === 'receivedAmount'){
-		  	if(vm.trip.transactions == undefined) vm.trip.transactions = [];
-			vm.trip.transactions.push({
-				amount:vm.amount,
-				credit: true,
-				category: 'Opening Balance to Tour Manager',
-				sub_category: '',
-				remarks:'',
-				image:'',
-				transaction_date: new Date()
-			});
-		};
-	}
+		// add new trips in tripForm
+		function updateTransactions(transactionType){
+		if(transactionType === 'receivedAmount'){
+				if(vm.trip.transactions == undefined) vm.trip.transactions = [];
+				vm.trip.transactions.push({
+					amount:vm.amount,
+					credit: true,
+					category: 'Opening Balance',
+					sub_category: '',
+					remarks: vm.remarks,
+					image:'',
+					transaction_date: new Date()
+				});
+			};
+		}
 
-    // delete last trips in tripForm
-    function rmTrip(){
-      vm.trip.trips.pop();
-    }
+		// delete last trips in tripForm
+		function rmTrip(){
+			vm.trip.trips.pop();
+		}
+		
+		vm.multiselectSettings = { 
+			checkBoxes: true, 
+			displayProp: "displayName"
+		};
 
 	}
 }() );

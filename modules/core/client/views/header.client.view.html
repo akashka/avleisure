@@ -23,15 +23,6 @@
           <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
         </li>
       </ul>
-      <!-- <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.user">
-        <li ui-sref-active="active">
-          <a ui-sref="authentication.signup">Sign Up</a>
-        </li>
-        <li class="divider-vertical"></li>
-        <li ui-sref-active="active">
-          <a ui-sref="authentication.signin">Sign In</a>
-        </li>
-      </ul> -->
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
           <a class="dropdown-toggle user-header-dropdown-toggle" uib-dropdown-toggle role="button">
@@ -49,6 +40,44 @@
           </ul>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
+        <li class="dropdown" uib-dropdown>
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+            <i data-count={{vm.notificationsCount()}} class="glyphicon glyphicon-bell notification-icon"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
+            
+            <li ng-show="vm.notifications.enquiries.length > 0"><h5>Enquiries - {{vm.notifications.enquiries.length}}</h5></li>
+            <li class="divider" ng-if="vm.notifications.enquiries.length > 0"></li>            
+            <li ui-sref-active="active" ng-repeat="item in vm.notifications.enquiries">
+              <a ui-sref="quotations.view({enquiryId: item.enquiry_id})" ng-bind="item.school_name"></a>
+            </li>
+            <li class="divider" ng-if="vm.notifications.enquiries.length > 0"></li>            
+
+            <li ng-if="vm.notifications.bookings.length > 0"><h5>Upcoming Trips - {{vm.notifications.bookings.length}}</h5></li>
+            <li class="divider" ng-if="vm.notifications.bookings.length > 0"></li>            
+            <li ui-sref-active="active" ng-repeat="item in vm.notifications.bookings">
+              <a ui-sref="bookings.view({bookingId: item._id})" ng-bind="item.school_name"></a>
+            </li>
+            <li class="divider" ng-if="vm.notifications.bookings.length > 0"></li>            
+
+            <li ng-if="vm.notifications.trips.length > 0"><h5>Ongoing Trips - {{vm.notifications.trips.length}}</h5></li>
+            <li class="divider" ng-if="vm.notifications.trips.length > 0"></li>            
+            <li ui-sref-active="active" ng-repeat="item in vm.notifications.trips">
+              <a ui-sref="trips.view-passbook({tripId: item._id})" ng-bind="vm.findSchoolName(item.booking_id)"></a>
+            </li>
+            <li class="divider" ng-if="vm.notifications.trips.length > 0"></li>
+
+            <li ng-if="vm.notifications.cheques.length > 0"><h5>Cheques - {{vm.notifications.cheques.length}}</h5></li>
+            <li class="divider" ng-if="vm.notifications.cheques.length > 0"></li>            
+            <li ui-sref-active="active" ng-repeat="item in vm.notifications.cheques">
+              <a ui-sref="bookings.view({bookingId: item._id})" ng-bind="item.school_name"></a>
+            </li>
+          </ul>
+        </li>            
+      </ul>
+
     </nav>
   </div>
 </div>

@@ -50,7 +50,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="school_gprs">School GPRS: </label>
+          <label class="control-label" for="school_gprs">School Location (GPRS): </label>
           <input name="school_gprs" type="text" ng-model="vm.enquiry.school_gprs" id="school_gprs" class="form-control" placeholder="School GPRS" required autofocus>
           <div ng-messages="vm.form.enquiryForm.school_gprs.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Enquiry school GPRS is required.</p>
@@ -61,6 +61,14 @@
           <input name="school_photo" type="text" ng-model="vm.enquiry.school_photo" id="school_photo" class="form-control" placeholder="School Photo" required autofocus>
           <div ng-messages="vm.form.enquiryForm.school_photo.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Enquiry school photo is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" ng-show="vm.authentication.user.roles[0] == 'admin'">
+          <label class="control-label" for="enquiry_by">Enquiry By</label>
+          <div class="controls">
+            <select class="form-control" id="enquiry_by" ng-model="vm.enquiry.enquiry_by" ng-list ng-options="obj.displayName as obj.displayName for obj in vm.users">
+                <option disabled selected value="">-- choose a User --</option>
+            </select>
           </div>
         </div>
       </div>
@@ -87,15 +95,8 @@
           </div>
           <div class="form-group col-md-6">
             <label class="control-label" for="transport">Mode of transport</label>
-            <div class="controls">
-              <select class="form-control" id="transport" ng-model="enquiry.transport" ng-list>
-                <option value=""disabled>Select Transport</option>
-                <option value="A/C bus">A/C bus</option>
-                <option value="Non A/C bus">Non A/C bus</option>
-                <option value="A/C train">A/C train</option>
-                <option value="Non A/C train">Non A/C train</option>
-                <option value="Flight">Flight</option>
-            </select>
+            <div class="controls">  
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.transportOptions" selected-model="enquiry.transport" extra-settings="vm.multiselectSettings"></div> 
             </div>
             <div ng-messages="vm.form.enquiryForm.transport.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry mode of transport is required.</p>
@@ -104,11 +105,7 @@
           <div class="form-group col-md-6">
             <label class="control-label" for="food">Food</label>
             <div class="controls">
-              <select class="form-control" id="food" ng-model="enquiry.food" ng-list>
-                <option value="" disabled>Select Food</option>
-                <option value="Self catering">Self catering</option>
-                <option value="Hotel">Hotel</option>
-            </select>
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.foodOptions" selected-model="enquiry.food" extra-settings="vm.multiselectSettings"></div>               
             </div>
             <div ng-messages="vm.form.enquiryForm.food.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry food is required.</p>
@@ -117,12 +114,7 @@
           <div class="form-group col-md-6">
             <label class="control-label" for="accomodation">Accomodation</label>
             <div class="controls">
-              <select class="form-control" id="accomodation" ng-model="enquiry.accomodation" ng-list>
-                <option value="" disabled>Select Accomodation</option>
-                <option selected value="A/C">A/C</option>
-                <option value="Non A/C">Non A/C</option>
-                <option value="Dormitory">Dormitory</option>
-              </select>
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.accomodationOptions" selected-model="enquiry.accomodation" extra-settings="vm.multiselectSettings"></div>               
             </div>
             <div ng-messages="vm.form.enquiryForm.accomodation.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry accomodation is required.</p>
@@ -131,12 +123,7 @@
           <div class="form-group col-md-6">
             <label class="control-label" for="itinery">Sharing</label>
             <div class="controls">
-              <select class="form-control" id="sharing" ng-model="enquiry.sharing" ng-list>
-                <option value="" disabled>Select Sharing</option>
-                <option value="Twin">Twin</option>
-                <option value="Tripple">Tripple</option>
-                <option value="Quadruple">Quadruple</option>
-            </select>
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.sharingOptions" selected-model="enquiry.sharing" extra-settings="vm.multiselectSettings"></div>               
             </div>
             <div ng-messages="vm.form.enquiryForm.sharing.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry sharing is required.</p>
@@ -145,13 +132,7 @@
           <div class="form-group col-md-6">
             <label class="control-label" for="package_type">Package Type</label>
             <div class="controls">
-              <select class="form-control" id="package_type" ng-model="enquiry.package_type" ng-list>
-                <option value="" disabled>Select Package Type</option>
-                <option value="Resort Package">Resort Package</option>
-                <option value="Day Return Package">Day Return Package</option>
-                <option value="Outstation">Outstation</option>
-                <option value="International">International</option>
-            </select>
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.packageOptions" selected-model="enquiry.package_type" extra-settings="vm.multiselectSettings"></div>              
             </div>
             <div ng-messages="vm.form.enquiryForm.package_type.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Package type is required.</p>
@@ -159,10 +140,14 @@
           </div>
           <div class="form-group col-md-6">
             <label class="control-label" for="class">Class</label>
-            <input name="plan" type="text" ng-model="enquiry.school_class" id="class" class="form-control" placeholder="Class">
+            <input name="class" type="text" ng-model="enquiry.school_class" id="class" class="form-control" placeholder="Class">
             <div ng-messages="vm.form.enquiryForm.class.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry class is required.</p>
             </div>
+          </div>
+          <div class="form-group col-md-12">
+            <label class="control-label" for="remarks">Remarks</label>
+            <input name="remarks" type="text" ng-model="enquiry.remarks" id="remarks" class="form-control" placeholder="Remarks">
           </div>
         </div>
         <div class="form-group pull-right">

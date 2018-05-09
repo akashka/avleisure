@@ -43,6 +43,9 @@ var ItinerySchema = new Schema({
   international: {
     type: String
   },
+  package_type: {
+    type: String
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'

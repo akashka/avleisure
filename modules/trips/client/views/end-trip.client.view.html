@@ -29,6 +29,10 @@
           <div class="form-group col-md-6 col-md-offset-3">
             <label class="control-label col-md-12" for="balance_amount">Balance Amount: {{vm.calculateBalance(vm.trip.transactions)}}</label>
           </div>
+          <div class="form-group col-md-6 col-md-offset-3">
+            <label class="control-label col-md-2" for="remarks">Remarks: </label>
+            <input name="remarks" type="text" ng-model="vm.remarks" id="remarks" class="form-control col-md-10" style="width:75%;" placeholder="Remarks" autofocus>
+          </div>
           <div class="form-group col-md-12 col-md-offset-3">
             <button style="text-align:center;" type="submit" class="btn btn-default">End Ride</button>
           </div>

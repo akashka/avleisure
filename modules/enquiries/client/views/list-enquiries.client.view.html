@@ -45,19 +45,23 @@
             <th ng-click="vm.sortTable(3)">Contact Person</th>
             <th> </th>
             <th> </th>
+            <th> </th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="enquiry in vm.enquiries">
             <td>{{enquiry.created | date:'dd/MMM/yyyy'}}</td>
             <td>{{enquiry.enquiry_id}}</td>
-            <td>{{enquiry.user.displayName}}</td>
+            <td>{{enquiry.enquiry_by[0]}}</td>
             <td>{{enquiry.school_name}}</td>
             <td>{{enquiry.school_email_id}}</td>
             <td>{{enquiry.school_phone_no}}</td>
             <td>{{enquiry.school_contact_person}}</td>
             <td> <a class="btn btn-primary" ui-sref="enquiries.view({enquiryId: enquiry._id})">VIEW</a> </td>
             <td> <a class="btn btn-primary" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td> 
+            <td> <a class="btn btn-primary" ui-sref="quotations.view({enquiryId: enquiry.enquiry_id})">QUOTATIONS</a> </td> 
+            <td> <a class="btn btn-primary" ui-sref="bookings.createnew({enquiryId: enquiry.enquiry_id})">BOOKINGS</a> </td> 
           </tr>
         </tbody>
     </table>

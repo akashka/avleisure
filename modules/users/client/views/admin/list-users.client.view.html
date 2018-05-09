@@ -15,12 +15,40 @@
     </div>
   </div>
   <div class="list-group">
-    <a ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
-      <p class="list-group-item-text" ng-bind="user.phone_no"></p>
-    </a>
+      <div class="list-group table-responsive">
+        <table class="table table-hover" id="myTable2">
+            <thead>
+              <tr>
+                <th ng-click="vm.sortTable(0)">User Name</th>
+                <th ng-click="vm.sortTable(1)">Roles</th>
+                <th ng-click="vm.sortTable(2)">Email</th>
+                <th ng-click="vm.sortTable(3)">Phone No.</th>
+                <th ng-click="vm.sortTable(4)">No. of Enquiries</th>
+                <th ng-click="vm.sortTable(5)">No. Of Bookings Got</th>
+                <th ng-click="vm.sortTable(6)">Total Cash Received</th>
+                <th ng-click="vm.sortTable(7)">Advances Received</th>
+                <th ng-click="vm.sortTable(8)">Bata</th>
+                <th ng-click="vm.sortTable(9)">Profit & Loss of Indivitual</th>
+                <th ng-click="vm.sortTable(10)">Remarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})"> 
+                    <td>{{user.username}}</td>
+                    <td>{{user.roles[0]}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone_no}}</td>
+                    <td>{{vm.findNoOfEnquiries(user)}}</td>
+                    <td>{{vm.findNoOfBookingsGot(user)}}</td>
+                    <td>{{vm.totalCashReceived(user)}}</td>
+                    <td>{{vm.advancesReceived(user)}}</td>
+                    <td>{{vm.calculateBata(user)}}</td>
+                    <td>{{vm.calculateProfitLoss(user)}}</td>
+                    <td>{{vm.getRemarks(user)}}</td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
   </div>
 
   <uib-pagination boundary-links="true" max-size="8" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>

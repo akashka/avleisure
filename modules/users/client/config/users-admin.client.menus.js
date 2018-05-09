@@ -12,7 +12,8 @@
     menuService.addMenuItem('topbar', {
       title: 'Users',
       state: 'admin.users',
-      roles: ['admin']
+      roles: ['admin'],
+      position: 1
     });
   }
 }());

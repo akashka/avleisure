@@ -5,9 +5,9 @@
     .module('enquiries')
     .controller('QuotationsController', QuotationsController);
 
-  QuotationsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService'];
+  QuotationsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout'];
 
-  function QuotationsController($scope, $state, $window, Authentication, Notification, EnquiriesService, ItineriesService) {
+  function QuotationsController($scope, $state, $window, Authentication, Notification, EnquiriesService, ItineriesService, $timeout) {
     var vm = this;
 
     vm.enquiries = EnquiriesService.query();
@@ -16,6 +16,7 @@
     vm.enquiry = null;
     vm.save = save;
     vm.isSearched = false;
+    vm.itineryDescription = '';
 
     vm.search = {
       enquiry_id: "",
@@ -50,17 +51,52 @@
                   createdon: new Date(),
                   itinery: 0,
                   plan: 0,
-                  transport: 0,
-                  accomodation: 0,
-                  food: 0,
+                  transport: [],
+                  accomodation: [],
+                  food: [],
+                  sharing: [],
+                  package_type: [],
                   entry: 0,
                   extras: []
               });
-              // for(var i=0; i<vm.enquiry.enquiries[v].extras.length; i++) {
-              //     vm.enquiry.enquiries[v].quotations.extras.push(0);
-              // }
+              
+              for(var c=0; c<vm.enquiry.enquiries[v].accomodation.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].accomodation.push(0);
+              }
+              for(var c=0; c<vm.enquiry.enquiries[v].food.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].food.push(0);
+              }
+              for(var c=0; c<vm.enquiry.enquiries[v].transport.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].transport.push(0);
+              }
+              for(var c=0; c<vm.enquiry.enquiries[v].sharing.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].sharing.push(0);
+              }
+              for(var c=0; c<vm.enquiry.enquiries[v].package_type.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].package_type.push(0);
+              }
+              for(var c=0; c<vm.enquiry.enquiries[v].extras.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].extras.push(0);
+              }
+            }
+            for(var v = 0; v < vm.itineries.length; v++) {
+              if(vm.itineries[v]._id === vm.enquiry.enquiries[0].itineries) {
+                vm.itineryDescription = vm.itineries[v];
+              }
             }
             vm.isSearched = true;
+        }
+    }
+
+    vm.onValChange = function(val, changedto, $index) {
+        changedto[$index] = val;
+    }
+
+    vm.showItineryDetail = function(itineries) {
+        for(var v = 0; v < vm.itineries.length; v++) {
+          if(vm.itineries[v]._id === itineries) {
+            vm.itineryDescription = vm.itineries[v];
+          }
         }
     }
 
@@ -89,8 +125,22 @@
 
     vm.findTotal = function(quot) {
       var sum = 0;
-      sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.transport) + Number(quot.accomodation)
-                + Number(quot.food) + Number(quot.entry));
+      sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.entry));
+      for(var k=0; k<quot.transport.length; k++) {
+        sum += Number(quot.transport[k]);
+      }
+      for(var k=0; k<quot.accomodation.length; k++) {
+        sum += Number(quot.accomodation[k]);
+      }
+      for(var k=0; k<quot.food.length; k++) {
+        sum += Number(quot.food[k]);
+      }
+      for(var k=0; k<quot.sharing.length; k++) {
+        sum += Number(quot.sharing[k]);
+      }
+      for(var k=0; k<quot.package_type.length; k++) {
+        sum += Number(quot.package_type[k]);
+      }
       for(var k=0; k<quot.extras.length; k++) {
         sum += Number(quot.extras[k]);
       }
@@ -116,6 +166,13 @@
 				} );
 			}
     }
-    
+
+    $timeout( function(){
+      if($state.params.enquiryId != "")  {  
+          vm.search.enquiry_id = $state.params.enquiryId;
+          vm.searches();
+      }
+    }, 1000 );
+
   }
 }());

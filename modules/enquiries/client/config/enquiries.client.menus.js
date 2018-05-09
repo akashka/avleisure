@@ -12,25 +12,27 @@
       title: 'Enquiries',
       state: 'enquiries',
       type: 'dropdown',
-      roles: ['admin','user']
-    });
-
-    menuService.addMenuItem('topbar', {
-      title: 'Quotations',
-      state: 'quotations',
-      roles: ['admin','user']
+      roles: ['admin','user'],
+      position: 3
     });
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'List Enquiries',
       state: 'enquiries.list',
-      roles: ['*']
+      roles: ['admin']
     });
+
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'Create Enquiries',
       state: 'enquiries.create',
       roles: ['*']
+    });
+
+    menuService.addSubMenuItem('topbar', 'enquiries', {
+      title: 'Quotations',
+      state: 'quotations',
+      roles: ['admin','user']
     });
 
   }

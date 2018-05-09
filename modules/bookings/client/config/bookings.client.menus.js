@@ -13,7 +13,7 @@
       state: 'bookings',
       type: 'dropdown',
       roles: ['admin','user'],
-      position: 2
+      position: 4
     });
 
     menuService.addMenuItem('topbar', {
@@ -21,7 +21,7 @@
       state: 'accounts',
       type: 'dropdown',
       roles: ['admin','user'],
-      position: 4
+      position: 6
     });
 
     // Add the dropdown list item

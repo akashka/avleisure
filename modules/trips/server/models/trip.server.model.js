@@ -24,7 +24,7 @@ var TripSchema = new Schema({
     type: String
   },
   executive_id: {
-    type: String    
+    type: Array    
   },
   user: {
     type: Schema.ObjectId,

@@ -12,7 +12,7 @@
       title: 'Reports',
       state: 'reports',
       roles: ['admin','user'],
-      position: 8
+      position: 7
     });
 
   }

@@ -31,9 +31,20 @@
             <div class="multiselect" ng-dropdown-multiselect="" options="vm.multiselectOptions" selected-model="vm.itinery.sstate" extra-settings="vm.multiselectSettings"></div> 
           </div>        
         </div>        
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label class="control-label" for="plan">Plan</label>
           <input name="plan" type="text" ng-model="vm.itinery.plan" id="plan" class="form-control" placeholder="Plan">
+        </div>
+        <div class="form-group col-md-3">
+          <label class="control-label" for="plan">Package Type</label>
+          <div class="controls">
+            <select class="form-control" id="package_type" ng-model="vm.itinery.package_type" ng-list>
+              <option value=""disabled>Select Package Type</option>
+              <option value="Resort Package">Resort Package</option>
+              <option value="Day Return Package">Day Return Package</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
         </div>
         <div class="form-group col-md-3">
           <label class="control-label" for="nights">Nights</label>

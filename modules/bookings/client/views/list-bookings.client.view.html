@@ -37,9 +37,10 @@
         <thead>
           <tr>
             <th ng-click="vm.sortTable(0)">Booking Date</th>
-            <th ng-click="vm.sortTable(1)">Booking ID</th>
-            <th ng-click="vm.sortTable(2)">Booked By</th>
-            <th ng-click="vm.sortTable(3)">School Name</th>
+            <th ng-click="vm.sortTable(1)">Execution Date</th>
+            <th ng-click="vm.sortTable(2)">Booking ID</th>
+            <th ng-click="vm.sortTable(3)">Booked By</th>
+            <th ng-click="vm.sortTable(4)">School Name</th>
             <th> </th>
             <th> </th>
           </tr>
@@ -47,6 +48,7 @@
         <tbody>
           <tr ng-repeat="booking in vm.bookings">
             <td>{{booking.created | date:'dd/MMM/yyyy'}}</td>
+            <td>{{booking.booking_date | date:'dd/MMM/yyyy'}}</td>
             <td>{{booking.booking_id}}</td>
             <td>{{booking.user.displayName}}</td>
             <td>{{booking.school_name}}</td>

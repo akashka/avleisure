@@ -1,9 +1,9 @@
 ( function () {
 	'use strict';
 	angular.module( 'bookings' ).controller( 'BookingsAdminController', BookingsAdminController );
-	BookingsAdminController.$inject = [ '$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService' ];
+	BookingsAdminController.$inject = [ '$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService', '$timeout' ];
 
-	function BookingsAdminController( $scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService ) {
+	function BookingsAdminController( $scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout ) {
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
@@ -18,6 +18,7 @@
 			enquiry_id: "",
 			school_name: ""
 		}
+		vm.multiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id'};
 
 		vm.selectDate = function ( $event, num ) {
 			if ( num == 1 ) {
@@ -70,21 +71,6 @@
 				vm.booking.contact_person = vm.enquiry.school_contact_person;
 				vm.booking.contact_email = vm.enquiry.school_email_id;
 				vm.booking.contact_phone = vm.enquiry.school_phone_no;
-				for ( var v = 0; v < vm.enquiry.enquiries.length; v++ ) {
-					vm.enquiry.enquiries[ v ].quotations.push( {
-						createdon: moment(),
-						itinery: 0,
-						plan: 0,
-						transport: 0,
-						accomodation: 0,
-						food: 0,
-						entry: 0,
-						extras: []
-					} );
-					for ( var i = 0; i < vm.enquiry.enquiries[ v ].extras.length; i++ ) {
-						vm.enquiry.enquiries[ v ].quotations.extras.push( 0 );
-					}
-				}
 				vm.isSearched = true;
 			}
 		}
@@ -152,5 +138,13 @@
 		vm.removeExtraPay = function() {
 			vm.booking.amount_paid.splice(vm.booking.amount_paid.length-1, 1);
 		}
+
+		$timeout( function(){
+			if($state.params.enquiryId != "")  {  
+				vm.search.enquiry_id = $state.params.enquiryId;
+				vm.searches();
+			}
+		}, 1000 );
+
 	}
 }() );

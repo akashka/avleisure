@@ -5,14 +5,15 @@
     .module('trips')
     .controller('TripsListController', TripsListController);
 
-  TripsListController.$inject = ['TripsService', '$state', 'UsersService'];
+  TripsListController.$inject = ['TripsService', '$state', 'UsersService', 'BookingsService', '$timeout', '$scope'];
 
-  function TripsListController(TripsService, $state, UsersService) {
+  function TripsListController(TripsService, $state, UsersService, BookingsService, $timeout, $scope) {
     var vm = this;
 
     vm.trips = TripsService.query();
     vm.allTrips = TripsService.query();
     vm.users = UsersService.query();
+    vm.bookings = BookingsService.query();
 
     vm.search = {
       trip_id: "",
@@ -75,14 +76,6 @@
     vm.gotoNewTrip = function() {
         $state.go('trips.create');
     }
-
-    // vm.lr_from = {isOpened: false};
-    // vm.lr_to = {isOpened: false}; 
-
-    // vm.selectDate = function($event, num) {
-    //   if(num == 1) { vm.lr_from.isOpened = true; }
-    //   if(num == 2) { vm.lr_to.isOpened = true; }
-    // };
     
     vm.buildPager = function() {
       vm.pagedItems = [];
@@ -159,6 +152,17 @@
             }
         }
     }
+
+    $timeout(function() {
+        for(var e=0; e<vm.allTrips.length; e++) {
+          var temp = _.find(vm.bookings, function(o) {
+            return vm.allTrips[e].booking_id == o.booking_id;
+          });
+          vm.allTrips[e].booking = temp;
+        }
+        vm.trips = angular.copy(vm.allTrips);
+        $scope.$apply();
+    }, 1000);
 
   }
 }());

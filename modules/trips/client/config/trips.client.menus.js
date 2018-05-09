@@ -13,7 +13,7 @@
       state: 'trips',
       type: 'dropdown',
       roles: ['admin','user'],
-      position: 1
+      position: 5
     });
 
     
