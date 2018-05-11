@@ -25,9 +25,11 @@
             <th ng-click="vm.sortTable(9)">On Trip Expenses</th>
             <th ng-click="vm.sortTable(10)">Total Expenses</th>
             <th ng-click="vm.sortTable(11)">Savings</th>
+            <th ng-click="vm.sortTable(12)">Billing Amount</th>
+            <th ng-click="vm.sortTable(12)">GST Percentage</th>
             <th> </th>
             <th> </th>
-          </tr>
+          </tr> 
         </thead>
         <tbody>
           <tr ng-repeat="booking in vm.bookings">
@@ -45,8 +47,10 @@
             <td>{{vm.onTripExpenses(booking)}}</td>
             <td>{{vm.calculateExpenses(booking) + vm.onTripExpenses(booking)}}</td>
             <td>{{vm.calculateBalance(booking)}}</td>
+            <td>{{booking.billing.bill_amount}}</td>
+            <td>{{booking.billing.gst_percentage}}</td>
             <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
-            <!-- <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> -->
+             <td> <a class="btn btn-info">PRINT BILL</a> </td> 
           </tr>
         </tbody>
     </table>

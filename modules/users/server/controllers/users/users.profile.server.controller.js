@@ -227,7 +227,8 @@ exports.me = function (req, res) {
       phone_no: validator.escape(req.user.phone_no),
       alternate_no: validator.escape(req.user.alternate_no),
       address: validator.escape(req.user.address),
-      user_type: validator.escape(req.user.user_type)
+      user_type: validator.escape(req.user.user_type),
+      _id: validator.escape(req.user._id)
     };
   }
 

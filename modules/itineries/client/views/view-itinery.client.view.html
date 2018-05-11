@@ -1,6 +1,15 @@
 <section>
   <div class="page-header">
-    <h1 ng-bind="vm.itinery.title"></h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h1 ng-bind="vm.itinery.title"></h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="itineries.list">
+            <i class="glyphicon glyphicon-check"> LIST ITINERIES</i>
+          </a>
+        </div>
+      </div>
   </div>
   <small style="float:right;">
     <em class="text-muted">

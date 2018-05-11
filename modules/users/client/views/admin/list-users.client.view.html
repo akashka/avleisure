@@ -33,7 +33,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})"> 
+              <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" title="Click to view or edit this user detail"> 
                     <td>{{user.username}}</td>
                     <td>{{user.roles[0]}}</td>
                     <td>{{user.email}}</td>

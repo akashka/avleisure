@@ -1,6 +1,15 @@
 <section>
   <div class="page-header">
-    <h1>Trips</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Trips</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="trips.start()" ng-if="vm.isUserAdmin">
+            <i class="glyphicon glyphicon-check"> START TRIP</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <div class="row">
@@ -26,7 +35,6 @@
             <div class="row" role="toolbar">
                 <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
                 <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
-                <button type="button" class="btn btn-default" ui-sref="trips.start()">Start Trip</button>
             </div>
         </div>
   </div>
@@ -52,21 +60,25 @@
             <td>{{trip.booking.school_name}}</td>
             <td>{{trip.booking_id}}</td>
             <td>{{vm.findExecutiveName(trip.executive_id)}}</td>
-            <td>{{vm.findTripStatus(trip)}}</td>
-            <td>{{vm.calculateBalance(trip.transactions)}}</td>
-            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'">
-                <a class="btn btn-primary" ui-sref="trips.end({tripId: trip._id})">End Trip</a> 
+            <td ng-style="{color: (vm.findTripStatus(trip) == 'Ongoing' ? 'green' : '')}">
+                {{vm.findTripStatus(trip)}}
             </td>
-            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"></td>
+            <td ng-style="{color: (vm.calculateBalance(trip.transactions) <= 0 && vm.findTripStatus(trip) == 'Ongoing' ? 'red' : '')}">
+                {{vm.calculateBalance(trip.transactions)}}
+            </td>
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'" ng-if="vm.isUserAdmin">
+                <a class="btn btn-danger" ui-sref="trips.end({tripId: trip._id})">END TRIP</a> 
+            </td>
+            <td ng-show="vm.findTripStatus(trip) != 'Ongoing' || !vm.isUserAdmin"></td>
             <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
-                <a class="btn btn-primary" ui-sref="trips.add-expenses({tripId: trip._id})">Add Expenses</a> 
+                <a class="btn btn-success" ui-sref="trips.add-expenses({tripId: trip._id})">ADD EXPENSES</a> 
             </td>
             <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
             <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
             <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
-                <a class="btn btn-primary" ui-sref="trips.add-balance({tripId: trip._id})">Add Balance</a> 
+                <a class="btn btn-warning" ui-sref="trips.add-balance({tripId: trip._id})" ng-if="vm.isUserAdmin">ADD BALANCE</a> 
             </td>
-            <td> <a class="btn btn-primary" ui-sref="trips.view-passbook({tripId: trip._id})">View Passbook</a> </td> 
+            <td> <a class="btn btn-info" ui-sref="trips.view-passbook({tripId: trip._id})">VIEW PASSBOOK</a> </td> 
           </tr>
         </tbody>
     </table>

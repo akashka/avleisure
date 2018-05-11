@@ -5,15 +5,17 @@
     .module('trips')
     .controller('TripsListController', TripsListController);
 
-  TripsListController.$inject = ['TripsService', '$state', 'UsersService', 'BookingsService', '$timeout', '$scope'];
+  TripsListController.$inject = ['TripsService', '$state', 'UsersService', 'BookingsService', '$timeout', '$scope', 'Authentication'];
 
-  function TripsListController(TripsService, $state, UsersService, BookingsService, $timeout, $scope) {
+  function TripsListController(TripsService, $state, UsersService, BookingsService, $timeout, $scope, Authentication) {
     var vm = this;
 
     vm.trips = TripsService.query();
     vm.allTrips = TripsService.query();
     vm.users = UsersService.query();
     vm.bookings = BookingsService.query();
+    vm.authentication = Authentication;
+    vm.isUserAdmin = vm.authentication.user.roles.includes('admin');
 
     vm.search = {
       trip_id: "",
@@ -159,8 +161,12 @@
             return vm.allTrips[e].booking_id == o.booking_id;
           });
           vm.allTrips[e].booking = temp;
+          if(!vm.isUserAdmin && !vm.allTrips[e].executive_id.includes(vm.authentication.user._id)) {
+            vm.allTrips.splice(e, 1);
+            e--;
+          }
         }
-        vm.trips = angular.copy(vm.allTrips);
+        vm.trips = angular.copy(vm.allTrips);        
         $scope.$apply();
     }, 1000);
 

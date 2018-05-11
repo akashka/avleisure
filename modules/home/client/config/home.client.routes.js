@@ -15,7 +15,7 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         data: {
-          roles: ['user', 'admin']
+          roles: ['user', 'admin', 'marketing', 'executive']
         }
       })
   }

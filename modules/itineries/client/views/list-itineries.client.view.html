@@ -8,8 +8,8 @@
           <input class="form-control col-md-4 ng-pristine ng-untouched ng-valid ng-empty" type="text" ng-model="vm.search" placeholder="Search" ng-change="vm.figureOutItemsToDisplay()">
         </div>
         <div class="col-md-4" style="float: right; margin-top: 2em">
-          <a class="btn btn-primary" ui-sref="itineries.create">
-            <i class="glyphicon glyphicon-check"> New Itinery</i>
+          <a class="btn btn-primary" ui-sref="itineries.create" ng-if="vm.isUserAdmin">
+            <i class="glyphicon glyphicon-check"> NEW ITINERY</i>
           </a>
         </div>
       </div>
@@ -60,7 +60,7 @@
       </div>
   </div>
   <div class="list-group" ng-repeat="itinery in vm.itineries">
-    <a ui-sref="itineries.view({ itineryId: itinery._id })" class="list-group-item col-md-11">
+    <a ui-sref="itineries.view({ itineryId: itinery._id })" class="list-group-item col-md-11" title="Click to view more details">
       <small class="list-group-item-text" style="float:right;">
         Created on
         <span ng-bind="itinery.created | date:'mediumDate'"></span>
@@ -77,6 +77,11 @@
       </p>
       <p class="list-group-item-text">Package Type - {{itinery.package_type}}</p>
     </a>
-    <btn type="submit" class="btn btn-default col-md-1" style="float:right;margin-top:40px;margin-left:5px;width:7.5%;" ui-sref="itineries.edit({ itineryId: itinery._id })">Edit</btn>
+    <btn type="submit" class="btn btn-warning col-md-1" ng-if="vm.isUserAdmin" style="float:right;margin-top:40px;margin-left:5px;width:7.5%;" 
+        ui-sref="itineries.edit({ itineryId: itinery._id })">
+              <i class="glyphicon glyphicon-pencil">  EDIT</i>
+    </btn>
   </div>
+  <div class="col-md-12" style="margin-bottom:50px;"></div>
 </section>
+  

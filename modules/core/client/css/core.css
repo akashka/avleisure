@@ -184,3 +184,19 @@ input:checked + .slider:before {
 .south_india input:checked + .slider {
   background-color: #01FF70;
 }
+
+.booked {
+ background-color: #347a53;
+}
+  
+.followup {
+ background-color: #ed8b2c;
+}
+
+.quotation {
+ background-color: #dc7c7c;
+}
+
+.booked:hover, .followup:hover, .quotation:hover {
+  background-color: grey !important;
+}

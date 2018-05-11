@@ -9,7 +9,16 @@
 </style>
 <section>
   <div class="page-header">
-    <h1>End Trip</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>End Trip</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="trips.list()">
+            <i class="glyphicon glyphicon-check"> LIST TRIPS</i>
+          </a>
+        </div>
+    </div>
   </div>
   <form name="vm.form.tripForm" ng-submit="vm.save()" novalidate>
     <fieldset>
@@ -33,8 +42,8 @@
             <label class="control-label col-md-2" for="remarks">Remarks: </label>
             <input name="remarks" type="text" ng-model="vm.remarks" id="remarks" class="form-control col-md-10" style="width:75%;" placeholder="Remarks" autofocus>
           </div>
-          <div class="form-group col-md-12 col-md-offset-3">
-            <button style="text-align:center;" type="submit" class="btn btn-default">End Ride</button>
+          <div class="form-group col-md-6 text-center col-md-offset-3">
+            <button type="submit" class="btn btn-success">END RIDE</button>
           </div>
         </div>
       <!-- <div class="co-md-12 mr5" style="display:block !important;"> -->

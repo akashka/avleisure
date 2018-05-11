@@ -1,6 +1,13 @@
 <section>
   <div class="page-header">
-    <h1>Bookings</h1>
+    <div class="row">
+        <div class="col-md-6"> <h1>New Booking</h1> </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="bookings.list">
+            <i class="glyphicon glyphicon-check"> LIST BOOKINGS</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <div class="row">
@@ -99,9 +106,7 @@
         <div class="form-group col-md-6">
           <label class="control-label" for="tour_managers">Tour Managers</label>
           <div class="controls">
-            <select class="form-control" id="tour_managers" ng-model="vm.booking.tour_managers" ng-options="obj._id as obj.displayName for obj in vm.users">
-                <option value=""disabled>Select Tour Managers</option>                
-            </select>
+            <div class="multiselect" ng-dropdown-multiselect="" options="vm.users" selected-model="vm.booking.tour_managers" extra-settings="vm.multiselectSettings"></div>
           </div>
           <div ng-messages="vm.form.bookingForm.tour_managers.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking tour managers is required.</p>
@@ -135,8 +140,8 @@
         <div class="form-group col-md-12" style="border-bottom: 1px solid grey;"> 
           <div class="col-md-6"><h4>PAYMENTS RECEIVED FROM SCHOOL</h4></div> 
           <div class="form-group col-md-6"> 
-            <span ng-click="vm.addExtraPay()" style="cursor:pointer;padding:10px;background:green;color:white;min-width:25px;"> + </span>
-            <span ng-click="vm.removeExtraPay()" ng-show="vm.booking.amount_paid.length > 0" style="cursor:pointer;margin-left:15px;padding:10px;background:red;color:white;min-width:25px;"> - </span>
+            <span ng-click="vm.addExtraPay()" style="cursor:pointer;padding:10px;background:green;color:white;min-width:25px;"> + Receive Amt </span>
+            <span ng-click="vm.removeExtraPay()" ng-show="vm.booking.amount_paid.length > 0" style="cursor:pointer;margin-left:15px;padding:10px;background:red;color:white;min-width:25px;"> - Remove Amt</span>
           </div>
         </div>
         
@@ -192,8 +197,10 @@
           <hr>
         </div>
 
-        <button class="pull-right" type="submit" class="btn btn-default">{{vm.booking._id ? 'Update' : 'Save'}}</button>
-        <br><br><br>
+        <div class="col-md-12 text-center" style="margin-bottom:45px;margin-top:15px;">
+          <button type="submit" class="btn btn-success">{{vm.booking._id ? 'UPDATE' : 'SAVE'}}</button>
+        </div>
+
       </fieldset>
     </form>
   </div>

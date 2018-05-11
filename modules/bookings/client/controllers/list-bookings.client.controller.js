@@ -12,6 +12,7 @@
 
     vm.bookings = BookingsService.query();
     vm.allBookings = BookingsService.query();
+    vm.allTrips = TripsService.query();
 
     vm.search = {
       booking_id: "",
@@ -41,6 +42,7 @@
         }
         vm.bookings = searched;
     }
+
     vm.reset = function() {
       vm.bookings = vm.allBookings;
       vm.search = {
@@ -50,9 +52,11 @@
       // vm.lr_from = {isOpened: false};
       // vm.lr_to = {isOpened: false};
     }
+
     vm.gotoNewBooking = function() {
         $state.go('bookings.create');
     }
+
     vm.buildPager = function() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;
@@ -127,6 +131,31 @@
             }
             }
         }
+    }
+
+    vm.calculateDiff = function(sdate) {
+      var date2 = new Date();
+      var date1 = new Date(sdate);
+      var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+      return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    vm.calculateSmartRemark = function(booking) {
+      var trip = _.find(vm.allTrips, function(o) {
+          return o.booking_id == booking.booking_id
+      });
+      var isTripOn = false;
+      var isTripCompleted = false;
+      if(trip != undefined) {
+        if(trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
+        && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != "")
+          var isTripCompleted = true;
+        var isTripOn = true;
+      }
+      var dayDiff = vm.calculateDiff(booking.booking_date);
+      if(isTripCompleted) return("Trip is completed"); 
+      if(isTripOn) return("Trip is ongoing");
+      return ("Trip starts in " + dayDiff + " days");
     }
 
   }

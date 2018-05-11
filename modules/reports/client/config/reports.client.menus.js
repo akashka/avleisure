@@ -11,7 +11,7 @@
     menuService.addMenuItem('topbar', {
       title: 'Reports',
       state: 'reports',
-      roles: ['admin','user'],
+      roles: ['user', 'admin', 'marketing', 'executive'],
       position: 7
     });
 

@@ -1,6 +1,13 @@
 <section>
   <div class="page-header">
-    <h1>Bookings</h1>
+    <div class="row">
+        <div class="col-md-6"> <h1>New Booking</h1> </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ng-click="vm.gotoNewBooking()">
+            <i class="glyphicon glyphicon-check"> CREATE BOOKING</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <div class="row">
@@ -26,7 +33,6 @@
             <div class="row" role="toolbar">
                 <button type="button" class="btn btn-default" ng-click="vm.searches()">Search</button>
                 <button type="button" class="btn btn-default" ng-click="vm.reset()">Reset</button>
-                <button type="button" class="btn btn-default" ng-click="vm.gotoNewBooking()">New Booking</button>
             </div>
         </div>
   </div>
@@ -41,6 +47,7 @@
             <th ng-click="vm.sortTable(2)">Booking ID</th>
             <th ng-click="vm.sortTable(3)">Booked By</th>
             <th ng-click="vm.sortTable(4)">School Name</th>
+            <th ng-click="vm.sortTable(5)">Smart Remark</th>
             <th> </th>
             <th> </th>
           </tr>
@@ -52,8 +59,9 @@
             <td>{{booking.booking_id}}</td>
             <td>{{booking.user.displayName}}</td>
             <td>{{booking.school_name}}</td>
-            <td> <a class="btn btn-primary" ui-sref="bookings.expense({bookingId: booking._id})">ADD EXPENSE</a> </td>
-            <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
+            <td>{{vm.calculateSmartRemark(booking)}}</td>
+            <td> <a class="btn btn-info" ui-sref="bookings.expense({bookingId: booking._id})">ADD EXPENSE</a> </td>
+            <td> <a class="btn btn-warning" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
             <!-- <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> -->
           </tr>
         </tbody>

@@ -5,14 +5,16 @@
     .module('enquiries')
     .controller('EnquiriesListController', EnquiriesListController);
 
-  EnquiriesListController.$inject = ['EnquiriesService', '$state'];
+  EnquiriesListController.$inject = ['EnquiriesService', '$state', 'Authentication', 'BookingsService'];
 
-  function EnquiriesListController(EnquiriesService, $state) {
+  function EnquiriesListController(EnquiriesService, $state, Authentication, BookingsService) {
     var vm = this;
 
     vm.enquiries = EnquiriesService.query();
     vm.allEnquiries = EnquiriesService.query();
-
+    vm.allBookings = BookingsService.query();
+    vm.authentication = Authentication;
+    vm.isUserAdmin = vm.authentication.user.roles.includes('admin');
     vm.search = {
       enquiry_id: "",
       school_name: ""
@@ -56,13 +58,9 @@
         $state.go('enquiries.create');
     }
 
-    // vm.lr_from = {isOpened: false};
-    // vm.lr_to = {isOpened: false}; 
-
-    // vm.selectDate = function($event, num) {
-    //   if(num == 1) { vm.lr_from.isOpened = true; }
-    //   if(num == 2) { vm.lr_to.isOpened = true; }
-    // };
+    vm.findBackgroundClass = function(enquiry) {
+      // if(enquiry.)
+    }
     
     vm.buildPager = function() {
       vm.pagedItems = [];
@@ -138,6 +136,29 @@
             }
             }
         }
+    }
+
+    vm.findBackgroundClass = function(enquiry) {
+      var isQuotationGiven = false;
+      var isBookingDone = false;
+      for(var e=0; e<enquiry.enquiries.length; e++) {
+        if(enquiry.enquiries[e].quotations.length <= 0) isQuotationGiven = true;
+      }
+      var enq = _.find(vm.allBookings, function(o) {
+          return o.enquiry_id == enquiry.enquiry_id
+      });
+      if(enq != undefined) isBookingDone = true;
+      if(isBookingDone) return "booked";
+      else if(isQuotationGiven) return "followup";
+      else return "quotation";
+    }
+
+    vm.countSimilarSchool = function(school_name) {
+      var found = _.filter(vm.allEnquiries, function(o){
+          return o.school_name == school_name
+      });
+      if(found.length-1 <= 0) return '';
+      return found.length-1;
     }
 
   }

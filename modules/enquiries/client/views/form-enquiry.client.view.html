@@ -9,7 +9,16 @@
 </style>
 <section>
   <div class="page-header">
-    <h1>{{vm.enquiry._id ? 'Edit Enquiry' : 'New Enquiry'}}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>{{vm.enquiry._id ? 'Edit Enquiry' : 'New Enquiry'}}</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="enquiries.list()">
+            <i class="glyphicon glyphicon-check"> LIST ENQUIRIES</i>
+          </a>
+        </div>
+    </div>
   </div>
   <form name="vm.form.enquiryForm" ng-submit="vm.save()" novalidate>
     <fieldset>
@@ -150,15 +159,19 @@
             <input name="remarks" type="text" ng-model="enquiry.remarks" id="remarks" class="form-control" placeholder="Remarks">
           </div>
         </div>
-        <div class="form-group pull-right">
-          <button type="button" ng-click="vm.rmEnquiry()" class="btn btn-default" ng-show="vm.enquiry.enquiries.length > 1">Delete</button>
-        </div>
-        <div class="form-group pull-right mr5">
-          <button type="button" ng-click="vm.add()" class="btn btn-default">Add</button>
+        <div class="form-group pull-right col-md-12" style="margin-top:15px;">
+          <button type="button" ng-click="vm.rmEnquiry()" class="btn btn-danger" ng-show="vm.enquiry.enquiries.length > 1">
+              <i class="glyphicon glyphicon-minus">  DELETE CLASS</i>
+          </button>
+          <button type="button" ng-click="vm.add()" class="btn btn-info">
+              <i class="glyphicon glyphicon-plus">  ADD CLASS</i>
+          </button>
         </div>
       </div>
       <!-- <div class="co-md-12 mr5" style="display:block !important;"> -->
-      <button type="submit" class="btn btn-default">{{vm.enquiry._id ? 'Update' : 'Save'}}</button>
+      <div class="col-md-12 text-center" style="margin-bottom:30px;">
+        <button type="submit" class="btn btn-success">{{vm.enquiry._id ? 'UPDATE' : 'SAVE'}}</button>
+      </div>
       <!-- </div> -->
     </fieldset>
   </form>

@@ -1,21 +1,25 @@
 ( function () {
 	'use strict';
 	angular.module( 'trips' ).controller( 'TripsAdminController', TripsAdminController );
-	TripsAdminController.$inject = [ '$scope', '$state', '$window', 'tripResolve', 'Authentication', 'Notification', 'TripsService', 'ItineriesService', '$timeout','UsersService' ];
+	TripsAdminController.$inject = [ '$scope', '$state', '$window', 'tripResolve', 'Authentication', 'Notification', 'TripsService', 'ItineriesService', '$timeout', 'UsersService', 'BookingsService', 'EnquiriesService' ];
 
-	function TripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout,UsersService ) {
+	function TripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout, UsersService, BookingsService, EnquiriesService) {
 		var vm = this;
 		vm.trip = trip;
 		vm.allTrips = TripsService.query();
 		vm.itineries = ItineriesService.query();
 		vm.authentication = Authentication;
 		vm.users = UsersService.query();
+		vm.bookings = BookingsService.query();
+		vm.enquiries = EnquiriesService.query();
 		vm.form = {};
 		vm.remove = remove;
 		vm.save = save;
 		vm.rmTrip  = rmTrip;
 		vm.updateTransactions = updateTransactions;
 		vm.amount = '';
+		vm.school_name = '';
+		vm.trip.executive_id = [];
 
 		$timeout( function(){
 			if($state.params.tripId) {
@@ -26,11 +30,19 @@
 					}
 				}
 			}
-			vm.ongoingTrip = _.filter(vm.trip, function(trip) { 
+			vm.ongoingTrip = _.filter(vm.allTrips, function(trip) { 
 				return (trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
         			&& trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != ""); 
 			});
-
+			for(var v=0; v<vm.users.length; v++) {
+				var isOn = _.filter(vm.ongoingTrip, function(o) {
+					return o.executive_id == vm.users[v]._id
+				});
+				if(isOn.length > 0) {
+					vm.users.splice(v,1);
+					v--;
+				}
+			}
 		}, 1000 );
 
 		vm.selectDate = function ( $event, num ) {
@@ -112,11 +124,52 @@
 		function rmTrip(){
 			vm.trip.trips.pop();
 		}
+
+		vm.onSchoolNameChanged = function() {
+			// vm.school_name
+		}
 		
 		vm.multiselectSettings = { 
 			checkBoxes: true, 
-			displayProp: "displayName"
+			displayProp: "displayName",
+			idProp: "_id"
 		};
+
+		vm.school_names = [];
+		vm.complete = function(selectedSchool) {
+			vm.school_names = [];
+			var output=[];
+			angular.forEach(vm.bookings,function(clts){
+				if(clts.school_name.toLowerCase().indexOf(selectedSchool.toLowerCase())>=0){
+					output.push(clts);
+				}
+			});
+			vm.school_names=output;
+			vm.isBookingIdCorrect = true;
+		}
+
+		vm.fillTextbox=function(string){
+			vm.school_name=string.school_name;
+			vm.school_names=[];
+			vm.trip.booking_id = _.find(vm.bookings, function(o) {
+				return o.school_name == string.school_name;
+			}).booking_id;
+		}
+		
+		vm.isBookingIdCorrect = true;
+		vm.OnBookingIdChange = function() {
+			var cd = _.find(vm.bookings, function(o) {
+				return o.booking_id == vm.trip.booking_id;
+			});
+			if(cd != undefined) {
+				vm.school_name = cd.school_name;
+				vm.isBookingIdCorrect = true;
+			}
+			else {
+				vm.school_name = '';
+				vm.isBookingIdCorrect = false;
+			}
+		}
 
 	}
 }() );

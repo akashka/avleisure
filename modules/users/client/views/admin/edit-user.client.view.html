@@ -1,7 +1,15 @@
 <section>
-  <div class="page-header">
-    <h1>User <span ng-bind="vm.user.username"></span></h1>
+  <div class="page-header row">
+    <div class="col-md-6">
+      <h1>User <span ng-bind="vm.user.username"></span></h1>
+    </div>
+    <div class="col-md-4" style="float: right; margin-top: 2em">
+      <a class="btn btn-primary" ui-sref="admin.users">
+        <i class="glyphicon glyphicon-check"> LIST USER</i>
+      </a>
+    </div>
   </div>
+
   <div class="col-md-12">
     <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
       <fieldset>
@@ -26,6 +34,8 @@
                 <option disabled selected value="">-- choose a Role --</option>
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
+                <option value="marketing">Marketing</option>
+                <option value="executive">Executive</option>
             </select>
             <div ng-messages="vm.userForm.roles.$error" role="alert">
               <p class="help-block error-text" ng-message="required">At least one role is required.</p>
@@ -80,8 +90,8 @@
           <label for="address">Address</label>
            <textarea rows="1" id="address" name="address" class="form-control" ng-model="vm.user.address" placeholder="Address"></textarea> 
         </div>
-        <div class="form-group" style="text-align:center;">
-          <input type="submit" value="Update" class="btn btn-default">
+        <div class="form-group text-center" style="text-align:center;">
+          <input type="submit" value="UPDATE" class="btn btn-success">
         </div>
       </fieldset>
     </form>

@@ -12,7 +12,7 @@
       title: 'Bookings',
       state: 'bookings',
       type: 'dropdown',
-      roles: ['admin','user'],
+      roles: ['admin', 'marketing'],
       position: 4
     });
 
@@ -20,7 +20,7 @@
       title: 'Accounts',
       state: 'accounts',
       type: 'dropdown',
-      roles: ['admin','user'],
+      roles: ['admin'],
       position: 6
     });
 

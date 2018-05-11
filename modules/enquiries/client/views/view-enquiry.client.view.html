@@ -10,7 +10,16 @@
 <section>
 
   <div class="page-header">
-    <h1>View Enquiry</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>View Enquiry</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="enquiries.list()">
+            <i class="glyphicon glyphicon-check"> LIST ENQUIRIES</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <form name="vm.form.enquiryForm" ng-submit="vm.save()" novalidate>
@@ -80,6 +89,8 @@
           <label class="control-label" for="class">Class: {{enquiry.school_class}}</label>
         </div>
       </div>
+
+      <div style="margin-bottom:50px;" class="col-md-12"></div>
 
     </fieldset>
   </form>

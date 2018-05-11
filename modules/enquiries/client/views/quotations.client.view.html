@@ -1,6 +1,15 @@
 <section>
   <div class="page-header">
-    <h1>Quotations</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Quotations</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="enquiries.list()">
+            <i class="glyphicon glyphicon-check"> LIST ENQUIRIES</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <div class="row">
@@ -170,10 +179,13 @@
                   <div class="row">{{vm.findTotal(quot)}}</div>           
               </div>            
           </div>
-          <div class="form-group col-md-12" style="margin-top:10px">
-            <button class="btn btn-default" ng-click="vm.save()">Save</button>
-            <button class="btn btn-default" ng-click="vm.showItineryDetail(enq.itineries)">Itinery Details</button>
+          <div class="form-group col-md-12" style="margin-top:1px;">
+            <button class="btn btn-info" ng-click="vm.showItineryDetail(enq.itineries)">ITINERY DETAIL</button>
           </div>
+        </div>
+
+        <div class="form-group col-md-12" style="margin-top:10px;text-align:center;">
+            <button class="btn btn-success" ng-click="vm.save()">SAVE</button>
         </div>
 
       </fieldset>

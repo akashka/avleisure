@@ -12,7 +12,7 @@
       title: 'Itineries',
       state: 'itineries',
       type: 'dropdown',
-      roles: ['admin','user'],
+      roles: ['user', 'admin', 'marketing'],
       position: 2
     });
 
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'itineries', {
       title: 'Create Itineries',
       state: 'itineries.create',
-      roles: ['*']
+      roles: ['admin']
     });
 
   }

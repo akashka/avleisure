@@ -12,11 +12,9 @@
       title: 'Trips',
       state: 'trips',
       type: 'dropdown',
-      roles: ['admin','user'],
+      roles: ['admin', 'executive'],
       position: 5
     });
-
-    
 
     // Add the dropdown list item
     menuService.addSubMenuItem('topbar', 'trips', {
@@ -27,7 +25,7 @@
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'Start Trip',
       state: 'trips.start',
-      roles: ['*']
+      roles: ['admin']
     });
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'End Trip',

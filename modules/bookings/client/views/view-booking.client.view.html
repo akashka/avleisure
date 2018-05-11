@@ -6,7 +6,14 @@
 <section>
 
   <div class="page-header">
-    <h1>View Booking</h1>
+    <div class="row">
+        <div class="col-md-6"> <h1>View Booking</h1> </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="bookings.list">
+            <i class="glyphicon glyphicon-check"> LIST BOOKINGS</i>
+          </a>
+        </div>
+    </div>
   </div>
 
   <form name="vm.form.bookingForm" ng-submit="vm.save()" novalidate>

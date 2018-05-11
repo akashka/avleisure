@@ -5,13 +5,16 @@
     .module('itineries')
     .controller('ItineriesListController', ItineriesListController);
 
-  ItineriesListController.$inject = ['ItineriesService', '$filter'];
+  ItineriesListController.$inject = ['ItineriesService', '$filter', 'Authentication'];
 
-  function ItineriesListController(ItineriesService, $filter) {
+  function ItineriesListController(ItineriesService, $filter, Authentication) {
     var vm = this;
     vm.allItineries = ItineriesService.query();
     vm.itineries = ItineriesService.query();
     vm.figureOutItemsToDisplay = figureOutItemsToDisplay;
+    vm.authentication = Authentication;
+
+    vm.isUserAdmin = vm.authentication.user.roles.includes('admin');
 
     function figureOutItemsToDisplay() {
       vm.filteredItems = $filter('filter')(vm.allItineries, {

@@ -12,7 +12,7 @@
       title: 'Enquiries',
       state: 'enquiries',
       type: 'dropdown',
-      roles: ['admin','user'],
+      roles: ['user', 'admin', 'marketing'],
       position: 3
     });
 
@@ -20,7 +20,7 @@
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'List Enquiries',
       state: 'enquiries.list',
-      roles: ['admin']
+      roles: ['*']
     });
 
     menuService.addSubMenuItem('topbar', 'enquiries', {
@@ -32,7 +32,7 @@
     menuService.addSubMenuItem('topbar', 'enquiries', {
       title: 'Quotations',
       state: 'quotations',
-      roles: ['admin','user']
+      roles: ['admin']
     });
 
   }

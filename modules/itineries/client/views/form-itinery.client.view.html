@@ -1,12 +1,21 @@
 <section>
   <div class="page-header">
-    <h1>{{vm.itinery._id ? 'Edit Itinery' : 'New Itinery'}}</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h1>{{vm.itinery._id ? 'Edit Itinery' : 'New Itinery'}}</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="itineries.list">
+            <i class="glyphicon glyphicon-check"> LIST ITINERIES</i>
+          </a>
+        </div>
+      </div>
   </div>
-  <div class="pull-right">
+  <!-- <div class="pull-right">
     <a ng-show="vm.itinery._id" class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>
-  </div>
+  </div> -->
   <div class="col-md-12">
     <form name="vm.form.itineryForm" ng-submit="vm.save(vm.form.itineryForm.$valid)" novalidate>
       <fieldset>
@@ -58,8 +67,8 @@
           <label class="control-label" for="description">Description</label>
           <textarea name="description" data-ng-model="vm.itinery.description" id="description" class="form-control" rows="10" placeholder="Description"></textarea>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.itinery._id ? 'Update' : 'Create'}}</button>
+        <div class="form-group" style="text-align:center;padding-bottom:20px;">
+          <button type="submit" class="btn btn-success">{{vm.itinery._id ? 'UPDATE' : 'CREATE'}}</button>
         </div>
       </fieldset>
     </form>

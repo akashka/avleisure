@@ -9,7 +9,16 @@
 </style>
 <section>
   <div class="page-header">
-    <h1>Start Trip</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Start Trip</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="trips.list()">
+            <i class="glyphicon glyphicon-check"> LIST TRIPS</i>
+          </a>
+        </div>
+    </div>
   </div>
   <form name="vm.form.tripForm" ng-submit="vm.save('receivedAmount')" novalidate>
     <fieldset>
@@ -43,12 +52,26 @@
         </div>
         </div>
         <div class="form-group col-md-6 col-md-offset-3">
+            <label class="control-label col-md-3" for="bookingId">School Name: </label>
+            <div class="col-md-9">
+                <input id="school_name" type="text" class="form-control" ng-model="vm.school_name" 
+                    placeholder="Enter School Name" ng-required="true" ng-keyup="vm.complete(vm.school_name)" />
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="client in vm.school_names" ng-click="vm.fillTextbox(client)">{{client.school_name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="bookingId">Booking ID.: </label>
           <div class="col-md-9">
-          <input name="bookingId" type="text" ng-model="vm.trip.booking_id" id="bookingId" class="form-control" placeholder="Booking Id" required autofocus>
+          <input name="bookingId" type="text" ng-model="vm.trip.booking_id" id="bookingId" 
+            ng-change="vm.OnBookingIdChange()" class="form-control" placeholder="Booking Id" required autofocus>
           <div ng-messages="vm.form.tripForm.bookingId.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Trip booking Id is required.</p>
           </div>
+          <p style="color:red" ng-if="!vm.isBookingIdCorrect">
+            Trip booking Id is invalid.
+          </p>
         </div>
         </div>
         <div class="form-group col-md-6 col-md-offset-3">
@@ -57,8 +80,8 @@
             <input name="remarks" type="text" ng-model="vm.remarks" id="remarks" class="form-control" placeholder="Remarks">
           </div>
         </div>
-        <div class="form-group col-md-6 col-md-offset-3">
-          <button style="text-align:center;" type="submit" class="btn btn-default">Start Trip</button>
+        <div class="text-center form-group col-md-6 col-md-offset-3">
+          <button type="submit" class="btn btn-success">START TRIP</button>
         </div>
       </div>
       <!-- <div class="co-md-12 mr5" style="display:block !important;"> -->
