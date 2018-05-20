@@ -43,145 +43,191 @@
     <form name="vm.form.itineryForm" novalidate>
       <fieldset>
 
-        <div class="col-md-6" style="border-right:3px solid grey;">
-            <div class="form-group col-md-6">
-            <label class="control-label" for="enquiry_id">Enquiry ID: {{vm.enquiry.enquiry_id}}</label>
+        <div class="col-md-12">
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}}</label>
             </div>
-            <div class="form-group col-md-6">
-            <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_email_id">Email ID: {{vm.enquiry.school_email_id}}</label>
             </div>
-            <div class="form-group col-md-6">
-            <label class="control-label" for="school_email_id">Email ID: {{vm.enquiry.school_email_id}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_phone_no">Phone No: {{vm.enquiry.school_phone_no}}</label>
             </div>
-            <div class="form-group col-md-6">
-            <label class="control-label" for="school_contact_person">Contact Person: {{vm.enquiry.school_contact_person}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_contact_person">Contact Person: {{vm.enquiry.school_contact_person}}</label>
             </div>
-            <div class="form-group col-md-6">
-            <label class="control-label" for="school_phone_no">Phone No: {{vm.enquiry.school_phone_no}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="enquired_by">Enquired By: 
+                    <span ng-repeat="enq in vm.enquiry.enquiry_by"> {{enq.displayName}},  </span> </label>
             </div>
-            <div class="form-group col-md-6">
-            <label class="control-label" for="enquired_by">Enquired By: {{vm.enquiry.enquired_by}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="alternate_email_id">Alternate Email: {{vm.enquiry.alternate_email_id}}</label>
             </div>
-            <div class="form-group col-md-12">
-            <label class="control-label" for="school_address">Address: {{vm.enquiry.school_address}}</label>
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_phone_no">Alternate Phone: {{vm.enquiry.alternate_phone_no}}</label>
             </div>
-        </div>
-        <div class="col-md-6">
-            <h5><b>Itinery: <u>{{vm.itineryDescription.title}}</u></b></h5>
-            {{vm.itineryDescription.description}}
+            <div class="form-group col-md-3">
+                <label class="control-label" for="school_address">Address: {{vm.enquiry.school_address}}</label>
+            </div>
         </div>
 
-        <div class="form-group col-md-12 table_rows_set" ng-repeat="enq in vm.enquiry.enquiries">
-          <hr>
-          <div class="col-md-4">
-              <div class="row"><b>Date of Quotation:</b></div>
-              <div class="row">
-                  <div class="col-md-6"><b>Itinery </b></div>
-                  <div class="col-md-6">{{vm.findItineryName(enq.itineries)}}</div>
-              </div>
-              <div class="row">
-                  <div class="col-md-6"><b>Plan </b></div>
-                  <div class="col-md-6">{{enq.plan}}</div>
-              </div>
-              <div class="row" ng-repeat="trans in enq.transport track by $index">
-                  <div class="col-md-6" ng-if="$index == 0"><b>Transport </b></div>
-                  <div class="col-md-6" ng-if="$index != 0"></div>
-                  <div class="col-md-6">{{trans}}</div>
-              </div>
-              <div class="row" ng-repeat="acc in enq.accomodation track by $index">
-                  <div class="col-md-6" ng-if="$index == 0"><b>Accomodation </b></div>
-                  <div class="col-md-6" ng-if="$index != 0"></div>                  
-                  <div class="col-md-6">{{acc}}</div>
-              </div>
-              <div class="row" ng-repeat="food in enq.food track by $index">
-                  <div class="col-md-6" ng-if="$index == 0"><b>Food </b></div>
-                  <div class="col-md-6" ng-if="$index != 0"></div>                  
-                  <div class="col-md-6">{{food}}</div>
-              </div>
-              <div class="row" ng-repeat="sharing in enq.sharing track by $index">
-                  <div class="col-md-6" ng-if="$index == 0"><b>Sharing </b></div>
-                  <div class="col-md-6" ng-if="$index != 0"></div>                  
-                  <div class="col-md-6">{{sharing}}</div>
-              </div>
-              <div class="row" ng-repeat="package_type in enq.package_type track by $index">
-                  <div class="col-md-6" ng-if="$index == 0"><b>Package Type</b></div>
-                  <div class="col-md-6" ng-if="$index != 0"></div>                  
-                  <div class="col-md-6">{{package_type}}</div>
-              </div>
-              <div class="row"><div class="col-md-12"><b>Entry</b></div></div>
-              <div class="row">
-                <div class="col-md-12">
-                    <b>Other Expenses</b>
-                    <span ng-click="vm.addExtra($index)" style="cursor:pointer;padding:10px;background:green;color:white;"> + </span>
-                    <span ng-click="vm.removeExtra($index)" ng-show="enq.extras.length > 0" style="cursor:pointer;margin-left:15px;padding:10px;background:red;color:white;"> - </span>
+        <div class="form-group col-md-12" ng-repeat="enq in vm.enquiry.enquiries">
+            <ul class="nav nav-tabs">
+                <li ng-class="{active:isSet(1)}"><a ng-click="setTab(1)" href="#Details">Details</a></li>
+                <li ng-class="{active:isSet(2)}"><a ng-click="setTab(2)" href="#Existing">Existing Quotations</a></li>
+                <li ng-class="{active:isSet(3)}"><a ng-click="setTab(3)" href="#New">New Quotation</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+                <!-- Details -->
+                <div id="Details" class="tab-pane fade in" ng-class="{active:isSet(1)}">
+                    <div class="col-md-12 card">
+                        <div class="col-md-6">
+                            <br>
+                            <b>Plan: </b> {{enq.plan}}
+                            <br><br>
+                            <b>Package Type: </b> {{enq.package_type}}
+                            <br><br>
+                            <b>Class: </b> {{enq.school_class}}
+                            <br><br>
+                            <b>No Of Students: </b> {{enq.no_of_students}}
+                            <br><br>
+                            <b>No Of Teachers: </b> {{enq.no_of_teachers}}
+                            <br><br>
+                            <b>Remarks: </b> {{enq.remarks}}
+                            <br><br>
+                        </div>
+                        <div class="col-md-6">
+                            <br>
+                            <h5><b>Itinery: <u>{{vm.findItinery(enq.itineries).title}}</u></b></h5>
+                            <span style="overflow: hidden; display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical;">{{vm.findItinery(enq.itineries).description}}</span>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="row" ng-repeat="ext in enq.extras track by $index">
-                    <input name="ext" type="text" ng-model="ext" class="form-control" required autofocus>
-              </div>
-              <div class="row"> <b>Total</b> </div>
-          </div>
-          <div class="col-md-2">
-                <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
-                <div class="row">
-                    <input name="itinery" type="text" ng-model="enq.quotations[0].itinery" class="form-control" required autofocus>
+
+                <!-- Existing Quotation  -->
+                <div id="Existing" class="tab-pane fade in" ng-class="{active:isSet(2)}">
+                    <div class="col-md-12 card table_rows_set">
+                        <div class="col-md-4">
+                            <div class="row"><b>Date of Quotation:</b></div>
+                            <div class="row" ng-repeat="trans in enq.transport track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Transport </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>
+                                <div class="col-md-6">{{trans}}</div>
+                            </div>
+                            <div class="row" ng-repeat="trans in enq.extra_transport track by $index">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">{{trans}}</div>
+                            </div>
+                            <div class="row" ng-repeat="acc in enq.accomodation track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Accomodation </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>                  
+                                <div class="col-md-6">{{acc}}</div>
+                            </div>
+                            <div class="row" ng-repeat="acc in enq.extra_accomodation track by $index">
+                                <div class="col-md-6"></div>                  
+                                <div class="col-md-6">{{acc}}</div>
+                            </div>
+                            <div class="row" ng-repeat="food in enq.food track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Food </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>                  
+                                <div class="col-md-6">{{food}}</div>
+                            </div>
+                            <div class="row" ng-repeat="food in enq.extra_food track by $index">
+                                <div class="col-md-6"></div>                  
+                                <div class="col-md-6">{{food}}</div>
+                            </div>
+                            <div class="row" ng-repeat="sharing in enq.sharing track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Sharing </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>                  
+                                <div class="col-md-6">{{sharing}}</div>
+                            </div>
+                            <div class="row" ng-repeat="sharing in enq.extra_sharing track by $index">
+                                <div class="col-md-6"></div>                  
+                                <div class="col-md-6">{{sharing}}</div>
+                            </div>
+                            <div class="row" ng-repeat="entry in enq.entry track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Entry </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>                  
+                                <div class="col-md-6">{{entry}}</div>
+                            </div>
+                            <div class="row" ng-repeat="ext in enq.extras track by $index">
+                                <div class="col-md-6" ng-if="$index == 0"><b>Other Expenses </b></div>
+                                <div class="col-md-6" ng-if="$index != 0"></div>
+                                <div class="col-md-6">{{ext}}</div>
+                            </div>
+                            <div class="row"> <b>Total</b> </div>
+                        </div>
+                        <div class="col-md-8" style="overflow-x: scroll;padding: 0;float: left;display: flex;">
+                            <div class="col-md-4" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
+                                <div class="row">{{quot.createdon| date:'dd/MMM/yyyy'}}</div>
+                                <div class="row" ng-repeat="transport in quot.transport track by $index">
+                                    {{transport}}
+                                </div>
+                                <div class="row" ng-repeat="transport in quot.extra_transport track by $index">
+                                    {{transport}}
+                                </div>
+                                <div class="row" ng-repeat="accomodation in quot.accomodation track by $index">
+                                    {{accomodation}}
+                                </div>
+                                <div class="row" ng-repeat="accomodation in quot.exra_accomodation track by $index">
+                                    {{accomodation}}
+                                </div>
+                                <div class="row" ng-repeat="food in quot.food track by $index">
+                                    {{food}}
+                                </div>
+                                <div class="row" ng-repeat="food in quot.extra_food track by $index">
+                                    {{food}}
+                                </div>
+                                <div class="row" ng-repeat="sharing in quot.sharing track by $index">
+                                    {{sharing}}
+                                </div>
+                                <div class="row" ng-repeat="sharing in quot.extra_sharing track by $index">
+                                    {{sharing}}
+                                </div>
+                                <div class="row" ng-repeat="entry in quot.entry track by $index">
+                                    {{entry}}
+                                </div>
+                                <div class="row" ng-repeat="ext in quot.extras track by $index">
+                                    {{ext}}
+                                </div> 
+                                <div class="row">{{vm.findTotal(quot)}}</div>           
+                            </div>            
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
-                    <input name="plan" type="text" ng-model="enq.quotations[0].plan" class="form-control" required>
+
+                <!-- New Quotation  -->
+                <div id="New" class="tab-pane fade in" ng-class="{active:isSet(3)}">
+                    <div class="col-md-12 card table_rows_set">
+                        <div class="col-md-2">
+                                <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
+                                <div class="row" ng-repeat="transport in enq.quotations[0].transport track by $index">
+                                    <input name="transport" type="text" ng-model="transport" class="form-control" ng-change="vm.onValChange(transport, enq.quotations[0].transport, $index)" required>
+                                </div>
+                                <div class="row" ng-repeat="accomodation in enq.quotations[0].accomodation track by $index">
+                                    <input name="accomodation" type="text" ng-model="accomodation" class="form-control" ng-change="vm.onValChange(accomodation, enq.quotations[0].accomodation, $index)" required>
+                                </div>
+                                <div class="row" ng-repeat="food in enq.quotations[0].food track by $index">
+                                    <input name="food" type="text" ng-model="food" class="form-control" ng-change="vm.onValChange(food, enq.quotations[0].food, $index)" required>
+                                </div>
+                                <div class="row" ng-repeat="sharing in enq.quotations[0].sharing track by $index">
+                                    <input name="sharing" type="text" ng-model="sharing" class="form-control" ng-change="vm.onValChange(sharing, enq.quotations[0].sharing, $index)" required>
+                                </div>
+                                <div class="row">
+                                    <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required>
+                                </div>
+                                <div class="row"> &nbsp; </div>
+                                <div class="row" ng-repeat="ext in enq.quotations[0].extras track by $index">
+                                    <input type="text" ng-model="ext" class="form-control" ng-change="vm.onValChange(ext, enq.quotations[0].extras, $index)" required>
+                                </div>
+                                <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="row" ng-repeat="transport in enq.quotations[0].transport track by $index">
-                    <input name="transport" type="text" ng-model="transport" class="form-control" ng-change="vm.onValChange(transport, enq.quotations[0].transport, $index)" required>
-                </div>
-                <div class="row" ng-repeat="accomodation in enq.quotations[0].accomodation track by $index">
-                    <input name="accomodation" type="text" ng-model="accomodation" class="form-control" ng-change="vm.onValChange(accomodation, enq.quotations[0].accomodation, $index)" required>
-                </div>
-                <div class="row" ng-repeat="food in enq.quotations[0].food track by $index">
-                    <input name="food" type="text" ng-model="food" class="form-control" ng-change="vm.onValChange(food, enq.quotations[0].food, $index)" required>
-                </div>
-                <div class="row" ng-repeat="sharing in enq.quotations[0].sharing track by $index">
-                    <input name="sharing" type="text" ng-model="sharing" class="form-control" ng-change="vm.onValChange(sharing, enq.quotations[0].sharing, $index)" required>
-                </div>
-                <div class="row" ng-repeat="package_type in enq.quotations[0].package_type track by $index">
-                    <input name="package_type" type="text" ng-model="package_type" class="form-control" ng-change="vm.onValChange(package_type, enq.quotations[0].package_type, $index)" required>
-                </div>
-                <div class="row">
-                    <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required>
-                </div>
-                <div class="row"> &nbsp; </div>
-                <div class="row" ng-repeat="ext in enq.quotations[0].extras track by $index">
-                    <input type="text" ng-model="ext" class="form-control" ng-change="vm.onValChange(ext, enq.quotations[0].extras, $index)" required>
-                </div>
-                <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
-          </div>
-          <div class="col-md-6" style="overflow-x: scroll;padding: 0;float: left;display: flex;">
-              <div class="col-md-4" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
-                  <div class="row">{{quot.createdon| date:'dd/MMM/yyyy'}}</div>
-                  <div class="row">{{quot.itinery}}</div>
-                  <div class="row">{{quot.plan}}</div>
-                  <div class="row" ng-repeat="transport in quot.transport track by $index">
-                      {{transport}}
-                  </div>
-                  <div class="row" ng-repeat="accomodation in quot.accomodation track by $index">
-                      {{accomodation}}
-                  </div>
-                  <div class="row" ng-repeat="food in quot.food track by $index">
-                      {{food}}
-                  </div>
-                  <div class="row" ng-repeat="sharing in quot.sharing track by $index">
-                      {{sharing}}
-                  </div>
-                  <div class="row" ng-repeat="package_type in quot.package_type track by $index">
-                      {{package_type}}
-                  </div>
-                  <div class="row">{{quot.entry}}</div>
-                  <div class="row"> &nbsp; </div>
-                  <div class="row" ng-repeat="ext in quot.extras track by $index">{{ext}}</div> 
-                  <div class="row">{{vm.findTotal(quot)}}</div>           
-              </div>            
-          </div>
-          <div class="form-group col-md-12" style="margin-top:1px;">
-            <button class="btn btn-info" ng-click="vm.showItineryDetail(enq.itineries)">ITINERY DETAIL</button>
-          </div>
+
+            </div>
         </div>
 
         <div class="form-group col-md-12" style="margin-top:10px;text-align:center;">

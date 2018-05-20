@@ -64,6 +64,18 @@
         data: {
           pageTitle: '{{ enquiryResolve.title }}'
         }
+      })
+      .state('enquiries.followup', {
+        url: '/:enquiryId/followup',
+        templateUrl: '/modules/enquiries/client/views/followup-enquiry.client.view.html',
+        controller: 'EnquiriesFollowupController',
+        controllerAs: 'vm',
+        resolve: {
+          enquiryResolve: getEnquiry
+        },
+        data: {
+          pageTitle: '{{ enquiryResolve.title }}'
+        }
       });
   }
 

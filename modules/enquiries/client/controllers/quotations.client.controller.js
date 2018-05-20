@@ -23,6 +23,16 @@
       school_name: ""
     }
 
+    $scope.tab = 1;
+
+    $scope.setTab = function(newTab){
+      $scope.tab = newTab;
+    };
+
+    $scope.isSet = function(tabNum){
+      return $scope.tab === tabNum;
+    };
+
     vm.searches = function() {
         vm.enquiry = null;
         var searched = [];
@@ -125,7 +135,7 @@
 
     vm.findTotal = function(quot) {
       var sum = 0;
-      sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.entry));
+      // sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.entry));
       for(var k=0; k<quot.transport.length; k++) {
         sum += Number(quot.transport[k]);
       }
@@ -173,6 +183,15 @@
           vm.searches();
       }
     }, 1000 );
+
+    vm.findItinery = function(id) {
+      for(var v = 0; v < vm.itineries.length; v++) {
+        if(vm.itineries[v]._id === id) {
+          console.log(vm.itineries[v]);
+          return vm.itineries[v];
+        }
+      }
+    }
 
   }
 }());

@@ -19,7 +19,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="row">
         <div class="col-md-6"><strong>First Name</strong></div>
         <div class="col-md-6" ng-bind="vm.user.firstName"></div>
@@ -53,44 +53,6 @@
       <div class="row">
         <div class="col-md-6"><strong>Roles</strong></div>
         <div class="col-md-6" ng-bind="vm.user.roles"></div>
-      </div>
-      <hr/>
-    </div>
-    <div class="col-md-1" style="border-right:5px solid grey !important;min-height:60vh;"></div>
-    <div class="col-md-5">
-      <div class="row">
-        <div class="col-md-6"><strong>No. of Enquiries</strong></div>
-        <div class="col-md-6">{{vm.findNoOfEnquiries(vm.user)}}</div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>No. Of Bookings Got</strong></div>
-        <div class="col-md-6" ng-bind="vm.findNoOfBookingsGot(vm.user)"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>Total Cash Received</strong></div>
-        <div class="col-md-6" ng-bind="vm.totalCashReceived(vm.user)"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>Advances Received</strong></div>
-        <div class="col-md-6" ng-bind="vm.advancesReceived(vm.user)"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>Bata</strong></div>
-        <div class="col-md-6" ng-bind="vm.calculateBata(vm.user)"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>Profit & Loss of Indivitual</strong></div>
-        <div class="col-md-6" ng-bind="vm.calculateProfitLoss(vm.user)"></div>
-      </div>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6"><strong>Remarks</strong></div>
-        <div class="col-md-6" ng-bind="vm.getRemarks(vm.user)"></div>
       </div>
       <hr/>
     </div>

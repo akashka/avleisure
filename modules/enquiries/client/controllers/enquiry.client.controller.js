@@ -12,9 +12,12 @@
 		  school_gprs: "",
 		  school_photo: "",
 		  school_email_id: "",
+		  alternate_email_id: "",
 		  school_phone_no: "",
+		  alternate_phone_no: "",
 		  school_contact_person: "",
-		  enquiry_by: "",
+		  enquiry_by: [],
+		  followups: [],
 		  enquiries: [{
 				itineries: '',
   				plan: '',
@@ -24,10 +27,12 @@
   				food: [],
   				sharing: [],
 				accomodation: [],
-				package_type: [],  
+				package_type: '',  
 				quotations: [],
 				extras: [],
-				remarks: ''
+				remarks: '',
+				no_of_students: 0,
+				no_of_teachers: 0
 			}]
 		};
 		vm.allEnquiries = EnquiriesService.query();
@@ -46,19 +51,24 @@
 		vm.sharingOptions = ["Twin", "Tripple", "Quadruple"];
 		vm.packageOptions = ["Resort Package", "Day Return Package", "Outstation", "International"];
 		vm.multiselectSettings = { template: '{{option}}', smartButtonTextConverter(skip, option) { return option; }, };
+		vm.usermultiselectSettings = { template: '{{option.displayName}}', smartButtonTextConverter(skip, option) { return option; }, };
 
 		$timeout( function(){
 			if($state.params.enquiryId) {
 				var allEnquiries = (vm.allEnquiries);
 				for(var i=0; i<allEnquiries.length; i++) {
 					if(allEnquiries[i]._id == $state.params.enquiryId) {
-						vm.enquiry 
-						= allEnquiries[i];
+						vm.enquiry = allEnquiries[i];
 					}
 				}
+			} else {
+				vm.enquiry.enquiry_by = [];
+				for(var v=0; v<vm.users.length; v++){
+					if(vm.users[v].username == vm.authentication.user.username)
+						vm.enquiry.enquiry_by.push(vm.users[v]);
+				}
 			}
-			vm.enquiry.enquiry_by = [];
-			vm.enquiry.enquiry_by.push(vm.authentication.user.displayName);
+			// vm.enquiry.enquiry_by.push(vm.authentication.user);
 		}, 1000 );
 		
 		// Remove existing enquiry
@@ -109,10 +119,12 @@
   				accomodation: [],
   				quotations: [],
 				extras: [],
-				remarks: ''
+				remarks: '',
+				no_of_students: 0,
+				no_of_teachers: 0
 		}
       );
-		}
+	}
 		
     // delete last enquiries in enquiryForm
     function rmEnquiry(){

@@ -23,28 +23,18 @@
                 <th ng-click="vm.sortTable(1)">Roles</th>
                 <th ng-click="vm.sortTable(2)">Email</th>
                 <th ng-click="vm.sortTable(3)">Phone No.</th>
-                <th ng-click="vm.sortTable(4)">No. of Enquiries</th>
-                <th ng-click="vm.sortTable(5)">No. Of Bookings Got</th>
-                <th ng-click="vm.sortTable(6)">Total Cash Received</th>
-                <th ng-click="vm.sortTable(7)">Advances Received</th>
-                <th ng-click="vm.sortTable(8)">Bata</th>
-                <th ng-click="vm.sortTable(9)">Profit & Loss of Indivitual</th>
-                <th ng-click="vm.sortTable(10)">Remarks</th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="user in vm.pagedItems" ui-sref="admin.user({userId: user._id})" title="Click to view or edit this user detail"> 
+              <tr ng-repeat="user in vm.pagedItems"> 
                     <td>{{user.username}}</td>
                     <td>{{user.roles[0]}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.phone_no}}</td>
-                    <td>{{vm.findNoOfEnquiries(user)}}</td>
-                    <td>{{vm.findNoOfBookingsGot(user)}}</td>
-                    <td>{{vm.totalCashReceived(user)}}</td>
-                    <td>{{vm.advancesReceived(user)}}</td>
-                    <td>{{vm.calculateBata(user)}}</td>
-                    <td>{{vm.calculateProfitLoss(user)}}</td>
-                    <td>{{vm.getRemarks(user)}}</td>
+                    <td><a class="btn btn-warning" ui-sref="admin.user({userId: user._id})"> VIEW </a> </td>
+                    <td><a class="btn btn-danger" ui-sref="admin.user-edit({userId: user._id})">EDIT</a></td>
               </tr>
             </tbody>
         </table>

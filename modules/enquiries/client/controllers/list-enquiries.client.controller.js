@@ -58,10 +58,6 @@
         $state.go('enquiries.create');
     }
 
-    vm.findBackgroundClass = function(enquiry) {
-      // if(enquiry.)
-    }
-    
     vm.buildPager = function() {
       vm.pagedItems = [];
       vm.itemsPerPage = 15;

@@ -5,12 +5,13 @@
     .module('enquiries')
     .controller('EnquiriesController', EnquiriesController);
 
-  EnquiriesController.$inject = ['$scope', 'EnquiriesService', 'Authentication', '$timeout', '$state'];
+  EnquiriesController.$inject = ['$scope', 'EnquiriesService', 'Authentication', '$timeout', '$state', 'ItineriesService'];
 
-  function EnquiriesController($scope, EnquiriesService, Authentication, $timeout, $state) {
+  function EnquiriesController($scope, EnquiriesService, Authentication, $timeout, $state, ItineriesService) {
     var vm = this;
 
     vm.enquiry = EnquiriesService.query();
+    vm.itineries = ItineriesService.query();
     vm.authentication = Authentication;
 
     $timeout( function(){
@@ -23,6 +24,13 @@
 				}
 			}
 		}, 1000 );
+
+    vm.findItineryName = function(itinery) {
+        for(var v=0; v<vm.itineries.length; v++) {
+          if(vm.itineries[v]._id == itinery) return vm.itineries[v].title;
+        }
+        return '';
+    }
 
   }
 }());

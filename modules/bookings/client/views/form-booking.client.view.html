@@ -62,13 +62,6 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="contact_destination">Contact Designation: </label>
-          <input name="contact_destination" type="text" ng-model="vm.booking.contact_destination" id="contact_destination" class="form-control" placeholder="Contact Designation" required autofocus>
-          <div ng-messages="vm.form.bookingForm.contact_destination.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Booking contact destination is required.</p>
-          </div>
-        </div>
-        <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="contact_email">Contact Email: </label>
           <input name="contact_email" type="text" ng-model="vm.booking.contact_email" id="contact_email" class="form-control" placeholder="Contact Email" required autofocus>
           <div ng-messages="vm.form.bookingForm.contact_email.$error" role="alert">
@@ -119,15 +112,27 @@
             <p class="help-block error-text" ng-message="required">Booking destination is required.</p>
           </div>
         </div>
+
+        <div class="form-group col-md-12" style="border-bottom: 1px solid grey;"> 
+          <div class="col-md-6"><h4>DETAILS OF FINALIZED AMOUNT WITH SCHOOL </h4></div> 
+        </div>
+
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="booking_amount">Booking Amount: </label>
-          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus ng-change = "vm.convert(vm.booking.booking_amount)">
+          <label class="control-label" for="booking_amount">Booking Amount (Per Person): </label>
+          <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required autofocus ng-change = "vm.calBookingAmount(vm.booking.booking_amount)">
           <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="bill_amount">Bill Amount: </label>
+          <label class="control-label" for="total_booking_amount">Booking Amount (Total): </label>
+          <input name="total_booking_amount" type="text" ng-model="vm.booking.total_booking_amount" id="total_booking_amount" class="form-control" placeholder="Total Booking Amount" required autofocus ng-change = "vm.convert(vm.booking.total_booking_amount)">
+          <div ng-messages="vm.form.bookingForm.total_booking_amount.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Total Booking Amount is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="bill_amount">Billing Amount: </label>
           <input name="bill_amount" data-ng-model="vm.booking.billing.bill_amount" id="bill_amount" class="form-control" placeholder="Enter Bill Amount" required>
         </div>
         <div class="form-group col-md-6" show-errors>

@@ -73,7 +73,7 @@
 
       // Booking next day & Cheque next day
         for(var b=0; b<vm.bookings.length; b++){
-          if(moment(vm.bookings[b].booking_date).format('dd-MM-yyyy') == moment().add(1, 'day').format('dd-MM-yyyy'))
+          if(moment(vm.bookings[b].booking_date).format('dd-MM-yyyy') <= moment().add(10, 'day').format('dd-MM-yyyy'))
             vm.notifications.bookings.push(vm.bookings[b]);
           var isThere = false;
           for(var k=0; k<vm.bookings[b].amount_paid.length; k++) {

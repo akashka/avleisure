@@ -1,0 +1,152 @@
+<style>
+  .mr5 {
+    margin-right: 5px;
+  }
+
+  .Section2 {
+    box-shadow: 0 1px 2px #8a8383;
+  }
+</style>
+<section>
+  <div class="page-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Followup Enquiry</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="enquiries.list()">
+            <i class="glyphicon glyphicon-check"> LIST ENQUIRIES</i>
+          </a>
+        </div>
+    </div>
+  </div>
+  <form name="vm.form.enquiryForm" ng-submit="vm.save()" novalidate>
+    <fieldset>
+      <div class="col-md-12">
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_name">School Name: <span>{{vm.enquiry.school_name}}</span> </label>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" for="contactPerson">Contact Person: <span>{{vm.enquiry.school_contact_person}}</span> </label>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_phone_no">School Phone: <span>{{vm.enquiry.school_phone_no}}</span> </label>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="alternate_phone_no">Alternate Phone: <span>{{vm.enquiry.alternate_phone_no}}</span> </label>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_email_id">School Email: <span>{{vm.enquiry.school_email_id}}</span> </label>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="alternate_email_id">Alternate Email: <span>{{vm.enquiry.alternate_email_id}}</span> </label>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_address">School Address: <span>{{vm.enquiry.school_address}}</span> </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="enquiry_by">Enquiry By: </label>
+          <span ng-repeat="use in vm.enquiry.enquiry_by">{{use.displayName}}, &nbsp;</span>
+        </div>
+      </div>
+
+      <div class="page-header col-md-12">
+        <h3>Details</h3>
+      </div>
+
+      <div class="col-md-12">
+        <div class="list-group table-responsive">
+          <table class="table table-hover" id="myTable2">
+              <thead>
+                <tr>
+                  <th ng-click="vm.sortTable(0)">Itineries</th>
+                  <th ng-click="vm.sortTable(1)">Plan</th>
+                  <th ng-click="vm.sortTable(2)">Transport</th>
+                  <th ng-click="vm.sortTable(3)">Food</th>
+                  <th ng-click="vm.sortTable(4)">Accomodation</th>
+                  <th ng-click="vm.sortTable(5)">Sharing</th>
+                  <th ng-click="vm.sortTable(6)">Package Type</th>
+                  <th ng-click="vm.sortTable(7)">No. of Students / Teachers</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="enquiry in vm.enquiry.enquiries">
+                  <td>{{vm.findItineryName(enquiry.itineries)}}</td>
+                  <td>{{enquiry.plan}}</td>
+                  <td><span ng-repeat="enq in enquiry.transport">{{enq}} <br/> </span> </td>
+                  <td><span ng-repeat="enq in enquiry.food">{{enq}} <br/> </span> </td>
+                  <td><span ng-repeat="enq in enquiry.accomodation">{{enq}} <br/> </span> </td>
+                  <td><span ng-repeat="enq in enquiry.sharing">{{enq}} <br/> </span> </td>
+                  <td>{{enquiry.package_type}}</td>
+                  <td>{{enquiry.no_of_students}} / {{enquiry.no_of_teachers}}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-header col-md-12">
+        <h3>Follow-ups</h3>
+      </div>
+
+      <div class="col-md-12">
+        <div class="list-group table-responsive">
+          <table class="table table-hover" id="myTable2">
+              <thead>
+                <tr>
+                  <th ng-click="vm.sortTable(0)">Date</th>
+                  <th ng-click="vm.sortTable(1)">Executive</th>
+                  <th ng-click="vm.sortTable(2)">Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="enquiry in vm.enquiry.followups">
+                  <td>{{enquiry.dated | date:'dd/MMM/yyyy'}}</td>
+                  <td>{{enquiry.executive}}</td>
+                  <td>{{enquiry.remarks}}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="page-header col-md-12">
+        <h3>New Follow-up</h3>
+      </div>
+
+      <div class="col-md-12">
+          <div class="form-group col-md-6 col-md-offset-3">
+            <label class="control-label col-md-3" for="trip.executiveId">Executive: </label>
+            <div class="col-md-9">
+              <div class="controls">  
+                <div class="multiselect" ng-dropdown-multiselect="" options="vm.users" selected-model="vm.followup.executive" extra-settings="vm.multiselectSettings"></div> 
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-md-offset-3">
+            <label class="control-label col-md-3" for="followupdate">Date: </label>
+            <div class="col-md-9">
+                <p class="input-group">
+                  <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.followup.dated" is-open="vm.dateset.dated.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+            </div>
+          </div>
+          <div class="form-group col-md-6 col-md-offset-3">
+              <label class="control-label col-md-3" for="remarks">Remarks: </label>
+              <div class="col-md-9">
+                  <input name="remarks" type="text" ng-model="vm.followup.remarks" id="remarks" class="form-control" placeholder="Remarks">
+              </div>
+          </div>
+          <div class="form-group col-md-6 text-center col-md-offset-3">
+              <button style="text-align:center;" type="submit" class="btn btn-success">SAVE</button>
+          </div>
+      </div>
+
+      <!-- </div> -->
+    </fieldset>
+  </form>
+  <!-- </div> -->
+</section>

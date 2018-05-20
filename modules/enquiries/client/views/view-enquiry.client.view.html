@@ -30,13 +30,19 @@
           <label class="control-label" for="school_name">School Name: {{vm.enquiry.school_name}} </label>
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="school_email_id">School Email: {{vm.enquiry.school_email_id}}</label>
-        </div>
-        <div class="form-group col-md-6">
           <label class="control-label" for="school_email_id">Contact Person: {{vm.enquiry.school_contact_person}}</label>
         </div>
         <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">School Email: {{vm.enquiry.school_email_id}}</label>
+        </div>
+        <div class="form-group col-md-6">
           <label class="control-label" for="school_phone_no">School Phone: {{vm.enquiry.school_phone_no}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="alternate_email_id">Alternate Email: {{vm.enquiry.alternate_email_id}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="alternate_phone_no">Alternate Phone: {{vm.enquiry.alternate_phone_no}}</label>
         </div>
         <div class="form-group col-md-6">
           <label class="control-label" for="school_gprs">School GPRS: {{vm.enquiry.school_gprs}}</label>
@@ -48,14 +54,16 @@
           <label class="control-label" for="school_address">School Address: {{vm.enquiry.school_address}}</label>
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="enquiry_by">Enquiry By: {{vm.enquiry.enquiry_by}}</label>
+          <label class="control-label" for="enquiry_by">Enquiry By: 
+              <span ng-repeat="enquiry_by in vm.enquiry.enquiry_by">{{enquiry_by.displayName}},  </span>
+          </label>
         </div>
       </div>
 
       <div class="col-md-12 Section2" ng-repeat="enquiry in vm.enquiry.enquiries">
         <br>
         <div class="form-group col-md-6">
-          <label class="control-label" for="itinery">Itinery: {{enquiry.itineries}}</label>
+          <label class="control-label" for="itinery">Itinery: {{vm.findItineryName(enquiry.itineries)}}</label>
         </div>
         <div class="form-group col-md-6">
           <label class="control-label" for="plan">Plan: {{enquiry.plan}}</label>
@@ -81,12 +89,19 @@
           </label>
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="contactPerson">Package type:  
-              <span ng-repeat="enq in enquiry.package_type">{{enq}},  </span>            
-          </label>
+          <label class="control-label" for="contactPerson">Package type:  {{enquiry.package_type}} </label>
         </div>
         <div class="form-group col-md-6">
           <label class="control-label" for="class">Class: {{enquiry.school_class}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="no_of_students">No. Of Students: {{enquiry.no_of_students}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="no_of_teachers">No. Of Teachers: {{enquiry.no_of_teachers}}</label>
+        </div>
+        <div class="form-group col-md-12">
+          <label class="control-label" for="remarks">Remarks: {{enquiry.remarks}}</label>
         </div>
       </div>
 

@@ -1,10 +1,100 @@
 <section>
   <div class="page-header">
-    <h1>Reports</h1>
+    <!-- <h1>Reports</h1> -->
+  </div> 
+  <div class="col-md-3">
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a data-toggle="pill" href="#User">User Report</a></li>
+        <li><a data-toggle="pill" href="#Itinery">Itinery Report</a></li>
+        <li><a data-toggle="pill" href="#Enquiry">Enquiry Report</a></li>
+        <li><a data-toggle="pill" href="#Booking">Booking Report</a></li>
+        <li><a data-toggle="pill" href="#Trip">Trip Report</a></li>
+      </ul>
   </div>
 
-  <div style="font-size:30px; color: blue; text-align: center;">
-    ON ITS WAY...
+  <div class="col-md-9 tab-content">
+
+    <!-- User report  -->
+    <div id="User" class="tab-pane fade in active">
+
+      <div class="col-md-12 row" style="margin-bottom:30px;">
+        <div class="col-md-9"><h3>User Report</h3></div>
+        <div class="col-md-3" style="float: right;">
+          <button export-to-csv class="btn btn-info">
+            <i class="glyphicon glyphicon-cloud-download"> DOWNLOAD</i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="list-group col-md-12 row">
+        <div class="list-group table-responsive">
+          <table class="table table-hover" id="table">
+              <thead>
+                <tr>
+                  <th ng-click="vm.sortTable(0)">User Name</th>
+                  <th ng-click="vm.sortTable(1)">Roles</th>
+                  <th ng-click="vm.sortTable(2)">Phone No.</th>
+                  <th ng-click="vm.sortTable(3)">No. Of Enquiries</th>
+                  <th ng-click="vm.sortTable(4)">No. Of Bookings Got</th>
+                  <th ng-click="vm.sortTable(5)">Trips Executed</th>
+                  <th ng-click="vm.sortTable(6)">Bata</th>
+                  <th ng-click="vm.sortTable(7)">Profit / Loss</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="user in vm.users"> 
+                      <td>{{user.username}}</td>
+                      <td>{{user.roles[0]}}</td>
+                      <td>{{user.phone_no}}</td>
+                      <td>{{vm.findNoOfEnquiries(user)}}</td>
+                      <td>{{vm.findNoOfBookingsGot(user)}}</td>
+                      <td>{{vm.findNoOfTripsExecuted(user)}}</td>
+                      <td>{{vm.calculateBata(user)}}</td>
+                      <td>{{vm.calculateProfitLoss(user)}}</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-dm-12 row">
+        <div id="user-report"></div>
+      </div>
+
+    </div>
+
+    <!-- Itinery report  -->
+    <div id="Itinery" class="tab-pane fade in">
+      <h3>Itinery Report</h3>
+      <div class="list-group">
+        COMING SOON...
+      </div>
+    </div>
+
+    <!-- Enquiry report  -->
+    <div id="Enquiry" class="tab-pane fade in">
+      <h3>Enquiry Report</h3>
+      <div class="list-group">
+        COMING SOON...
+      </div>
+    </div>
+
+    <!-- Booking report  -->
+    <div id="Booking" class="tab-pane fade in">
+      <h3>Booking Report</h3>
+      <div class="list-group">
+        COMING SOON...
+      </div>
+    </div>
+
+    <!-- Trip report  -->
+    <div id="Trip" class="tab-pane fade in">
+      <h3>Trip Report</h3>
+      <div class="list-group">
+        COMING SOON...
+      </div>
+    </div>
+
   </div>
 
 </section>

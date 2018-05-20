@@ -33,6 +33,9 @@ var BookingSchema = new Schema({
   booking_amount: {
     type: String
   },
+  total_booking_amount: {
+    type: String
+  },
   school_name: {
     type: String
   },

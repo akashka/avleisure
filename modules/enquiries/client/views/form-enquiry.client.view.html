@@ -30,13 +30,6 @@
             <p class="help-block error-text" ng-message="required">Enquiry school name is required.</p>
           </div>
         </div>
-        <div class="form-group col-md-6" show-errors>
-          <label class="control-label" for="school_email_id">School Email: </label>
-          <input name="school_email_id" type="text" ng-model="vm.enquiry.school_email_id" id="school_email_id" class="form-control" placeholder="School Email" required autofocus>
-          <div ng-messages="vm.form.enquiryForm.school_email_id.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Enquiry school email is required.</p>
-          </div>
-        </div>
         <div class="form-group col-md-6">
             <label class="control-label" for="contactPerson">Contact Person</label>
             <input name="plan" type="text" ng-model="vm.enquiry.school_contact_person" id="contactPerson" class="form-control" placeholder="Contact Person">
@@ -45,10 +38,31 @@
             </div>
         </div>
         <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="school_email_id">School Email: </label>
+          <input name="school_email_id" type="text" ng-model="vm.enquiry.school_email_id" id="school_email_id" class="form-control" placeholder="School Email" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.school_email_id.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Enquiry school email is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="school_phone_no">School Phone: </label>
           <input name="school_phone_no" type="text" ng-model="vm.enquiry.school_phone_no" id="school_phone_no" class="form-control" placeholder="School Phone" required autofocus>
           <div ng-messages="vm.form.enquiryForm.school_phone_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Enquiry school phone is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="alternate_email_id">Alternate Email: </label>
+          <input name="alternate_email_id" type="text" ng-model="vm.enquiry.alternate_email_id" id="alternate_email_id" class="form-control" placeholder="Alternate Email" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.alternate_email_id.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Alternate school email is required.</p>
+          </div>
+        </div>
+        <div class="form-group col-md-6" show-errors>
+          <label class="control-label" for="alternate_phone_no">Alternate Phone: </label>
+          <input name="alternate_phone_no" type="text" ng-model="vm.enquiry.alternate_phone_no" id="alternate_phone_no" class="form-control" placeholder="Alternate Phone" required autofocus>
+          <div ng-messages="vm.form.enquiryForm.alternate_phone_no.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Alternate school phone is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
@@ -72,12 +86,10 @@
             <p class="help-block error-text" ng-message="required">Enquiry school photo is required.</p>
           </div>
         </div>
-        <div class="form-group col-md-6" ng-show="vm.authentication.user.roles[0] == 'admin'">
+        <div class="form-group col-md-6">
           <label class="control-label" for="enquiry_by">Enquiry By</label>
-          <div class="controls">
-            <select class="form-control" id="enquiry_by" ng-model="vm.enquiry.enquiry_by" ng-list ng-options="obj.displayName as obj.displayName for obj in vm.users">
-                <option disabled selected value="">-- choose a User --</option>
-            </select>
+          <div class="controls">  
+              <div class="multiselect" ng-dropdown-multiselect="" options="vm.users" selected-model="vm.enquiry.enquiry_by" extra-settings="vm.usermultiselectSettings"></div> 
           </div>
         </div>
       </div>
@@ -97,9 +109,17 @@
           </div>
           <div class="form-group col-md-6">
             <label class="control-label" for="plan">Plan</label>
-            <input name="plan" type="text" ng-model="enquiry.plan" id="plan" class="form-control" placeholder="Plan">
-            <div ng-messages="vm.form.enquiryForm.school_photo.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Enquiry school photo is required.</p>
+            <div class="controls">
+              <select class="form-control" id="plan" ng-model="enquiry.plan">
+                <option value="" disabled>Select Plan</option>    
+                <option value="AP">AP</option>    
+                <option value="EP">EP</option>    
+                <option value="MAP">MAP</option>    
+                <option value="Others">Others</option>    
+              </select>
+            </div>
+            <div ng-messages="vm.form.enquiryForm.plan.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Plan is required.</p>
             </div>
           </div>
           <div class="form-group col-md-6">
@@ -141,7 +161,14 @@
           <div class="form-group col-md-6">
             <label class="control-label" for="package_type">Package Type</label>
             <div class="controls">
-              <div class="multiselect" ng-dropdown-multiselect="" options="vm.packageOptions" selected-model="enquiry.package_type" extra-settings="vm.multiselectSettings"></div>              
+              <select class="form-control" id="itinery" ng-model="enquiry.package_type">
+                <option value="" disabled>Select Package Type</option>    
+                <option value="Resort Package">Resort Package</option>    
+                <option value="Day Return Package">Day Return Package</option>    
+                <option value="Outstation">Outstation</option>    
+                <option value="International">International</option>    
+                <option value="Others">Others</option>    
+              </select>
             </div>
             <div ng-messages="vm.form.enquiryForm.package_type.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Package type is required.</p>
@@ -152,6 +179,20 @@
             <input name="class" type="text" ng-model="enquiry.school_class" id="class" class="form-control" placeholder="Class">
             <div ng-messages="vm.form.enquiryForm.class.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Enquiry class is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="no_of_students">No. Of Students</label>
+            <input name="no_of_students" type="text" ng-model="enquiry.no_of_students" id="no_of_students" class="form-control" placeholder="No. Of Students">
+            <div ng-messages="vm.form.enquiryForm.no_of_students.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">No. Of Students is required.</p>
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label" for="no_of_teachers">No. Of Teachers</label>
+            <input name="no_of_teachers" type="text" ng-model="enquiry.no_of_teachers" id="no_of_teachers" class="form-control" placeholder="No. Of Teachers">
+            <div ng-messages="vm.form.enquiryForm.no_of_teachers.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">No. Of Teachers is required.</p>
             </div>
           </div>
           <div class="form-group col-md-12">

@@ -45,7 +45,10 @@ var EnquirySchema = new Schema({
     type: Array
   },
   enquiry_by: {
-    type: String
+    type: Array
+  },
+  followups: {
+    type: Array
   },
   user: {
     type: Schema.ObjectId,

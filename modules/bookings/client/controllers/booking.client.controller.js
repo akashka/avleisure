@@ -72,6 +72,9 @@
 				vm.booking.contact_person = vm.enquiry.school_contact_person;
 				vm.booking.contact_email = vm.enquiry.school_email_id;
 				vm.booking.contact_phone = vm.enquiry.school_phone_no;
+				vm.booking.no_of_staff = vm.enquiry.enquiries[0].no_of_teachers;
+				vm.booking.no_of_students = vm.enquiry.enquiries[0].no_of_students;
+				vm.booking.class = vm.enquiry.enquiries[0].school_class;
 				vm.isSearched = true;
 			}
 		}
@@ -146,6 +149,13 @@
 				vm.searches();
 			}
 		}, 1000 );
+
+		vm.calBookingAmount = function(booking_amount) {
+			var amt = 0;
+			if(vm.booking.no_of_staff != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_staff);
+			if(vm.booking.no_of_students != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_students);
+			vm.booking.total_booking_amount = amt;
+		}
 
 	}
 }() );

@@ -56,13 +56,16 @@
             <th> </th>
             <th> </th>
             <th> </th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="enquiry in vm.enquiries" ng-class="vm.findBackgroundClass(enquiry)" title="{{vm.findBackgroundClass(enquiry)}}" style="color: white;">
             <td>{{enquiry.created | date:'dd/MMM/yyyy'}}</td>
             <td>{{enquiry.enquiry_id}}</td>
-            <td>{{enquiry.enquiry_by[0]}}</td>
+            <td>
+                <span ng-repeat="enq in enquiry.enquiry_by">{{enq.displayName}}, <br> </span>
+            </td>
             <td>{{enquiry.school_name}}</td>
             <td>{{enquiry.school_email_id}}</td>
             <td>{{enquiry.school_phone_no}}</td>
@@ -70,6 +73,7 @@
             <td>{{vm.countSimilarSchool(enquiry.school_name)}}</td>
             <td> <a class="btn btn-warning" ui-sref="enquiries.view({enquiryId: enquiry._id})">VIEW</a> </td>
             <td> <a class="btn btn-danger" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td> 
+            <td> <a class="btn btn-primary" ui-sref="enquiries.followup({enquiryId: enquiry._id})">FOLLOWUP</a> </td> 
             <td> 
                 <a class="btn btn-info" ui-sref="quotations.view({enquiryId: enquiry.enquiry_id})" ng-if="vm.isUserAdmin">QUOTATIONS</a> 
             </td> 
@@ -79,6 +83,13 @@
     </table>
   </div>
 
-  <uib-pagination boundary-links="true" max-size="10" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
-  
+  <div class="col-md-8">
+      <uib-pagination boundary-links="true" max-size="10" items-per-page="vm.itemsPerPage" total-items="vm.filterLength" ng-model="vm.currentPage" ng-change="vm.pageChanged()"></uib-pagination>
+  </div>
+  <div class="col-md-4">
+    <p> <span style="float:left;width:15px; height: 15px; border: 1px solid #347a53; background: #347a53;"> </span> &nbsp; Booking is confirmed</p>
+    <p> <span style="float:left;width:15px; height: 15px; border: 1px solid #ed8b2c; background: #ed8b2c;"> </span> &nbsp; Enquired but not confirmed (Followup)</p>
+    <p> <span style="float:left;width:15px; height: 15px; border: 1px solid #dc7c7c; background: #dc7c7c;"> </span> &nbsp; Send Quotations</p>
+  </div>
+
 </section>
