@@ -201,7 +201,9 @@
                 <!-- New Quotation  -->
                 <div id="New" class="tab-pane fade in" ng-class="{active:isSet(3)}">
                     <div class="col-md-12 card table_rows_set">
-                        <div class="col-md-2">
+                        
+                        
+                        <!-- <div class="col-md-2">
                                 <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
                                 <div class="row" ng-repeat="transport in enq.quotations[0].transport track by $index">
                                     <input name="transport" type="text" ng-model="transport" class="form-control" ng-change="vm.onValChange(transport, enq.quotations[0].transport, $index)" required>
@@ -223,7 +225,7 @@
                                     <input type="text" ng-model="ext" class="form-control" ng-change="vm.onValChange(ext, enq.quotations[0].extras, $index)" required>
                                 </div>
                                 <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
