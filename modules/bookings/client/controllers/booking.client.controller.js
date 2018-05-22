@@ -18,7 +18,7 @@
 			enquiry_id: "",
 			school_name: ""
 		}
-		vm.multiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id'};
+		vm.multiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id',  smartButtonMaxItems: 3, checkBoxes: true};
 		vm.booking.tour_managers = [];
 
 		vm.selectDate = function ( $event, num ) {

@@ -56,6 +56,10 @@ exports.update = function (req, res) {
   enquiry.school_phone_no = req.body.school_phone_no;
   enquiry.school_contact_person = req.body.school_contact_person;
   enquiry.enquiries = req.body.enquiries;
+  enquiry.followups = req.body.followups;
+  enquiry.alternate_email_id = req.body.alternate_email_id;
+  enquiry.alternate_phone_no = req.body.alternate_phone_no;
+  enquiry.enquiry_by = req.body.enquiry_by;
 
   enquiry.save(function (err) {
     if (err) {

@@ -29,7 +29,8 @@
     vm.multiselectSettings = { 
 			checkBoxes: true, 
 			displayProp: "displayName",
-			idProp: "_id"
+			idProp: "_id",
+			smartButtonMaxItems: 3
 		};
     
     vm.selectDate = function ( $event, num ) {

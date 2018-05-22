@@ -35,7 +35,13 @@ var EnquirySchema = new Schema({
   school_email_id: {
     type: String
   },
+  alternate_email_id: {
+    type: String
+  },
   school_phone_no: {
+    type: String
+  },
+  alternate_phone_no: {
     type: String
   },
   school_contact_person: {

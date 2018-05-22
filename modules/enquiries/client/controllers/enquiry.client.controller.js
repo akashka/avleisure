@@ -50,8 +50,9 @@
 		vm.accomodationOptions = ["A/C", "Non A/C", "Dormitory"];
 		vm.sharingOptions = ["Twin", "Tripple", "Quadruple"];
 		vm.packageOptions = ["Resort Package", "Day Return Package", "Outstation", "International"];
-		vm.multiselectSettings = { template: '{{option}}', smartButtonTextConverter(skip, option) { return option; }, };
-		vm.usermultiselectSettings = { template: '{{option.displayName}}', smartButtonTextConverter(skip, option) { return option; }, };
+		vm.multiselectSettings = { template: '{{option}}', smartButtonTextConverter(skip, option) { return option; },  smartButtonMaxItems:4, checkBoxes: true};
+		// vm.usermultiselectSettings = { template: '{{option.displayName}}', smartButtonTextConverter(skip, option) { return option; },  smartButtonMaxItems: 3 };
+		vm.usermultiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id',  smartButtonMaxItems: 3, checkBoxes: true};
 
 		$timeout( function(){
 			if($state.params.enquiryId) {

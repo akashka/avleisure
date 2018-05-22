@@ -43,7 +43,7 @@
 { id: 'Sikkim', label: 'Sikkim'}, { id: 'Tamil Nadu', label: 'Tamil Nadu'}, { id: 'Telangana', label: 'Telangana'},
 { id: 'Tripura', label: 'Tripura'}, { id: 'Uttar Pradesh', label: 'Uttar Pradesh'},
 { id: 'Uttarakhand', label: 'Uttarakhand'}, { id: 'West Bengal', label: 'West Bengal'}];
-    vm.multiselectSettings = { checkBoxes: true, };
+    vm.multiselectSettings = { checkBoxes: true, smartButtonMaxItems: 4};
 
     vm.onCountryChange = function() {
         // var alphacode = "";

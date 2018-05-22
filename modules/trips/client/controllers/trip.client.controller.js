@@ -132,7 +132,8 @@
 		vm.multiselectSettings = { 
 			checkBoxes: true, 
 			displayProp: "displayName",
-			idProp: "_id"
+			idProp: "_id",
+			smartButtonMaxItems: 3
 		};
 
 		vm.school_names = [];

@@ -102,7 +102,9 @@
               <tbody>
                 <tr ng-repeat="enquiry in vm.enquiry.followups">
                   <td>{{enquiry.dated | date:'dd/MMM/yyyy'}}</td>
-                  <td>{{enquiry.executive}}</td>
+                  <td>
+                      <span ng-repeat="enquiry in enquiry.executive">{{enquiry.displayName}} <br> </span>
+                  </td>
                   <td>{{enquiry.remarks}}</td>
                 </tr>
               </tbody>

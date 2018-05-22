@@ -48,6 +48,13 @@ exports.update = function (req, res) {
 
   itinery.title = req.body.title;
   itinery.content = req.body.content;
+  itinery.description = req.body.description;
+  itinery.sstate = req.body.sstate;
+  itinery.plan = req.body.plan;
+  itinery.nights = req.body.nights;
+  itinery.days = req.body.days;
+  itinery.international = req.body.international;
+  itinery.package_type = req.body.package_type;
 
   itinery.save(function (err) {
     if (err) {
