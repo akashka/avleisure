@@ -30,6 +30,7 @@
 				package_type: '',  
 				quotations: [],
 				extras: [],
+				entry: [],
 				remarks: '',
 				no_of_students: 0,
 				no_of_teachers: 0
@@ -120,6 +121,7 @@
   				accomodation: [],
   				quotations: [],
 				extras: [],
+				entry: [],
 				remarks: '',
 				no_of_students: 0,
 				no_of_teachers: 0

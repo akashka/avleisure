@@ -10,8 +10,7 @@
   function menuConfig(menuService) {
     menuService.addMenuItem('topbar', {
       title: 'Trips',
-      state: 'trips',
-      type: 'dropdown',
+      state: 'trips.list',
       roles: ['admin', 'executive'],
       position: 5
     });
@@ -20,12 +19,12 @@
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'List Trips',
       state: 'trips.list',
-      roles: ['*']
+      roles: []
     });
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'Start Trip',
       state: 'trips.start',
-      roles: ['admin']
+      roles: []
     });
     menuService.addSubMenuItem('topbar', 'trips', {
       title: 'End Trip',

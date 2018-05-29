@@ -18,6 +18,13 @@
     vm.isSearched = false;
     vm.itineryDescription = '';
 
+    vm.show_transport = false;
+    vm.show_accomodation = false;
+    vm.show_food = false;
+    vm.show_sharing = false;
+    vm.show_entry = false;
+    vm.show_extras = false;
+
     vm.search = {
       enquiry_id: "",
       school_name: ""
@@ -65,33 +72,55 @@
                   accomodation: [],
                   food: [],
                   sharing: [],
-                  package_type: [],
-                  entry: 0,
-                  extras: []
+                  package_type: 0,
+                  entry: [],
+                  extras: [],
+                  remarks: ''
               });
-              
               for(var c=0; c<vm.enquiry.enquiries[v].accomodation.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].accomodation.push(0);
+                vm.enquiry.enquiries[v].quotations[0].accomodation.push({
+                  beds: 0,
+                  charge: 0,
+                  tax: 0,
+                  others: 0,
+                  amount: 0
+                });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].food.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].food.push(0);
+                vm.enquiry.enquiries[v].quotations[0].food.push({
+                  tax: 0,
+                  others: 0,
+                  amount: 0
+                });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].transport.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].transport.push(0);
+                vm.enquiry.enquiries[v].quotations[0].transport.push({
+                  seating: 0,
+                  toll: 0,
+                  bata: 0,
+                  parking: 0,
+                  tax: 0,
+                  others: 0,
+                  amount: 0
+                });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].sharing.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].sharing.push(0);
+                vm.enquiry.enquiries[v].quotations[0].sharing.push({
+                  tax: 0,
+                  others: 0,
+                  amount: 0
+                });
               }
-              for(var c=0; c<vm.enquiry.enquiries[v].package_type.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].package_type.push(0);
+              if(vm.enquiry.enquiries[v].entry == undefined) vm.enquiry.enquiries[v].entry = [];
+              for(var c=0; c<vm.enquiry.enquiries[v].entry.length; c++) {
+                vm.enquiry.enquiries[v].quotations[0].entry.push({
+                  amount: 0
+                });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].extras.length; c++) {
-                vm.enquiry.enquiries[v].quotations[0].extras.push(0);
-              }
-            }
-            for(var v = 0; v < vm.itineries.length; v++) {
-              if(vm.itineries[v]._id === vm.enquiry.enquiries[0].itineries) {
-                vm.itineryDescription = vm.itineries[v];
+                vm.enquiry.enquiries[v].quotations[0].extras.push({
+                  amount: 0
+                });
               }
             }
             vm.isSearched = true;
@@ -119,40 +148,59 @@
       return "";
     }
 
-    vm.addExtra = function(index) {
-        vm.enquiry.enquiries[index].extras.push("extra"+vm.enquiry.enquiries[index].extras.length);
-        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].extras.push(0);
-        }
+    vm.addtoamtTrans = function(arr) {
+      arr.amount = 0;
+      arr.amount += Number(arr.toll);
+      arr.amount += Number(arr.bata);
+      arr.amount += Number(arr.tax);
+      arr.amount += Number(arr.others);
+      arr.amount += Number(arr.parking);
     }
 
-    vm.removeExtra = function(index) {
-        vm.enquiry.enquiries[index].extras.splice(vm.enquiry.enquiries[index].length-1, 1);
-        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].extras.splice(vm.enquiry.enquiries[index].quotations[v].extras.length-1, 1);
-        }
+    vm.addtoamtACC = function(arr) {
+      arr.amount = 0;
+      arr.amount += Number(arr.tax);
+      arr.amount += Number(arr.others);
+      arr.amount += Number(arr.charge);
+    }
+
+    vm.addtoamt = function(arr) {
+      arr.amount = 0;
+      arr.amount += Number(arr.tax);
+      arr.amount += Number(arr.others);
+    }
+
+    vm.calculateEachTotal = function(arr) {
+      var sum = 0;
+      for(var a=0; a<arr.length; a++) {
+        sum += Number(arr[a].amount);
+      }
+      return "Rs. " + sum;
     }
 
     vm.findTotal = function(quot) {
       var sum = 0;
       // sum += (Number(quot.itinery) + Number(quot.plan) + Number(quot.entry));
       for(var k=0; k<quot.transport.length; k++) {
-        sum += Number(quot.transport[k]);
+        sum += Number(quot.transport[k].amount);
       }
       for(var k=0; k<quot.accomodation.length; k++) {
-        sum += Number(quot.accomodation[k]);
+        sum += Number(quot.accomodation[k].amount);
       }
       for(var k=0; k<quot.food.length; k++) {
-        sum += Number(quot.food[k]);
+        sum += Number(quot.food[k].amount);
       }
       for(var k=0; k<quot.sharing.length; k++) {
-        sum += Number(quot.sharing[k]);
+        sum += Number(quot.sharing[k].amount);
       }
       for(var k=0; k<quot.package_type.length; k++) {
-        sum += Number(quot.package_type[k]);
+        sum += Number(quot.package_type[k].amount);
+      }
+      for(var k=0; k<quot.entry.length; k++) {
+        sum += Number(quot.entry[k].amount);
       }
       for(var k=0; k<quot.extras.length; k++) {
-        sum += Number(quot.extras[k]);
+        sum += Number(quot.extras[k].amount);
       }
       return sum;
     }
@@ -187,10 +235,119 @@
     vm.findItinery = function(id) {
       for(var v = 0; v < vm.itineries.length; v++) {
         if(vm.itineries[v]._id === id) {
-          console.log(vm.itineries[v]);
           return vm.itineries[v];
         }
       }
+    }
+
+    vm.addTransport = function(index) {
+      vm.enquiry.enquiries[index].transport.push("Extra Transport");
+      for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+        vm.enquiry.enquiries[index].quotations[v].transport.push({
+                    seating: 0,
+                    toll: 0,
+                    bata: 0,
+                    parking: 0,
+                    tax: 0,
+                    others: 0,
+                    amount: 0
+        });
+      }
+    }
+
+    vm.removeTransport = function(index) {
+        vm.enquiry.enquiries[index].transport.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].transport.splice(0, 1);
+        }
+    }
+
+    vm.addAccomodation = function(index) {
+      vm.enquiry.enquiries[index].accomodation.push("Extra Accomodation");
+      for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+        vm.enquiry.enquiries[index].quotations[v].accomodation.push({
+            beds: 0,
+            charge: 0,
+            tax: 0,
+            others: 0,
+            amount: 0
+        });
+      }
+    }
+
+    vm.removeAccomodation = function(index) {
+        vm.enquiry.enquiries[index].accomodation.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].accomodation.splice(0, 1);
+        }
+    }
+
+    vm.addFood = function(index) {
+        vm.enquiry.enquiries[index].food.push("Extra Food");
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].food.push({
+                tax: 0,
+                others: 0,
+                amount: 0
+          });
+        }
+    }
+
+    vm.removeFood = function(index) {
+        vm.enquiry.enquiries[index].food.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].food.splice(0, 1);
+        }
+    }
+
+    vm.addSharing = function(index) {
+        vm.enquiry.enquiries[index].sharing.push("Extra Sharing");
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].sharing.push({
+                tax: 0,
+                others: 0,
+                amount: 0
+          });
+        }
+    }
+
+    vm.removeSharing = function(index) {
+        vm.enquiry.enquiries[index].sharing.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].sharing.splice(0, 1);
+        }
+    }
+
+    vm.addEntry = function(index) {
+          vm.enquiry.enquiries[index].entry.push("Extra Entry");
+          for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+            vm.enquiry.enquiries[index].quotations[v].entry.push({
+              amount: 0
+            });
+          }
+    }
+
+    vm.removeEntry = function(index) {
+        vm.enquiry.enquiries[index].entry.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].entry.splice(0, 1);
+        }
+    }
+
+    vm.addExtras = function(index) {
+        vm.enquiry.enquiries[index].extras.push("extra"+vm.enquiry.enquiries[index].extras.length);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].extras.push({
+            amount: 0
+          });
+        }
+    }
+
+    vm.removeExtras = function(index) {
+        vm.enquiry.enquiries[index].extras.splice(vm.enquiry.enquiries[index].length-1, 1);
+        for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
+          vm.enquiry.enquiries[index].quotations[v].extras.splice(0, 1);
+        }
     }
 
   }

@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-12" ng-repeat="enq in vm.enquiry.enquiries">
+        <div class="form-group col-md-12" ng-repeat="enq in vm.enquiry.enquiries track by $index">
             <ul class="nav nav-tabs">
                 <li ng-class="{active:isSet(1)}"><a ng-click="setTab(1)" href="#Details">Details</a></li>
                 <li ng-class="{active:isSet(2)}"><a ng-click="setTab(2)" href="#Existing">Existing Quotations</a></li>
@@ -109,43 +109,109 @@
                 <!-- Existing Quotation  -->
                 <div id="Existing" class="tab-pane fade in" ng-class="{active:isSet(2)}">
                     <div class="col-md-12 card table_rows_set">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="row"><b>Date of Quotation:</b></div>
-                            <div class="row" ng-repeat="trans in enq.transport track by $index">
-                                <div class="col-md-6" ng-if="$index == 0"><b>Transport </b></div>
-                                <div class="col-md-6" ng-if="$index != 0"></div>
-                                <div class="col-md-6">{{trans}}</div>
+                            <div ng-repeat="trans in enq.transport track by $index">
+                                <div class="row">
+                                    <div class="col-md-4" ng-if="$index == 0"><b>Transport </b></div>
+                                    <div class="col-md-4" ng-if="$index != 0"></div>
+                                    <div class="col-md-4">{{trans}}</div>
+                                    <div class="col-md-4">Seating</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Toll</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Bata</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Tax</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Others</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Parking</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"><b>Total</b></div>
+                                </div>
                             </div>
-                            <div class="row" ng-repeat="trans in enq.extra_transport track by $index">
-                                <div class="col-md-6"></div>
-                                <div class="col-md-6">{{trans}}</div>
+                            <div ng-repeat="acc in enq.accomodation track by $index">
+                                <div class="row">
+                                    <div class="col-md-4" ng-if="$index == 0"><b>Accomodation </b></div>
+                                    <div class="col-md-4" ng-if="$index != 0"></div>                  
+                                    <div class="col-md-4">{{acc}}</div>
+                                    <div class="col-md-4">Beds</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Charge</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Tax</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Others</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"><b>Total</b></div>
+                                </div>
                             </div>
-                            <div class="row" ng-repeat="acc in enq.accomodation track by $index">
-                                <div class="col-md-6" ng-if="$index == 0"><b>Accomodation </b></div>
-                                <div class="col-md-6" ng-if="$index != 0"></div>                  
-                                <div class="col-md-6">{{acc}}</div>
+                            <div ng-repeat="food in enq.food track by $index">
+                                <div class="row">
+                                    <div class="col-md-4" ng-if="$index == 0"><b>Food </b></div>
+                                    <div class="col-md-4" ng-if="$index != 0"></div>                  
+                                    <div class="col-md-4">{{food}}</div>
+                                    <div class="col-md-4">Tax</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Others</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"><b>Amount</b></div>
+                                </div>
                             </div>
-                            <div class="row" ng-repeat="acc in enq.extra_accomodation track by $index">
-                                <div class="col-md-6"></div>                  
-                                <div class="col-md-6">{{acc}}</div>
-                            </div>
-                            <div class="row" ng-repeat="food in enq.food track by $index">
-                                <div class="col-md-6" ng-if="$index == 0"><b>Food </b></div>
-                                <div class="col-md-6" ng-if="$index != 0"></div>                  
-                                <div class="col-md-6">{{food}}</div>
-                            </div>
-                            <div class="row" ng-repeat="food in enq.extra_food track by $index">
-                                <div class="col-md-6"></div>                  
-                                <div class="col-md-6">{{food}}</div>
-                            </div>
-                            <div class="row" ng-repeat="sharing in enq.sharing track by $index">
-                                <div class="col-md-6" ng-if="$index == 0"><b>Sharing </b></div>
-                                <div class="col-md-6" ng-if="$index != 0"></div>                  
-                                <div class="col-md-6">{{sharing}}</div>
-                            </div>
-                            <div class="row" ng-repeat="sharing in enq.extra_sharing track by $index">
-                                <div class="col-md-6"></div>                  
-                                <div class="col-md-6">{{sharing}}</div>
+                            <div ng-repeat="sharing in enq.sharing track by $index">
+                                <div class="row">
+                                    <div class="col-md-4" ng-if="$index == 0"><b>Sharing </b></div>
+                                    <div class="col-md-4" ng-if="$index != 0"></div>                  
+                                    <div class="col-md-4">{{sharing}}</div>
+                                    <div class="col-md-4">Tax</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">Others</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4"></div>                  
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4"><b>Amount</b></div>
+                                </div>
                             </div>
                             <div class="row" ng-repeat="entry in enq.entry track by $index">
                                 <div class="col-md-6" ng-if="$index == 0"><b>Entry </b></div>
@@ -157,42 +223,46 @@
                                 <div class="col-md-6" ng-if="$index != 0"></div>
                                 <div class="col-md-6">{{ext}}</div>
                             </div>
+                            <div class="row"> <b>Remarks</b> </div>
                             <div class="row"> <b>Total</b> </div>
                         </div>
-                        <div class="col-md-8" style="overflow-x: scroll;padding: 0;float: left;display: flex;">
+                        <div class="col-md-6" style="overflow-x: scroll;padding: 0;float: left;display: flex;">
                             <div class="col-md-4" ng-repeat="quot in enq.quotations" ng-show="$index != 0"> 
                                 <div class="row">{{quot.createdon| date:'dd/MMM/yyyy'}}</div>
-                                <div class="row" ng-repeat="transport in quot.transport track by $index">
-                                    {{transport}}
+                                <div ng-repeat="transport in quot.transport track by $index">
+                                    <div class="row"> {{transport.seating}} </div>
+                                    <div class="row"> Rs. {{transport.toll}} </div>
+                                    <div class="row"> Rs. {{transport.bata}} </div>
+                                    <div class="row"> Rs. {{transport.tax}} </div>
+                                    <div class="row"> Rs. {{transport.others}} </div>
+                                    <div class="row"> Rs. {{transport.parking}} </div>
+                                    <div class="row"> <b>Rs. {{transport.amount}}</b> </div>
                                 </div>
-                                <div class="row" ng-repeat="transport in quot.extra_transport track by $index">
-                                    {{transport}}
+                                <div ng-repeat="accomodation in quot.accomodation track by $index">
+                                    <div class="row"> {{accomodation.beds}} </div>
+                                    <div class="row"> Rs. {{accomodation.charge}} </div>
+                                    <div class="row"> Rs. {{accomodation.tax}} </div>
+                                    <div class="row"> Rs. {{accomodation.others}} </div>
+                                    <div class="row"> <b>Rs. {{accomodation.amount}}</b> </div>
                                 </div>
-                                <div class="row" ng-repeat="accomodation in quot.accomodation track by $index">
-                                    {{accomodation}}
+                                <div ng-repeat="food in quot.food track by $index">
+                                    <div class="row"> Rs. {{food.tax}} </div>
+                                    <div class="row"> Rs. {{food.others}} </div>
+                                    <div class="row"> <b>Rs. {{food.amount}}</b> </div>
                                 </div>
-                                <div class="row" ng-repeat="accomodation in quot.exra_accomodation track by $index">
-                                    {{accomodation}}
+                                <div ng-repeat="sharing in quot.sharing track by $index">
+                                    <div class="row"> Rs. {{sharing.tax}} </div>
+                                    <div class="row"> Rs. {{sharing.others}} </div>
+                                    <div class="row"> <b>Rs. {{sharing.amount}}</b> </div>
                                 </div>
-                                <div class="row" ng-repeat="food in quot.food track by $index">
-                                    {{food}}
+                                <div ng-repeat="entry in quot.entry track by $index">
+                                    <div class="row"> <b>Rs. {{entry.amount}}</b> </div>
                                 </div>
-                                <div class="row" ng-repeat="food in quot.extra_food track by $index">
-                                    {{food}}
-                                </div>
-                                <div class="row" ng-repeat="sharing in quot.sharing track by $index">
-                                    {{sharing}}
-                                </div>
-                                <div class="row" ng-repeat="sharing in quot.extra_sharing track by $index">
-                                    {{sharing}}
-                                </div>
-                                <div class="row" ng-repeat="entry in quot.entry track by $index">
-                                    {{entry}}
-                                </div>
-                                <div class="row" ng-repeat="ext in quot.extras track by $index">
-                                    {{ext}}
+                                <div ng-repeat="ext in quot.extras track by $index">
+                                    <div class="row"> <b>Rs. {{ext.amount}}</b> </div>
                                 </div> 
-                                <div class="row">{{vm.findTotal(quot)}}</div>           
+                                <div class="row">{{quot.remarks}}</div>           
+                                <div class="row"><b>Rs. {{vm.findTotal(quot)}}</b></div>           
                             </div>            
                         </div>
                     </div>
@@ -202,38 +272,282 @@
                 <div id="New" class="tab-pane fade in" ng-class="{active:isSet(3)}">
                     <div class="col-md-12 card table_rows_set">
                         
-                        
-                        <!-- <div class="col-md-2">
-                                <div class="row">{{enq.quotations[0].createdon| date:'dd/MMM/yyyy'}}</div>
-                                <div class="row" ng-repeat="transport in enq.quotations[0].transport track by $index">
-                                    <input name="transport" type="text" ng-model="transport" class="form-control" ng-change="vm.onValChange(transport, enq.quotations[0].transport, $index)" required>
-                                </div>
-                                <div class="row" ng-repeat="accomodation in enq.quotations[0].accomodation track by $index">
-                                    <input name="accomodation" type="text" ng-model="accomodation" class="form-control" ng-change="vm.onValChange(accomodation, enq.quotations[0].accomodation, $index)" required>
-                                </div>
-                                <div class="row" ng-repeat="food in enq.quotations[0].food track by $index">
-                                    <input name="food" type="text" ng-model="food" class="form-control" ng-change="vm.onValChange(food, enq.quotations[0].food, $index)" required>
-                                </div>
-                                <div class="row" ng-repeat="sharing in enq.quotations[0].sharing track by $index">
-                                    <input name="sharing" type="text" ng-model="sharing" class="form-control" ng-change="vm.onValChange(sharing, enq.quotations[0].sharing, $index)" required>
-                                </div>
-                                <div class="row">
-                                    <input name="entry" type="text" ng-model="enq.quotations[0].entry" class="form-control" required>
-                                </div>
-                                <div class="row"> &nbsp; </div>
-                                <div class="row" ng-repeat="ext in enq.quotations[0].extras track by $index">
-                                    <input type="text" ng-model="ext" class="form-control" ng-change="vm.onValChange(ext, enq.quotations[0].extras, $index)" required>
-                                </div>
-                                <div class="row">{{vm.findTotal(enq.quotations[0])}}</div>
-                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_transport= !vm.show_transport"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Transport: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].transport)}} </h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addTransport($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Transport </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeTransport($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Transport </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="transport in enq.quotations[0].transport track by $index" ng-show="vm.show_transport">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_mode">Transport Mode: </label>
+                                <select class="form-control" id="transport_mode" ng-model="enq.transport[$index]">
+                                    <option value="" disabled>Select Mode</option>  
+                                    <option value="A/C bus">A/C bus</option>    
+                                    <option value="Non A/C bus">Non A/C bus</option>    
+                                    <option value="A/C train">A/C train</option>    
+                                    <option value="Non A/C train">Non A/C train</option>    
+                                    <option value="Flight">Flight</option>    
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_seating">Seating: </label>
+                                <input name="transport_seating" type="text" ng-model="transport.seating" id="transport_seating" class="form-control" placeholder="Seating" autofocus>
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_toll">Toll: </label>
+                                <input name="transport_toll" type="text" ng-model="transport.toll" id="transport_toll" class="form-control" placeholder="Toll" ng-change="vm.addtoamtTrans(transport)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_bata">Bata: </label>
+                                <input name="transport_bata" type="text" ng-model="transport.bata" id="transport_bata" class="form-control" placeholder="Bata" ng-change="vm.addtoamtTrans(transport)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_tax">Tax: </label>
+                                <input name="transport_tax" type="text" ng-model="transport.tax" id="transport_tax" class="form-control" placeholder="Tax" ng-change="vm.addtoamtTrans(transport)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_parking">Parking: </label>
+                                <input name="transport_parking" type="text" ng-model="transport.parking" id="transport_parking" class="form-control" placeholder="Parking" ng-change="vm.addtoamtTrans(transport)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Others: </label>
+                                <input name="transport_others" type="text" ng-model="transport.others" id="transport_others" class="form-control" placeholder="Others" ng-change="vm.addtoamtTrans(transport)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Total: </label>
+                                <input name="transport_amount" type="text" ng-model="transport.amount" id="transport_amount" class="form-control" placeholder="Total">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_accomodation= !vm.show_accomodation"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Accomodation: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].accomodation)}}</h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addAccomodation($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Accomodation </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeAccomodation($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Accomodation </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="accomodation in enq.quotations[0].accomodation track by $index" ng-show="vm.show_accomodation">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_mode">Accomodation Type: </label>
+                                <select class="form-control" id="transport_mode" ng-model="enq.accomodation[$index]">
+                                    <option value="" disabled>Select Type</option>  
+                                    <option value="A/C">A/C</option>    
+                                    <option value="Non A/C">Non A/C</option>    
+                                    <option value="Dormitory">Dormitory</option>    
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_seating">Beds: </label>
+                                <input name="transport_seating" type="text" ng-model="accomodation.beds" id="transport_seating" class="form-control" placeholder="Beds">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_bata">Bed Charge: </label>
+                                <input name="transport_bata" type="text" ng-model="accomodation.charge" id="transport_bata" class="form-control" placeholder="Bed Charge" ng-change="vm.addtoamtACC(accomodation)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_tax">Tax: </label>
+                                <input name="transport_tax" type="text" ng-model="transport.tax" id="transport_tax" class="form-control" placeholder="Tax" ng-change="vm.addtoamtACC(accomodation)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Others: </label>
+                                <input name="transport_others" type="text" ng-model="transport.others" id="transport_others" class="form-control" placeholder="Others" ng-change="vm.addtoamtACC(accomodation)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Total: </label>
+                                <input name="transport_amount" type="text" ng-model="transport.amount" id="transport_amount" class="form-control" placeholder="Total">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_food= !vm.show_food"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Food: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].food)}}</h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addFood($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Food </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeFood($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Food </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="food in enq.quotations[0].food track by $index" ng-show="vm.show_food">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_mode">Food Type: </label>
+                                <select class="form-control" id="transport_mode" ng-model="enq.food[$index]">
+                                    <option value="" disabled>Select Type</option>  
+                                    <option value="Self catering">Self catering</option>    
+                                    <option value="Hotel">Hotel</option>    
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_tax">Tax: </label>
+                                <input name="transport_tax" type="text" ng-model="food.tax" id="transport_tax" class="form-control" placeholder="Tax" ng-change="vm.addtoamt(food)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Others: </label>
+                                <input name="transport_others" type="text" ng-model="food.others" id="transport_others" class="form-control" placeholder="Others" ng-change="vm.addtoamt(food)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Total: </label>
+                                <input name="transport_amount" type="text" ng-model="food.amount" id="transport_amount" class="form-control" placeholder="Total">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_sharing= !vm.show_sharing"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Sharing: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].sharing)}} </h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addSharing($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Sharing </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeSharing($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Sharing </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="sharing in enq.quotations[0].sharing track by $index" ng-show="vm.show_sharing">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_mode">Sharing Type: </label>
+                                <select class="form-control" id="transport_mode" ng-model="enq.sharing[$index]">
+                                    <option value="" disabled>Select Sharing</option>  
+                                    <option value="Twin">Twin</option>    
+                                    <option value="Tripple">Tripple</option>    
+                                    <option value="Quadruple">Quadruple</option>    
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_tax">Tax: </label>
+                                <input name="transport_tax" type="text" ng-model="sharing.tax" id="transport_tax" class="form-control" placeholder="Tax" ng-change="vm.addtoamt(sharing)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Others: </label>
+                                <input name="transport_others" type="text" ng-model="sharing.others" id="transport_others" class="form-control" placeholder="Others" ng-change="vm.addtoamt(sharing)">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Total: </label>
+                                <input name="transport_amount" type="text" ng-model="sharing.amount" id="transport_amount" class="form-control" placeholder="Total">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_entry= !vm.show_entry"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Entry: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].entry)}}</h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addEntry($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Entry </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeEntry($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Entry </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="entry in enq.quotations[0].entry track by $index" ng-show="vm.show_entry">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Particular: </label>
+                                <input name="transport_others" type="text" ng-model="enq.entry[$index]" id="transport_others" class="form-control" placeholder="Particular">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Amount: </label>
+                                <input name="transport_amount" type="text" ng-model="entry.amount" id="transport_amount" class="form-control" placeholder="Amount">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-1"> 
+                                <span ng-click="vm.show_extras= !vm.show_extras"><i class="glyphicon glyphicon glyphicon-th-list"></i></span>
+                            </div>
+                            <div class="col-sm-4"> <h4> Extras: &nbsp; {{vm.calculateEachTotal(enq.quotations[0].extras)}}</h4> </div>
+                            <div class="col-sm-2"> </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.addExtras($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-plus">  Add Extras </i>
+                                </button> 
+                            </div>                        
+                            <div class="col-sm-2">
+                                <button type="button" ng-click="vm.removeExtras($index)" class="btn btn-info">
+                                    <i class="glyphicon glyphicon-minus">  Remove Extras </i>
+                                </button>
+                            </div>                        
+                        </div>
+
+                        <div classs="row" ng-repeat="extra in enq.quotations[0].extras track by $index" ng-show="vm.show_extras">
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_others">Particular: </label>
+                                <input name="transport_others" type="text" ng-model="enq.entry[$index]" id="transport_others" class="form-control" placeholder="Particular">
+                            </div>
+                            <div class="form-group col-md-6" show-errors>
+                                <label class="control-label" for="transport_amount">Amount: </label>
+                                <input name="transport_amount" type="text" ng-model="extra.amount" id="transport_amount" class="form-control" placeholder="Amount">
+                            </div>
+                            <hr class="col-md-12">
+                        </div>
+
+                         <div classs="row">
+                            <div class="form-group col-md-8" show-errors>
+                                <label class="control-label" for="transport_others">Remarks: </label>
+                                <input name="transport_others" type="text" ng-model="enq.quotations[0].remarks" id="transport_others" class="form-control" placeholder="Remarks">
+                            </div>
+                            <div class="form-group col-md-4" style="text-align:center; vertical-align: baseline; font-weight: bold; font-size: large; padding-top: 20px;">
+                                Total: &nbsp; Rs. {{vm.findTotal(enq.quotations[0])}}
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-group col-md-12" style="margin-top:10px;text-align:center;">
+                            <button class="btn btn-success" ng-click="vm.save()">SAVE</button>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
-        </div>
-
-        <div class="form-group col-md-12" style="margin-top:10px;text-align:center;">
-            <button class="btn btn-success" ng-click="vm.save()">SAVE</button>
         </div>
 
       </fieldset>

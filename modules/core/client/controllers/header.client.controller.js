@@ -71,7 +71,7 @@
           if(!isFound) vm.notifications.enquiries.push(vm.enquiry[e]);
         }
 
-      // Booking next day & Cheque next day
+      // Booking next 10 days & Cheque next day
         for(var b=0; b<vm.bookings.length; b++){
           if(moment(vm.bookings[b].booking_date).format('dd-MM-yyyy') <= moment().add(10, 'day').format('dd-MM-yyyy'))
             vm.notifications.bookings.push(vm.bookings[b]);
