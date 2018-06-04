@@ -21,7 +21,7 @@
         controllerAs: 'vm'
       })
       .state('trips.start', {
-        url: '/start',
+        url: '/:tripId/start',
         templateUrl: '/modules/trips/client/views/start-trip.client.view.html',
         controller: 'TripsAdminController',
         controllerAs: 'vm',
@@ -69,6 +69,18 @@
         url: '/:tripId/passbook',
         templateUrl: '/modules/trips/client/views/view-passbook.client.view.html',
         controller: 'PassbookTripsAdminController',
+        controllerAs: 'vm',
+        resolve: {
+          tripResolve: getTrip
+        },
+        data: {
+          pageTitle: '{{ tripResolve.title }}'
+        }
+      })
+      .state('trips.show-details', {
+        url: '/:tripId/details',
+        templateUrl: '/modules/trips/client/views/show-details.client.view.html',
+        controller: 'DetailsTripsAdminController',
         controllerAs: 'vm',
         resolve: {
           tripResolve: getTrip

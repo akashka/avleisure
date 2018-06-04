@@ -1,0 +1,126 @@
+<section>
+  <div class="page-header">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Trip Details</h1>
+        </div>
+        <div class="col-md-4" style="float: right; margin-top: 2em">
+          <a class="btn btn-primary" ui-sref="trips.list()">
+            <i class="glyphicon glyphicon-check"> LIST TRIPS</i>
+          </a>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+        <div class="col-md-12">
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="tripId">Trip ID: {{vm.trip.trip_id}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="bookingId">Booking ID: {{vm.trip.booking_id}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_date">Start Date: {{vm.trip.trip_start_date | date:'dd/MMM/yyyy'}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_end_date">End Date: {{vm.trip.trip_end_date | date:'dd/MMM/yyyy'}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_start_by">Start By: {{vm.findExecutive(vm.trip.trip_start_by)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip_end_by">End By: {{vm.findExecutive(vm.trip.trip_end_by)}}</label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="trip.executiveId">Executive: 
+              <span ng-repeat="exe in vm.trip.executive_id"> {{exe.displayName}}, &nbsp; </span>
+            </label>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="control-label col-md-12" for="balance_amount">Balance Amount: {{vm.calculateBalance(vm.trip.transactions)}}</label>
+          </div>
+        </div>
+  </div>
+  <br/><hr/>
+
+  <div class="page-header">
+    <h3>BOOKING DETAILS</h3>
+  </div>
+
+  <form name="vm.form.bookingForm" novalidate>
+    <fieldset>
+
+        <div class="form-group col-md-6">
+          <label class="control-label" for="execution_date">Execution Date: {{vm.booking.booking_date | date:'dd/MMM/yyyy'}} </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_name">School Name: {{vm.booking.school_name}} </label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">Contact Name: {{vm.booking.contact_person}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_email_id">Contact Email: {{vm.booking.contact_email}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="school_phone_no">Contact Phone: {{vm.booking.contact_phone}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="itinery">Class: {{vm.booking.class}}</label>
+        </div>
+        <div class="form-group col-md-6">
+          <label class="control-label" for="food">Booking Amount: Rs.   {{vm.booking.booking_amount}}</label>
+        </div>
+    </fieldset>
+  </form>
+
+  <div class="page-header">
+    <h3>VENDOR BOOKINGS</h3>
+  </div>
+
+  <div class="col-md-12" style="border: 1px solid grey;">
+    <div class="row" style="border: 1px solid grey;">
+            <div class="col-md-1"> Category </div>
+            <div class="col-md-1"> Vendor </div>
+            <div class="col-md-2"> Address </div>
+            <div class="col-md-1"> Phone </div>
+            <div class="col-md-1"> Booked on </div>
+            <div class="col-md-1"> Booking for </div>
+            <div class="col-md-1"> Balance Amount </div>
+            <div class="col-md-2"> Remarks </div>
+    </div>
+    <div class="row" ng-if="vm.booking.expenses.length <= 0" 
+        style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Bookings found
+    </div>
+    <div class="row" ng-repeat="exp in vm.booking.expenses" style="border: 1px solid grey;">
+            <div class="col-md-1"> {{exp.category[0]}} </div>
+            <div class="col-md-1"> {{exp.vendor_name}} </div>
+            <div class="col-md-2"> {{exp.vendor_address}} </div>
+            <div class="col-md-1"> {{exp.vendor_phone}} </div>
+            <div class="col-md-1"> {{exp.booking_on | date:'dd/MMM/yyyy'}} </div>
+            <div class="col-md-1"> {{exp.booking_date | date:'dd/MMM/yyyy'}} </div>
+            <div class="col-md-1"> Rs.{{exp.total_amount - exp.advance_amount}} </div>
+            <div class="col-md-2"> {{exp.remarks}} </div>
+    </div>
+  </div>
+
+  <div style="margin:10px;clear:both;padding-bottom:25px;"></div>
+
+  <div class="page-header">
+    <h3>ITINERY</h3>
+  </div>
+
+  <div class="col-md-12" style="border: 1px solid grey;">
+    <div class="col-md-6"> <b>Plan: </b> &nbsp; {{vm.itinery.plan}} </div>
+    <div class="col-md-6"> <b>Nights / Days: </b> &nbsp; {{vm.itinery.nights}} N / {{vm.itinery.days}} D </div>
+    <div class="col-md-6"> <b>Country: </b> &nbsp; {{vm.itinery.international}} </div>
+    <div class="col-md-6"> <b>State: </b> &nbsp; {{vm.itinery.sstate}} </div>
+    <div class="col-md-6"> <b>Package: </b> &nbsp; {{vm.itinery.package_type}} </div>
+    <div class="col-md-12"> {{vm.itinery.description}} </div>
+  </div>
+
+  <div style="margin:10px;clear:both;padding-bottom:25px;"></div>
+  
+
+</section>

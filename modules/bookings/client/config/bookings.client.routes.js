@@ -52,8 +52,8 @@
       })
       .state('bookings.edit', {
         url: '/:bookingId/edit',
-        templateUrl: '/modules/bookings/client/views/form-booking.client.view.html',
-        controller: 'BookingsAdminController',
+        templateUrl: '/modules/bookings/client/views/edit-booking.client.view.html',
+        controller: 'BookingsEditController',
         controllerAs: 'vm',
         resolve: {
           bookingResolve: getBooking

@@ -1,9 +1,9 @@
 ( function () {
 	'use strict';
-	angular.module( 'bookings' ).controller( 'BookingsAdminController', BookingsAdminController );
-	BookingsAdminController.$inject = [ '$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService', '$timeout', 'TripsService', 'ItineriesService' ];
+	angular.module( 'bookings' ).controller( 'BookingsEditController', BookingsEditController );
+	BookingsEditController.$inject = [ '$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService', '$timeout', 'TripsService', 'ItineriesService' ];
 
-	function BookingsAdminController( $scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout, TripsService, ItineriesService ) {
+	function BookingsEditController( $scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout, TripsService, ItineriesService ) {
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
@@ -15,11 +15,7 @@
 		vm.form = {};
 		vm.remove = remove;
 		vm.save = save;
-		vm.isSearched = false;
-		vm.search = {
-			enquiry_id: "",
-			school_name: ""
-		}
+		
 		vm.multiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id',  smartButtonMaxItems: 3, checkBoxes: true};
 		vm.booking.tour_managers = [];
 
@@ -54,34 +50,6 @@
 			}
 		}
 	
-		vm.searches = function () {
-			vm.enquiry = null;
-			var searched = [];
-			for ( var e = 0; e < vm.enquiries.length; e++ ) {
-				if ( vm.search.enquiry_id != null && vm.search.enquiry_id != undefined && vm.search.enquiry_id != "" && ( vm.search.school_name == null || vm.search.school_name == undefined || vm.search.school_name == "" ) && vm.search.enquiry_id == vm.enquiries[ e ].enquiry_id ) {
-					searched.push( vm.enquiries[ e ] );
-				} else if ( ( vm.search.enquiry_id == null || vm.search.enquiry_id == undefined || vm.search.enquiry_id == "" ) && vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" && vm.search.school_name.toLowerCase() == vm.enquiries[ e ].school_name.toLowerCase() ) {
-					searched.push( vm.enquiries[ e ] );
-				} else if ( vm.search.enquiry_id != null && vm.search.enquiry_id != undefined && vm.search.enquiry_id != "" && vm.search.school_name != null && vm.search.school_name != undefined && vm.search.school_name != "" && vm.search.school_name.toLowerCase() == vm.enquiries[ e ].school_name.toLowerCase() && vm.search.enquiry_id == vm.enquiries[ e ].enquiry_id ) {
-					searched.push( vm.enquiries[ e ] );
-				}
-			}
-			if ( searched.length > 0 ) {
-				vm.enquiry = searched[ 0 ];
-				vm.booking.enquiry_id = vm.enquiry.enquiry_id;
-				vm.booking.booking_id = 'BKNG'+ vm.bookings.length;
-				vm.booking.school_name = vm.enquiry.school_name;
-				vm.booking.contact_person = vm.enquiry.school_contact_person;
-				vm.booking.contact_email = vm.enquiry.school_email_id;
-				vm.booking.contact_phone = vm.enquiry.school_phone_no;
-				vm.booking.no_of_staff = vm.enquiry.enquiries[0].no_of_teachers;
-				vm.booking.no_of_students = vm.enquiry.enquiries[0].no_of_students;
-				vm.booking.class = vm.enquiry.enquiries[0].school_class;
-				vm.booking.destination = vm.enquiry.enquiries[0].itineries;
-				vm.isSearched = true;
-			}
-		}
-
 		// Remove existing booking
 		function remove() {
 			if ( $window.confirm( 'Are you sure you want to delete?' ) ) {
@@ -104,17 +72,15 @@
 			vm.booking.createOrUpdate().then( saveTrip ).catch( errorCallback );
 
 			function saveTrip(res) {
-				var trip = {
-					trip_id: "TRIP" + vm.trips.length,
-					booking_id: vm.booking.booking_id,
-					executive_id: vm.booking.tour_managers,
-					trip_start_date: vm.booking.booking_date,
-					trip_start_by: vm.authentication.user.email,
-					transactions: [],
-					details: [],
-					trip_started: false
+				for(var v=0; v<vm.trips.length; v++) {
+					if(vm.trips[v].booking_id == vm.booking.booking_id) {
+						var trip = vm.trips[v];
+						trip.executive_id = vm.booking.tour_managers;
+						trip.trip_start_date = vm.booking.booking_date;
+						trip.trip_start_by = vm.authentication.user.email;
+						TripsService.createOrUpdate(trip).then( successCallback ).catch( errorCallback );
+					}
 				}
-				TripsService.createOrUpdate(trip).then( successCallback ).catch( errorCallback );
 			}
 
 			function successCallback( res ) {
@@ -135,12 +101,12 @@
 		vm.calculateSchoolPayment = function(tocal){
 			var paid = 0
 			if(vm.booking.amount_paid == undefined && tocal == 'paid') return 0;
-			if(vm.booking.booking_amount == undefined && tocal == 'balance') return 0;
+			if(vm.booking.total_booking_amount == undefined && tocal == 'balance') return 0;
 			for(var i=0; i<vm.booking.amount_paid.length; i++) {
 				paid += Number(vm.booking.amount_paid[i].amount_paid);
 			}
 			if(tocal == 'paid') return paid;
-			if(tocal == 'balance') return (Number(vm.booking.booking_amount)-paid);
+			if(tocal == 'balance') return (Number(vm.booking.total_booking_amount)-paid);
 		}
 
 		vm.addExtraPay = function() {
@@ -161,9 +127,35 @@
 		}
 
 		$timeout( function(){
-			if($state.params.enquiryId != "")  {  
-				vm.search.enquiry_id = $state.params.enquiryId;
-				vm.searches();
+			if($state.params.bookingId != "")  {  
+				for(var i = 0; i < vm.bookings.length; i++) {
+					if(vm.bookings[i]._id == $state.params.bookingId) {
+						vm.booking.created = vm.bookings[i].created;
+						vm.booking.enquiry_id = vm.bookings[i].enquiry_id;
+						vm.booking.booking_id = vm.bookings[i].booking_id;
+						vm.booking.booking_date = moment(vm.bookings[i].booking_date).toDate();
+						vm.booking.booking_amount = vm.bookings[i].booking_amount;
+						vm.booking.total_booking_amount = vm.bookings[i].total_booking_amount;
+						vm.booking.school_name = vm.bookings[i].school_name;
+						vm.booking.contact_person = vm.bookings[i].contact_person;
+						vm.booking.contact_destination = vm.bookings[i].contact_destination;
+						vm.booking.contact_phone = vm.bookings[i].contact_phone;
+						vm.booking.contact_email = vm.bookings[i].contact_email;
+						vm.booking.amount_paid = vm.bookings[i].amount_paid;
+						for(var k = 0; k < vm.booking.amount_paid.length; k++) {
+							vm.booking.amount_paid[k].payment_date = moment(vm.booking.amount_paid[k].payment_date).toDate();
+						}
+						vm.booking.no_of_students = vm.bookings[i].no_of_students;
+						vm.booking.no_of_staff = vm.bookings[i].no_of_staff;
+						vm.booking.class = vm.bookings[i].class;
+						vm.booking.tour_managers = vm.bookings[i].tour_managers;
+						vm.booking.destination = vm.bookings[i].destination;
+						vm.booking.billing = vm.bookings[i].billing[0];
+						vm.booking.expenses = vm.bookings[i].expenses;
+						vm.booking.user = vm.bookings[i].user;
+						vm.booking._id = vm.bookings[i]._id;
+					}
+				}
 			}
 		}, 1000 );
 

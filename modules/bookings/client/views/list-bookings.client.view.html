@@ -50,6 +50,7 @@
             <th ng-click="vm.sortTable(5)">Smart Remark</th>
             <th> </th>
             <th> </th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +63,7 @@
             <td>{{vm.calculateSmartRemark(booking)}}</td>
             <td> <a class="btn btn-info" ui-sref="bookings.expense({bookingId: booking._id})">ADD EXPENSE</a> </td>
             <td> <a class="btn btn-warning" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
-            <!-- <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> -->
+            <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> 
           </tr>
         </tbody>
     </table>

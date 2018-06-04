@@ -149,8 +149,8 @@
       if(trip != undefined) {
         if(trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
         && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != "")
-          var isTripCompleted = true;
-        var isTripOn = true;
+          isTripCompleted = true;
+        if(trip.trip_started) isTripOn = true;
       }
       var dayDiff = vm.calculateDiff(booking.booking_date);
       if(isTripCompleted) return("Trip is completed"); 

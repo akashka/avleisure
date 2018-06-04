@@ -82,11 +82,10 @@
 		// Save Trip
 		function save(transactionType) {
 			// Create a new trip, or update the current instance
-			if(vm.trip.trip_id == "" || vm.trip.trip_id == undefined) 
-					vm.trip.trip_id = ("TRIP" + vm.allTrips.length);
-			if(vm.trip.trip_start_by == "" || vm.trip.trip_start_by == undefined)
-					vm.trip.trip_start_by = vm.authentication.user.email;
+			vm.trip.trip_start_by = vm.authentication.user.email;
+			vm.trip.trip_started = true;
 			vm.updateTransactions(transactionType);
+
 			TripsService.createOrUpdate(vm.trip).then( successCallback ).catch( errorCallback );
 
 			function successCallback( res ) {

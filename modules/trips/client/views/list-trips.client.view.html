@@ -5,9 +5,9 @@
             <h1>Trips</h1>
         </div>
         <div class="col-md-4" style="float: right; margin-top: 2em">
-          <a class="btn btn-primary" ui-sref="trips.start()" ng-if="vm.isUserAdmin">
+          <!-- <a class="btn btn-primary" ui-sref="trips.start()" ng-if="vm.isUserAdmin">
             <i class="glyphicon glyphicon-check"> START TRIP</i>
-          </a>
+          </a> -->
         </div>
     </div>
   </div>
@@ -46,9 +46,10 @@
           <tr>
             <th ng-click="vm.sortTable(0)">School Name</th>
             <th ng-click="vm.sortTable(1)">Booking ID</th>
-            <th ng-click="vm.sortTable(2)">Executive Name</th>
+            <th ng-click="vm.sortTable(2)">Executives Name</th>
             <th ng-click="vm.sortTable(3)">Trip Status</th>
             <th ng-click="vm.sortTable(3)">Balance Amount</th>
+            <th> </th>
             <th> </th>
             <th> </th>
             <th> </th>
@@ -59,26 +60,47 @@
           <tr ng-repeat="trip in vm.trips">
             <td>{{trip.booking.school_name}}</td>
             <td>{{trip.booking_id}}</td>
-            <td>{{vm.findExecutiveName(trip.executive_id)}}</td>
-            <td ng-style="{color: (vm.findTripStatus(trip) == 'Ongoing' ? 'green' : '')}">
+            <td>
+                <span ng-repeat="executive in trip.executive_id">{{executive.displayName}}  <br></span>
+            </td>
+            <td ng-style="{color: (vm.findTripStatus(trip) == 'Ongoing' ? 'yellow' : (vm.findTripStatus(trip) == 'Upcoming' ? 'green' : 'red'))}">
                 {{vm.findTripStatus(trip)}}
             </td>
             <td ng-style="{color: (vm.calculateBalance(trip.transactions) <= 0 && vm.findTripStatus(trip) == 'Ongoing' ? 'red' : '')}">
                 {{vm.calculateBalance(trip.transactions)}}
             </td>
+
+            <td ng-show="vm.findTripStatus(trip) == 'Upcoming' && vm.isTripStartable(trip)"> 
+                <a class="btn btn-success" ui-sref="trips.start({tripId: trip._id})">START TRIP</a> 
+            </td>
+            <td ng-show="vm.findTripStatus(trip) != 'Upcoming' || !vm.isTripStartable(trip)"> 
+            </td>
+
             <td ng-show="vm.findTripStatus(trip) == 'Ongoing'" ng-if="vm.isUserAdmin">
                 <a class="btn btn-danger" ui-sref="trips.end({tripId: trip._id})">END TRIP</a> 
             </td>
-            <td ng-show="vm.findTripStatus(trip) != 'Ongoing' || !vm.isUserAdmin"></td>
-            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
-                <a class="btn btn-success" ui-sref="trips.add-expenses({tripId: trip._id})">ADD EXPENSES</a> 
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'" ng-if="!vm.isUserAdmin"> 
+                <a class="btn btn-danger" ui-sref="trips.add-expenses({tripId: trip._id})">ADD EXPENSES</a> 
             </td>
-            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
-            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> </td>             
-            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
-                <a class="btn btn-warning" ui-sref="trips.add-balance({tripId: trip._id})" ng-if="vm.isUserAdmin">ADD BALANCE</a> 
+            <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> 
             </td>
-            <td> <a class="btn btn-info" ui-sref="trips.view-passbook({tripId: trip._id})">VIEW PASSBOOK</a> </td> 
+
+            <td ng-show="vm.findTripStatus(trip) != 'Completed'" ng-if="vm.isUserAdmin"> 
+                <a class="btn btn-warning" ui-sref="trips.add-balance({tripId: trip._id})">ADD BALANCE</a> 
+            </td>
+            <td ng-show="vm.findTripStatus(trip) == 'Completed' || !vm.isUserAdmin"> 
+            </td>
+
+            <td> 
+                <a class="btn btn-primary" ui-sref="trips.show-details({tripId: trip._id})">SHOW DETAILS</a> 
+            </td>
+
+            <td ng-show="vm.findTripStatus(trip) != 'Upcoming'"> 
+                <a class="btn btn-info" ui-sref="trips.view-passbook({tripId: trip._id})">VIEW PASSBOOK</a> 
+            </td> 
+            <td ng-show="vm.findTripStatus(trip) == 'Upcoming'">
+            </td>
+
           </tr>
         </tbody>
     </table>

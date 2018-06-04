@@ -44,6 +44,20 @@ var TripSchema = new Schema({
   },
   transactions: {
     type:Array
+  },
+  details: {
+    type: Array
+  },
+  trip_started: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  no_of_students: {
+    type: String
+  },
+  no_of_teachers: {
+    type: String    
   }
 });
 

@@ -32,7 +32,8 @@
         if(trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
         && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != "")
           return "Completed";
-        return "Ongoing";
+        if(trip.trip_started) return "Ongoing";
+        return "Upcoming";
     }
 
     vm.calculateBalance = function(transactions) {
@@ -155,15 +156,27 @@
         }
     }
 
+    vm.isTripStartable = function(trip) {
+      var status = vm.findTripStatus(trip);
+      if(status == 'Upcoming' && moment(trip.trip_start_date).isSameOrBefore(moment(), 'day')) return true;
+      return false;
+    }
+
     $timeout(function() {
         for(var e=0; e<vm.allTrips.length; e++) {
           var temp = _.find(vm.bookings, function(o) {
             return vm.allTrips[e].booking_id == o.booking_id;
           });
           vm.allTrips[e].booking = temp;
-          if(!vm.isUserAdmin && !vm.allTrips[e].executive_id.includes(vm.authentication.user._id)) {
-            vm.allTrips.splice(e, 1);
-            e--;
+          if(!vm.isUserAdmin){
+            var isFound = false;
+            for(var i=0; i<vm.allTrips[e].executive_id.length; i++) {
+              if(vm.allTrips[e].executive_id[i]._id == vm.authentication.user._id) isFound = true;
+            }
+            if(!isFound) {
+              vm.allTrips.splice(e, 1);
+              e--;
+            }
           }
         }
         vm.trips = angular.copy(vm.allTrips);        

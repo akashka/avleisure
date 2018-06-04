@@ -23,15 +23,15 @@
   <form name="vm.form.tripForm" ng-submit="vm.save('receivedAmount')" novalidate>
     <fieldset>
       <div class="col-md-12">
-        <div class="form-group col-md-6 col-md-offset-3">
+        <!-- <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="trip.executiveId">Executive: </label>
           <div class="col-md-9">
             <div class="controls">  
               <div class="multiselect" ng-dropdown-multiselect="" options="vm.users" selected-model="vm.trip.executive_id" extra-settings="vm.multiselectSettings"></div> 
             </div>
           </div>
-        </div>
-        <div class="form-group col-md-6 col-md-offset-3">
+        </div> -->
+        <!-- <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="tranactionAmount">Start Date: </label>
           <div class="col-md-9">
             <p class="input-group">
@@ -40,11 +40,11 @@
               <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
-        </div>
-        </div>
+          </div>
+        </div> -->
         <div class="form-group col-md-6 col-md-offset-3">
-          <label class="control-label col-md-3" for="tranactionAmount">Amount: </label>
-          <div class="col-md-9">
+          <label class="control-label col-md-4" for="tranactionAmount">Amount: </label>
+          <div class="col-md-8">
           <input name="tranactionAmount" type="text" ng-model="vm.amount" id="tranactionAmount" class="form-control" placeholder="Amount Received" required autofocus>
           <div ng-messages="vm.form.tripForm.tranactionAmount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Trip tranaction amount is required.</p>
@@ -52,6 +52,24 @@
         </div>
         </div>
         <div class="form-group col-md-6 col-md-offset-3">
+          <label class="control-label col-md-4" for="no_of_students">No Of Students: </label>
+          <div class="col-md-8">
+            <input name="no_of_students" type="text" ng-model="vm.trip.no_of_students" id="no_of_students" class="form-control" placeholder="No Of Students" required autofocus>
+            <div ng-messages="vm.form.tripForm.no_of_students.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">No Of Students is required.</p>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-6 col-md-offset-3">
+          <label class="control-label col-md-4" for="no_of_teachers">No Of Teachers: </label>
+          <div class="col-md-8">
+            <input name="no_of_teachers" type="text" ng-model="vm.trip.no_of_teachers" id="no_of_teachers" class="form-control" placeholder="No Of Teachers" required autofocus>
+            <div ng-messages="vm.form.tripForm.no_of_teachers.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">No Of Teachers is required.</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="form-group col-md-6 col-md-offset-3">
             <label class="control-label col-md-3" for="bookingId">School Name: </label>
             <div class="col-md-9">
                 <input id="school_name" type="text" class="form-control" ng-model="vm.school_name" 
@@ -60,8 +78,8 @@
                     <li class="list-group-item" ng-repeat="client in vm.school_names" ng-click="vm.fillTextbox(client)">{{client.school_name}}</li>
                 </ul>
             </div>
-        </div>
-        <div class="form-group col-md-6 col-md-offset-3">
+        </div> -->
+        <!-- <div class="form-group col-md-6 col-md-offset-3">
           <label class="control-label col-md-3" for="bookingId">Booking ID.: </label>
           <div class="col-md-9">
           <input name="bookingId" type="text" ng-model="vm.trip.booking_id" id="bookingId" 
@@ -73,10 +91,10 @@
             Trip booking Id is invalid.
           </p>
         </div>
-        </div>
+        </div> -->
         <div class="form-group col-md-6 col-md-offset-3">
-          <label class="control-label col-md-3" for="bookingId">Remarks: </label>
-          <div class="col-md-9">
+          <label class="control-label col-md-4" for="bookingId">Remarks: </label>
+          <div class="col-md-8">
             <input name="remarks" type="text" ng-model="vm.remarks" id="remarks" class="form-control" placeholder="Remarks">
           </div>
         </div>
