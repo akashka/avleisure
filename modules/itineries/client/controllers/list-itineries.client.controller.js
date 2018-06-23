@@ -65,7 +65,7 @@
         vm.day_returns = false;
         vm.island = false;
         vm.south_india = '';
-        if(vm.day_returns) {
+        if(vm.international) {
             vm.itineries = [];
             for(var i=0; i<vm.allItineries.length; i++) {
                 if(vm.allItineries[i].international != 'India') vm.itineries.push(vm.allItineries[i]);
@@ -95,14 +95,23 @@
         vm.day_returns = false;
         vm.international = false;
         vm.island = false;
-        if(vm.south_india[0] != "") {
+        if(vm.south_india.length > 0 && vm.south_india[0] != "") {
             vm.itineries = [];
             for(var i=0; i<vm.allItineries.length; i++) {
-                if(vm.south_india[0] == 'North India' && _.indexOf(vm.allItineries[i].sstate, 'Karnataka') == -1 
-                  && _.indexOf(vm.allItineries[i].sstate, 'Tamil Nadu') == -1 && _.indexOf(vm.allItineries[i].sstate, 'Andhra Pradesh') == -1
-                  && _.indexOf(vm.allItineries[i].sstate, 'Telangana') == -1 && _.indexOf(vm.allItineries[i].sstate, 'Maharashtra') == -1
-                  && _.indexOf(vm.allItineries[i].sstate, 'Kerala') == -1)  vm.itineries.push(vm.allItineries[i]);
-                else if(_.indexOf(vm.allItineries[i].sstate, vm.south_india[0]) > -1) vm.itineries.push(vm.allItineries[i]);
+                if(vm.south_india[0] == 'North India') {
+                    var opt = _.map(vm.allItineries[i].sstate, function(o) {
+                        if (o.id != 'Karnataka' && o.id != 'Tamil Nadu' && o.id != 'Andhra Pradesh' && o.id != 'Maharashtra' && o.id != 'Telangana' && o.id != 'Kerala' && o.id != 'Goa' && o.id != 'Puducherry') 
+                            return o;
+                    });
+                    opt = _.compact(opt);
+                    if(opt.length > 0) vm.itineries.push(vm.allItineries[i]);
+                } else {
+                    var opt = _.map(vm.allItineries[i].sstate, function(o) {
+                        if (o.id == vm.south_india[0]) return o;
+                    });
+                    opt = _.compact(opt);
+                    if(opt.length > 0) vm.itineries.push(vm.allItineries[i]);
+                }
             }
         } else {
             vm.itineries = vm.allItineries;

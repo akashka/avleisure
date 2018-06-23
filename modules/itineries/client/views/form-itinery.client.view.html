@@ -63,9 +63,9 @@
           <label class="control-label" for="days">Days</label>
           <input name="days" type="text" ng-model="vm.itinery.days" id="days" class="form-control" placeholder="Days">
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-12">
           <label class="control-label" for="description">Description</label>
-          <textarea name="description" data-ng-model="vm.itinery.description" id="description" class="form-control" rows="10" placeholder="Description"></textarea>
+          <text-angular name="description" data-ng-model="vm.itinery.description" id="description"></text-angular>
         </div>
         <div class="form-group" style="text-align:center;padding-bottom:20px;">
           <button type="submit" class="btn btn-success">{{vm.itinery._id ? 'UPDATE' : 'CREATE'}}</button>

@@ -10,6 +10,8 @@ module.exports = {
         'public/lib/angular-ui-notification/dist/angular-ui-notification.min.css',
         'public/lib/bootstrap/dist/css/bootstrap.min.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+        'public/lib/textAngular/dist/textAngular.css',
+        'public/lib/font-awesome/web-fonts-with-css/css/font-awesome.min.css'
         // endbower
       ],
       js: [ 
@@ -31,7 +33,11 @@ module.exports = {
         'public/lib/angular-moment/angular-moment.js',
         'public/lib/lodash/lodash.js',
         'public/lib/d3/d3.min.js',
-        'public/lib/c3/c3.min.js'
+        'public/lib/c3/c3.min.js',
+        'public/lib/angular-typeahead/dist/angular-typeahead.js',
+        'public/lib/textAngular/dist/textAngular-rangy.min.js',
+        'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+        'public/lib/textAngular/dist/textAngular.min.js'        
         // endbower
       ]
     },
@@ -39,3 +45,9 @@ module.exports = {
     js: 'public/dist/application*.min.js'
   }
 };
+
+
+'use strict';
+
+/* eslint comma-dangle:[0, "only-multiline"] */
+

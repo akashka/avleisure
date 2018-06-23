@@ -9,7 +9,9 @@ module.exports = {
         // bower:css
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-        'public/lib/angular-ui-notification/dist/angular-ui-notification.css'
+        'public/lib/angular-ui-notification/dist/angular-ui-notification.css',
+        'public/lib/textAngular/dist/textAngular.css',
+        'public/lib/font-awesome/web-fonts-with-css/css/font-awesome.min.css'
         // endbower
       ],
       js: [
@@ -32,7 +34,10 @@ module.exports = {
         'public/lib/angular-typeahead/dist/angular-typeahead.js',
         'public/lib/lodash/lodash.js',
         'public/lib/d3/d3.min.js',
-        'public/lib/c3/c3.min.js'
+        'public/lib/c3/c3.min.js',
+        'public/lib/textAngular/dist/textAngular-rangy.min.js',
+        'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+        'public/lib/textAngular/dist/textAngular.min.js'        
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
