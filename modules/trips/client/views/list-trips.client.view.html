@@ -79,7 +79,7 @@
             <td ng-show="vm.findTripStatus(trip) == 'Ongoing'" ng-if="vm.isUserAdmin">
                 <a class="btn btn-danger" ui-sref="trips.end({tripId: trip._id})">END TRIP</a> 
             </td>
-            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'" ng-if="!vm.isUserAdmin"> 
+            <td ng-show="vm.findTripStatus(trip) == 'Ongoing'"> 
                 <a class="btn btn-danger" ui-sref="trips.add-expenses({tripId: trip._id})">ADD EXPENSES</a> 
             </td>
             <td ng-show="vm.findTripStatus(trip) != 'Ongoing'"> 
