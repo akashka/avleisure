@@ -32,5 +32,10 @@
         return '';
     }
 
+    vm.openMap = function(latlong) {
+      var url = 'http://maps.google.com/maps?q=loc:' + latlong;
+      window.open(url, '_blank');
+    }
+
   }
 }());

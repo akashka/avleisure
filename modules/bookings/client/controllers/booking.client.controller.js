@@ -78,6 +78,7 @@
 				vm.booking.no_of_students = vm.enquiry.enquiries[0].no_of_students;
 				vm.booking.class = vm.enquiry.enquiries[0].school_class;
 				vm.booking.destination = vm.enquiry.enquiries[0].itineries;
+				vm.booking.booking_time = moment().hour(12).minute(0);
 				vm.isSearched = true;
 			}
 		}
@@ -95,11 +96,27 @@
 		}
 
 		// Save Booking
+		$scope.message = '';
 		function save( isValid ) {
+			$scope.message = '';
 			if ( !isValid ) {
 				$scope.$broadcast( 'show-errors-check-validity', 'vm.form.bookingForm' );
 				return false;
 			}
+
+			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' || 
+					vm.booking.booking_time == '' || vm.booking.booking_time == null ||
+					moment(vm.booking.booking_date).isBefore(moment())) {
+				$scope.message = "Please select valid Execution Date and Time!"
+				return false;				
+			}
+
+			vm.booking.booking_date = moment(vm.booking.booking_date).set({
+												'hour' : moment(vm.booking.booking_time).get('hour'),
+												'minute': moment(vm.booking.booking_time).get('minute'),
+												'second': 0
+										});
+
 			// Create a new booking, or update the current instance
 			vm.booking.createOrUpdate().then( saveTrip ).catch( errorCallback );
 
@@ -107,7 +124,7 @@
 				var trip = {
 					trip_id: "TRIP" + vm.trips.length,
 					booking_id: vm.booking.booking_id,
-					executive_id: vm.booking.tour_managers,
+					// executive_id: vm.booking.tour_managers,
 					trip_start_date: vm.booking.booking_date,
 					trip_start_by: vm.authentication.user.email,
 					transactions: [],
@@ -148,6 +165,7 @@
 			vm.booking.amount_paid.push({
 				amount_paid: 0,
 				payment_date: moment(),
+				payment_mode: [],
 				isOpened: false,
 				cheque_number: "",
 				bank_name: "",

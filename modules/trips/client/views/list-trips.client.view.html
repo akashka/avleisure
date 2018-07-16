@@ -67,7 +67,7 @@
                 {{vm.findTripStatus(trip)}}
             </td>
             <td ng-style="{color: (vm.calculateBalance(trip.transactions) <= 0 && vm.findTripStatus(trip) == 'Ongoing' ? 'red' : '')}">
-                {{vm.calculateBalance(trip.transactions)}}
+                &#8377; {{vm.calculateBalance(trip.transactions)}}
             </td>
 
             <td ng-show="vm.findTripStatus(trip) == 'Upcoming' && vm.isTripStartable(trip)"> 
@@ -95,11 +95,9 @@
                 <a class="btn btn-primary" ui-sref="trips.show-details({tripId: trip._id})">SHOW DETAILS</a> 
             </td>
 
-            <td ng-show="vm.findTripStatus(trip) != 'Upcoming'"> 
+            <td> 
                 <a class="btn btn-info" ui-sref="trips.view-passbook({tripId: trip._id})">VIEW PASSBOOK</a> 
             </td> 
-            <td ng-show="vm.findTripStatus(trip) == 'Upcoming'">
-            </td>
 
           </tr>
         </tbody>

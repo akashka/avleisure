@@ -63,6 +63,9 @@ var BookingSchema = new Schema({
   class: {
     type: String
   },
+  remarks: {
+    type: String
+  },
   tour_managers: {
     type: Array
   },

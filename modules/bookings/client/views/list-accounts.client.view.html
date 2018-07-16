@@ -18,15 +18,15 @@
             <th ng-click="vm.sortTable(2)">Booked By</th>
             <th ng-click="vm.sortTable(3)">Tour Manager</th>
             <th ng-click="vm.sortTable(4)">School Name</th>
-            <th ng-click="vm.sortTable(5)">Booking Amount</th>
-            <th ng-click="vm.sortTable(6)">Amount Paid</th>
-            <th ng-click="vm.sortTable(7)">Amount Pending</th>
-            <th ng-click="vm.sortTable(8)">Pre Trip Expenses</th>
-            <th ng-click="vm.sortTable(9)">On Trip Expenses</th>
-            <th ng-click="vm.sortTable(10)">Total Expenses</th>
-            <th ng-click="vm.sortTable(11)">Savings</th>
-            <th ng-click="vm.sortTable(12)">Billing Amount</th>
-            <th ng-click="vm.sortTable(12)">GST Percentage</th>
+            <th ng-click="vm.sortTable(5)">Booking Amount(&#8377;)</th>
+            <th ng-click="vm.sortTable(6)">Amount Paid (&#8377;)</th>
+            <th ng-click="vm.sortTable(7)">Amount Pending(&#8377;)</th>
+            <th ng-click="vm.sortTable(8)">Pre Trip Expenses(&#8377;)</th>
+            <th ng-click="vm.sortTable(9)">On Trip Expenses(&#8377;)</th>
+            <th ng-click="vm.sortTable(10)">Total Expenses(&#8377;)</th>
+            <th ng-click="vm.sortTable(11)">Savings(&#8377;)</th>
+            <th ng-click="vm.sortTable(12)">Billing Amount(&#8377;)</th>
+            <th ng-click="vm.sortTable(13)">GST Percentage(%)</th>
             <th> </th>
             <th> </th>
           </tr> 
@@ -37,18 +37,18 @@
             <td>{{booking.booking_id}}</td>
             <td>{{booking.user.displayName}}</td>
             <td>
-                <span ng-repeat="tm in booking.tour_managers">{{vm.findName(tm)}},</span>
+                <span ng-repeat="tm in booking.tour_managers">{{tm.displayName}},</span>
             </td>
             <td>{{booking.school_name}}</td>
-            <td>{{booking.booking_amount}}</td>
+            <td>{{booking.total_booking_amount}}</td>
             <td>{{vm.calculatePaidAmount(booking.amount_paid)}}</td>
-            <td>{{vm.calculatePendingAmount(booking.amount_paid, booking.booking_amount)}}</td>
+            <td>{{vm.calculatePendingAmount(booking.amount_paid, booking.total_booking_amount)}}</td>
             <td>{{vm.calculateExpenses(booking)}}</td>
             <td>{{vm.onTripExpenses(booking)}}</td>
             <td>{{vm.calculateExpenses(booking) + vm.onTripExpenses(booking)}}</td>
             <td>{{vm.calculateBalance(booking)}}</td>
-            <td>{{booking.billing.bill_amount}}</td>
-            <td>{{booking.billing.gst_percentage}}</td>
+            <td>{{booking.billing[0].bill_amount}}</td>
+            <td>{{booking.billing[0].gst_percentage}}</td>
             <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
              <td> <a class="btn btn-info">PRINT BILL</a> </td> 
           </tr>

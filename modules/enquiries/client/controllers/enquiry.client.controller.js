@@ -63,15 +63,32 @@
 						vm.enquiry = allEnquiries[i];
 					}
 				}
+				var enqby = vm.enquiry.enquiry_by;
+				vm.enquiry.enquiry_by = [];
+				for(var k=0; k<enqby.length; k++) { 
+					for(var v=0; v<vm.users.length; v++){
+						if(vm.users[v].username == enqby[k].username)
+							vm.enquiry.enquiry_by.push(vm.users[v]);
+					}
+				}
 			} else {
 				vm.enquiry.enquiry_by = [];
 				for(var v=0; v<vm.users.length; v++){
 					if(vm.users[v].username == vm.authentication.user.username)
 						vm.enquiry.enquiry_by.push(vm.users[v]);
 				}
+
+				if (navigator.geolocation) {
+					navigator.geolocation.watchPosition(showPosition);
+				}
 			}
 			// vm.enquiry.enquiry_by.push(vm.authentication.user);
 		}, 1000 );
+
+		function showPosition(position) {
+			vm.enquiry.school_gprs = position.coords.latitude + "," + position.coords.longitude; 
+			console.log(vm.enquiry.school_gprs);
+		}
 		
 		// Remove existing enquiry
 		function remove() {
@@ -85,24 +102,72 @@
 			}
 		}
 
+		$scope.message = '';
+		var getErrorInForm = function() {
+			var flag = false;
+			for(var e=0; e<vm.enquiry.enquiries.length; e++) {
+				if(vm.enquiry.enquiries[e].itineries == '') {
+					$scope.message += 'Please select valid Itinery. ';
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].plan == '') {
+					$scope.message += 'Please select valid Plan. ';					
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].transport.length <= 0) {
+					$scope.message += 'Please select valid Transport. ';					
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].food.length <= 0) {
+					$scope.message += 'Please select valid Food. ';					
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].accomodation.length <= 0) {
+					$scope.message += 'Please select valid Accomodation. ';					
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].sharing.length <= 0) {
+					$scope.message += 'Please select valid Sharing. ';					
+					flag = true;					
+				}
+				if(vm.enquiry.enquiries[e].package_type.length == 0) {
+					$scope.message += 'Please select valid Package Type. ';					
+					flag = true;					
+				}
+			}
+			return flag;
+		}
+
 		// Save Enquiry
 		function save() {
-			// Create a new enquiry, or update the current instance
-			if(vm.enquiry.enquiry_id == "") vm.enquiry.enquiry_id = ("ENQ" + vm.allEnquiries.length);
-			EnquiriesService.createOrUpdate(vm.enquiry).then( successCallback ).catch( errorCallback );
+			$scope.message = '';					
+			if (!vm.form.enquiryForm.$valid) {
+				$scope.$broadcast('show-errors-check-validity', 'vm.form.enquiryForm');
+				return false;
+			} else if(vm.enquiry.enquiry_by.length <= 0) {
+				$scope.message = 'Please select your name in Enquiry By!!!';					
+				return false;
+			} else if(getErrorInForm()) {
+				// $scope.message = '';
+				return false;
+			} else {
+				// Create a new enquiry, or update the current instance
+				if(vm.enquiry.enquiry_id == "") vm.enquiry.enquiry_id = ("ENQ" + vm.allEnquiries.length);
+				EnquiriesService.createOrUpdate(vm.enquiry).then( successCallback ).catch( errorCallback );
 
-			function successCallback( res ) {
-				$state.go( 'enquiries.list' ); // should we send the User to the list or the updated enquiries view?
-				Notification.success( {
-					message: '<i class="glyphicon glyphicon-ok"></i> Enquiry saved successfully!'
-				} );
-			}
+				function successCallback( res ) {
+					$state.go( 'enquiries.list' ); // should we send the User to the list or the updated enquiries view?
+					Notification.success( {
+						message: '<i class="glyphicon glyphicon-ok"></i> Enquiry saved successfully!'
+					} );
+				}
 
-			function errorCallback( res ) {
-				Notification.error( {
-					message: res.data.message,
-					title: '<i class="glyphicon glyphicon-remove"></i> Enquiries save error!'
-				} );
+				function errorCallback( res ) {
+					Notification.error( {
+						message: res.data.message,
+						title: '<i class="glyphicon glyphicon-remove"></i> Enquiries save error!'
+					} );
+				}
 			}
 		}
 
@@ -132,7 +197,12 @@
     // delete last enquiries in enquiryForm
     function rmEnquiry(){
       vm.enquiry.enquiries.pop();
-    }
+	}
+	
+	vm.openMap = function(latlong) {
+		var url = 'http://maps.google.com/maps?q=loc:' + latlong;
+		window.open(url, '_blank');
+	}
 
 	}
 }() );

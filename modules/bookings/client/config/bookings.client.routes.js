@@ -74,7 +74,18 @@
           pageTitle: '{{ bookingResolve.title }}'
         }
       })
-      
+      .state('bookings.payment', {
+        url: '/:bookingId/add-payment',
+        templateUrl: '/modules/bookings/client/views/add-payment.client.view.html',
+        controller: 'BookingsAddPaymentController',
+        controllerAs: 'vm',
+        resolve: {
+          bookingResolve: getBooking
+        },
+        data: {
+          pageTitle: '{{ bookingResolve.title }}'
+        }
+      })
       .state('accounts', {
         abstract: true,
         url: '/accounts',

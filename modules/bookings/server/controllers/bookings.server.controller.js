@@ -61,6 +61,7 @@ exports.update = function (req, res) {
   booking.destination = req.body.destination;
   booking.billing = req.body.billing;
   booking.expenses = req.body.expenses;
+  booking.remarks = req.body.remarks;
 
   booking.save(function (err) {
     if (err) {

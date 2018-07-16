@@ -62,6 +62,7 @@
             <td>{{booking.school_name}}</td>
             <td>{{vm.calculateSmartRemark(booking)}}</td>
             <td> <a class="btn btn-info" ui-sref="bookings.expense({bookingId: booking._id})">ADD EXPENSE</a> </td>
+            <td> <a class="btn btn-success" ui-sref="bookings.payment({bookingId: booking._id})">RECEIVE PAYMENT</a> </td>
             <td> <a class="btn btn-warning" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
             <td> <a class="btn btn-primary" ui-sref="bookings.edit({bookingId: booking._id})">EDIT</a> </td> 
           </tr>

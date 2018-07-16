@@ -171,7 +171,7 @@
           if(!vm.isUserAdmin){
             var isFound = false;
             for(var i=0; i<vm.allTrips[e].executive_id.length; i++) {
-              if(vm.allTrips[e].executive_id[i]._id == vm.authentication.user._id) isFound = true;
+              if(vm.allTrips[e].executive_id[i].displayName == vm.authentication.user.displayName) isFound = true;
             }
             if(!isFound) {
               vm.allTrips.splice(e, 1);

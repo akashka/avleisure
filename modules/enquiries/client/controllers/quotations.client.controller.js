@@ -6,7 +6,7 @@
     .controller('QuotationsController', QuotationsController);
 
   QuotationsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout'];
-
+ 
   function QuotationsController($scope, $state, $window, Authentication, Notification, EnquiriesService, ItineriesService, $timeout) {
     var vm = this;
 
@@ -16,7 +16,7 @@
     vm.enquiry = null;
     vm.save = save;
     vm.isSearched = false;
-    vm.itineryDescription = '';
+    vm.itineryDescription = ''; 
 
     vm.show_transport = false;
     vm.show_accomodation = false;
@@ -75,7 +75,18 @@
                   package_type: 0,
                   entry: [],
                   extras: [],
-                  remarks: ''
+                  remarks: '',
+                  transport_total: 0,
+                  transport_remarks: '',
+                  accomodation_total: 0,
+                  accomodation_remarks: '',
+                  food_total: 0,
+                  food_remakrs: '',
+                  entry_total: 0,
+                  entry_remarks: '',
+                  extra_total: 0,
+                  extra_remarks: '',
+                  total_total: 0
               });
               for(var c=0; c<vm.enquiry.enquiries[v].accomodation.length; c++) {
                 vm.enquiry.enquiries[v].quotations[0].accomodation.push({
@@ -83,25 +94,36 @@
                   charge: 0,
                   tax: 0,
                   others: 0,
-                  amount: 0
+                  amount: 0,
+                  remarks: '',
+                  per_amount: 0,
+                  seating: Number(vm.enquiry.enquiries[v].no_of_students) + Number(vm.enquiry.enquiries[v].no_of_teachers)
                 });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].food.length; c++) {
                 vm.enquiry.enquiries[v].quotations[0].food.push({
                   tax: 0,
                   others: 0,
-                  amount: 0
+                  amount: 0,
+                  no_of_days: 0,
+                  no_of_person: 0,
+                  remarks: '',
+                  per_amount: 0                  
                 });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].transport.length; c++) {
                 vm.enquiry.enquiries[v].quotations[0].transport.push({
-                  seating: 0,
-                  toll: 0,
-                  bata: 0,
-                  parking: 0,
-                  tax: 0,
-                  others: 0,
-                  amount: 0
+                    seating: 0,
+                    toll: 0,
+                    bata: 0,
+                    parking: 0,
+                    tax: 0,
+                    others: 0,
+                    amount: 0,
+                    remarks: '',
+                    per_amount: 0,
+                    price_per_km: 0,
+                    kms: 0
                 });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].sharing.length; c++) {
@@ -123,8 +145,34 @@
                 });
               }
             }
+            getDuplicates();
             vm.isSearched = true;
         }
+    }
+
+    vm.savedList = [];
+    var getDuplicates = function() {
+      vm.savedList = [];
+      for(var e=0; e<vm.enquiry.enquiries.length; e++) {
+          vm.savedList[e] = [];
+          for(var l=0; l<vm.enquiries.length; l++) {
+            if(vm.enquiries[l]._id != vm.enquiry._id) {
+              for(var m=0; m<vm.enquiries[l].enquiries.length; m++) {
+                  var xyz = vm.enquiries[l].enquiries[m];
+                  if(xyz.accomodation == vm.enquiry.enquiries[e].accomodation && 
+                      xyz.food == vm.enquiry.enquiries[e].food &&
+                      xyz.itineries == vm.enquiry.enquiries[e].itineries &&
+                      xyz.package_type == vm.enquiry.enquiries[e].package_type &&
+                      xyz.plan == vm.enquiry.enquiries[e].plan &&
+                      xyz.sharing == vm.enquiry.enquiries[e].sharing &&
+                      xyz.transport == vm.enquiry.enquiries[e].transport) {
+                            vm.savedList[e] = xyz.quotations;
+                            console.log(vm.savedList[e]);
+                      }
+              }
+            }
+          }      
+      }
     }
 
     vm.onValChange = function(val, changedto, $index) {
@@ -155,13 +203,16 @@
       arr.amount += Number(arr.tax);
       arr.amount += Number(arr.others);
       arr.amount += Number(arr.parking);
+      arr.amount += (Number(arr.price_per_km)*Number(arr.kms));
+      arr.per_amount = Number(arr.amount) / Number(arr.seating);
     }
 
     vm.addtoamtACC = function(arr) {
       arr.amount = 0;
       arr.amount += Number(arr.tax);
       arr.amount += Number(arr.others);
-      arr.amount += Number(arr.charge);
+      arr.amount += (Number(arr.charge) * Number(arr.seating));
+      arr.per_amount = Number(arr.amount) / Number(arr.seating);      
     }
 
     vm.addtoamt = function(arr) {
@@ -170,12 +221,20 @@
       arr.amount += Number(arr.others);
     }
 
+    vm.addtoamtFOOD = function(arr) {
+        arr.amount = 0;
+        arr.amount += Number(arr.tax);
+        arr.amount += Number(arr.others);
+        arr.amount += (Number(arr.no_of_days) * Number(arr.no_of_person));
+        arr.per_amount = Number(arr.amount) / Number(arr.no_of_person); 
+    }
+
     vm.calculateEachTotal = function(arr) {
       var sum = 0;
       for(var a=0; a<arr.length; a++) {
         sum += Number(arr[a].amount);
       }
-      return "Rs. " + sum;
+      return sum;
     }
 
     vm.findTotal = function(quot) {
@@ -250,15 +309,19 @@
                     parking: 0,
                     tax: 0,
                     others: 0,
-                    amount: 0
+                    amount: 0,
+                    remarks: '',
+                    per_amount: 0,
+                    price_per_km: 0,
+                    kms: 0
         });
       }
     }
 
     vm.removeTransport = function(index) {
-        vm.enquiry.enquiries[index].transport.splice(vm.enquiry.enquiries[index].length-1, 1);
+        vm.enquiry.enquiries[index].transport.splice(vm.enquiry.enquiries[index].transport.length-1, 1);
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].transport.splice(0, 1);
+          vm.enquiry.enquiries[index].quotations[v].transport.splice(vm.enquiry.enquiries[index].quotations[v].transport.length-1, 1);
         }
     }
 
@@ -266,11 +329,14 @@
       vm.enquiry.enquiries[index].accomodation.push("Extra Accomodation");
       for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
         vm.enquiry.enquiries[index].quotations[v].accomodation.push({
-            beds: 0,
-            charge: 0,
-            tax: 0,
-            others: 0,
-            amount: 0
+              beds: 0,
+              charge: 0,
+              tax: 0,
+              others: 0,
+              amount: 0,
+              remarks: '',
+              per_amount: 0,
+              seating: Number(vm.enquiry.enquiries[v].no_of_students) + Number(vm.enquiry.enquiries[index].no_of_teachers)
         });
       }
     }
@@ -278,7 +344,7 @@
     vm.removeAccomodation = function(index) {
         vm.enquiry.enquiries[index].accomodation.splice(vm.enquiry.enquiries[index].length-1, 1);
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].accomodation.splice(0, 1);
+          vm.enquiry.enquiries[index].quotations[v].accomodation.splice(vm.enquiry.enquiries[index].quotations[v].accomodation.length-1, 1);
         }
     }
 
@@ -286,9 +352,13 @@
         vm.enquiry.enquiries[index].food.push("Extra Food");
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
           vm.enquiry.enquiries[index].quotations[v].food.push({
-                tax: 0,
-                others: 0,
-                amount: 0
+            tax: 0,
+            others: 0,
+            amount: 0,
+            no_of_days: 0,
+            no_of_person: 0,
+            remarks: '',
+            per_amount: 0                  
           });
         }
     }
@@ -296,7 +366,7 @@
     vm.removeFood = function(index) {
         vm.enquiry.enquiries[index].food.splice(vm.enquiry.enquiries[index].length-1, 1);
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].food.splice(0, 1);
+          vm.enquiry.enquiries[index].quotations[v].food.splice(vm.enquiry.enquiries[index].quotations[v].food.length-1, 1);
         }
     }
 
@@ -330,7 +400,7 @@
     vm.removeEntry = function(index) {
         vm.enquiry.enquiries[index].entry.splice(vm.enquiry.enquiries[index].length-1, 1);
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].entry.splice(0, 1);
+          vm.enquiry.enquiries[index].quotations[v].entry.splice(vm.enquiry.enquiries[index].quotations[v].entry.length-1, 1);
         }
     }
 
@@ -346,8 +416,57 @@
     vm.removeExtras = function(index) {
         vm.enquiry.enquiries[index].extras.splice(vm.enquiry.enquiries[index].length-1, 1);
         for(var v=0; v<vm.enquiry.enquiries[index].quotations.length;v++) {
-          vm.enquiry.enquiries[index].quotations[v].extras.splice(0, 1);
+          vm.enquiry.enquiries[index].quotations[v].extras.splice(vm.enquiry.enquiries[index].quotations[v].extras.length-1, 1);
         }
+    }
+
+    vm.onTransportTotalChange = function(quotations) {
+        quotations.transport_total = 0;
+        for(var t=0; t<quotations.transport.length; t++) {
+            quotations.transport_total += Number(quotations.transport[t].per_amount);
+        }
+        vm.calculate_total_total(quotations);
+    }
+
+    vm.onAccTotalChange = function(quotations) {
+        quotations.accomodation_total = 0;
+        for(var t=0; t<quotations.accomodation.length; t++) {
+            quotations.accomodation_total += Number(quotations.accomodation[t].per_amount);
+        }
+        vm.calculate_total_total(quotations);
+    }
+
+    vm.onFoodTotalChange = function(quotations) {
+        quotations.food_total = 0;
+        for(var t=0; t<quotations.food.length; t++) {
+            quotations.food_total += Number(quotations.food[t].per_amount);
+        }
+        vm.calculate_total_total(quotations);
+    }
+
+    vm.onEntryTotalChange = function(quotations) {
+        quotations.entry_total = 0;
+        for(var v=0; v<quotations.entry.length; v++) {
+          quotations.entry_total += Number(quotations.entry[v].amount);
+        }
+        vm.calculate_total_total(quotations);
+    }
+
+    vm.onExtraTotalChange = function(quotations) {
+        quotations.extra_total = 0;
+        for(var v=0; v<quotations.extra.length; v++) {
+          quotations.extra_total += Number(quotations.extra[v].amount);
+        }
+        vm.calculate_total_total(quotations);
+    }
+
+    vm.calculate_total_total = function(quotations) {
+        quotations.total_total = 0;
+        quotations.total_total += Number(quotations.extra_total);
+        quotations.total_total += Number(quotations.entry_total);
+        quotations.total_total += Number(quotations.food_total);
+        quotations.total_total += Number(quotations.accomodation_total);
+        quotations.total_total += Number(quotations.transport_total);
     }
 
   }

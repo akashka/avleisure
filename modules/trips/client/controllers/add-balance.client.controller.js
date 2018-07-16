@@ -58,6 +58,9 @@
 		
 		// Save Trip
 		function save(transactionType) {
+			if(vm.expense.amount == undefined || vm.expense.amount == "") {
+				return false;
+			}
 			vm.trip.transactions.push(vm.expense);
 			// Create a new trip, or update the current instance
 			TripsService.createOrUpdate(vm.trip).then( successCallback ).catch( errorCallback );

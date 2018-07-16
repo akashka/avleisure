@@ -14,21 +14,21 @@
     <form name="vm.userForm" ng-submit="vm.update(vm.userForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group col-md-6" show-errors>
-          <label for="firstName">First Name</label>
+          <label for="firstName">First Name <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.user.firstName" placeholder="First Name" required autofocus />
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="lastName">Last Name</label>
+          <label for="lastName">Last Name <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.user.lastName" placeholder="Last Name" required />
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="roles">Roles</label>
+          <label class="control-label" for="roles">Roles <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="controls">
             <select class="form-control" id="roles" ng-model="vm.user.roles" ng-list required>
                 <option disabled selected value="">-- choose a Role --</option>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="aadhaar_no">Aadhaar No.</label>
+          <label for="aadhaar_no">Aadhaar No. <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="aadhaar_no" name="aadhaar_no" class="form-control" ng-model="vm.user.aadhaar_no" placeholder="Aadhaar Number" required />
           <div ng-messages="vm.userForm.aadhaar_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Aadhaar No is required.</p>
@@ -62,7 +62,7 @@
           <input type="text" id="esi_no" name="esi_no" class="form-control" ng-model="vm.user.esi_no" placeholder="ESI NO." />
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="phone_no">Phone No.</label>
+          <label for="phone_no">Phone No. <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="phone_no" name="phone_no" class="form-control" ng-model="vm.user.phone_no" placeholder="Phone Number" required />
           <div ng-messages="vm.userForm.phone_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Phone Number is required.</p>
@@ -73,7 +73,7 @@
           <input type="text" id="alternate_no" name="alternate_no" class="form-control" ng-model="vm.user.alternate_no" placeholder="Alternate Number" />
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="types">Types</label>
+          <label class="control-label" for="types">Types <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="controls">
             <select class="form-control" id="types" ng-model="vm.user.user_type" ng-list required>
                 <option disabled selected value="">-- choose a Type --</option>

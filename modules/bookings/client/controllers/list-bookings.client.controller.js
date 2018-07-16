@@ -140,6 +140,14 @@
       return Math.ceil(timeDiff / (1000 * 3600 * 24));
     }
 
+    var calulateBreakupDiff = function(sdate) {
+      var date2 = new Date();
+      var date1 = new Date(sdate);
+      var timeDiff = Math.abs(date2.getTime() - date1.getTime()) / 1000;
+      var df = Math.ceil(timeDiff / 3600);
+      return df;      
+    }
+
     vm.calculateSmartRemark = function(booking) {
       var trip = _.find(vm.allTrips, function(o) {
           return o.booking_id == booking.booking_id
@@ -153,9 +161,15 @@
         if(trip.trip_started) isTripOn = true;
       }
       var dayDiff = vm.calculateDiff(booking.booking_date);
+      dayDiff--;
       if(isTripCompleted) return("Trip is completed"); 
       if(isTripOn) return("Trip is ongoing");
-      return ("Trip starts in " + dayDiff + " days");
+      if(dayDiff >= 1) return ("Trip starts in " + dayDiff + " days");
+      if(dayDiff <= -1) return ("Trip didnt start");
+      if(dayDiff == 0) {
+        var df = calulateBreakupDiff(booking.booking_date);
+        return ("Trip starts in " + df + " hours ");
+      }
     }
 
   }

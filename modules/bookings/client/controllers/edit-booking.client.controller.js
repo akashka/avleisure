@@ -63,11 +63,27 @@
 		}
 
 		// Save Booking
+		$scope.message = '';
 		function save( isValid ) {
+			$scope.message = '';
 			if ( !isValid ) {
 				$scope.$broadcast( 'show-errors-check-validity', 'vm.form.bookingForm' );
 				return false;
 			}
+
+			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' || 
+					vm.booking.booking_time == '' || vm.booking.booking_time == null ||
+					moment(vm.booking.booking_date).isBefore(moment())) {
+				$scope.message = "Please select valid Execution Date and Time!"
+				return false;				
+			}
+
+			vm.booking.booking_date = moment(vm.booking.booking_date).set({
+												'hour' : moment(vm.booking.booking_time).get('hour'),
+												'minute': moment(vm.booking.booking_time).get('minute'),
+												'second': 0
+										});
+
 			// Create a new booking, or update the current instance
 			vm.booking.createOrUpdate().then( saveTrip ).catch( errorCallback );
 
@@ -77,7 +93,7 @@
 						var trip = vm.trips[v];
 						trip.executive_id = vm.booking.tour_managers;
 						trip.trip_start_date = vm.booking.booking_date;
-						trip.trip_start_by = vm.authentication.user.email;
+						// trip.trip_start_by = vm.authentication.user.email;
 						TripsService.createOrUpdate(trip).then( successCallback ).catch( errorCallback );
 					}
 				}
@@ -148,12 +164,21 @@
 						vm.booking.no_of_students = vm.bookings[i].no_of_students;
 						vm.booking.no_of_staff = vm.bookings[i].no_of_staff;
 						vm.booking.class = vm.bookings[i].class;
-						vm.booking.tour_managers = vm.bookings[i].tour_managers;
+
+						vm.booking.tour_managers = [];
+						for(var u=0; u<vm.users.length; u++) {
+							for(var t=0; t<vm.bookings[i].tour_managers.length; t++) {
+								if(vm.bookings[i].tour_managers[t]._id == vm.users[u]._id) 
+									vm.booking.tour_managers.push(vm.users[u]);
+							}
+						}
+						
 						vm.booking.destination = vm.bookings[i].destination;
 						vm.booking.billing = vm.bookings[i].billing[0];
 						vm.booking.expenses = vm.bookings[i].expenses;
 						vm.booking.user = vm.bookings[i].user;
 						vm.booking._id = vm.bookings[i]._id;
+						vm.booking.booking_time = vm.bookings[i].booking_date;
 					}
 				}
 			}

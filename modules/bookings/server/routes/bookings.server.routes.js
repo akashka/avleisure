@@ -8,16 +8,16 @@ var bookingsPolicy = require('../policies/bookings.server.policy'),
 
 module.exports = function (app) {
   // Bookings collection routes
-  app.route('/api/bookings').all(bookingsPolicy.isAllowed)
+  app.route('/api/bookings')
     .get(bookings.list)
     .post(bookings.create);
 
-  app.route('/api/bookings/create').all(bookingsPolicy.isAllowed)
+  app.route('/api/bookings/create')
     .get(bookings.list)
     .post(bookings.create);
 
   // Single bookings routes
-  app.route('/api/bookings/:bookingId').all(bookingsPolicy.isAllowed)
+  app.route('/api/bookings/:bookingId')
     .get(bookings.read)
     .put(bookings.update)
     .delete(bookings.delete);

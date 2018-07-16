@@ -8,16 +8,16 @@ var enquiriesPolicy = require('../policies/enquiries.server.policy'),
 
 module.exports = function (app) {
   // Enquiries collection routes
-  app.route('/api/enquiries').all(enquiriesPolicy.isAllowed)
+  app.route('/api/enquiries')
     .get(enquiries.list)
     .post(enquiries.create);
 
-  app.route('/api/enquiries/create').all(enquiriesPolicy.isAllowed)
+  app.route('/api/enquiries/create')
     .get(enquiries.list)
     .post(enquiries.create);
 
   // Single enquiry routes
-  app.route('/api/enquiries/:enquiryId').all(enquiriesPolicy.isAllowed)
+  app.route('/api/enquiries/:enquiryId')
     .get(enquiries.read)
     .put(enquiries.update)
     .delete(enquiries.delete);

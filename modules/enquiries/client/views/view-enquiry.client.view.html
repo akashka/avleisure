@@ -45,7 +45,8 @@
           <label class="control-label" for="alternate_phone_no">Alternate Phone: {{vm.enquiry.alternate_phone_no}}</label>
         </div>
         <div class="form-group col-md-6">
-          <label class="control-label" for="school_gprs">School GPRS: {{vm.enquiry.school_gprs}}</label>
+          <label class="control-label" for="school_gprs">School GPRS: </label>
+          <span style="padding:0;" ng-click="vm.openMap(vm.enquiry.school_gprs)" class="btn btn-link"> <i class="glyphicon glyphicon-map-marker"> MAP </i> </span>
         </div>
         <div class="form-group col-md-6">
           <label class="control-label" for="school_photo">School Photo: {{vm.enquiry.school_photo}}</label>

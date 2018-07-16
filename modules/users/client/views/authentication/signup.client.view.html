@@ -13,21 +13,21 @@
     <form name="vm.userForm" ng-submit="vm.signup(vm.userForm.$valid)" class="signin" novalidate autocomplete="off">
       <fieldset>
         <div class="form-group col-md-6" show-errors>
-          <label for="firstName">First Name</label>
+          <label for="firstName">First Name <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="firstName" name="firstName" class="form-control" ng-model="vm.credentials.firstName" placeholder="First Name" required autofocus>
           <div ng-messages="vm.userForm.firstName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">First name is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="lastName">Last Name</label>
+          <label for="lastName">Last Name <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="lastName" name="lastName" class="form-control" ng-model="vm.credentials.lastName" placeholder="Last Name" required>
           <div ng-messages="vm.userForm.lastName.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Last name is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="email">Email</label>
+          <label for="email">Email <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="email" id="email" name="email" class="form-control" ng-model="vm.credentials.email" placeholder="Email" lowercase required>
           <div ng-messages="vm.userForm.email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Email address is required.</p>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="roles">Roles</label>
+          <label for="roles">Roles <span style="color:green;font-weight:bolder;">  * </span> </label>
           <select class="form-control" id="roles" ng-model="vm.credentials.roles" ng-list required>
               <option disabled selected value="">-- choose a Role --</option>
               <option value="user">User</option>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="username">Username</label>
+          <label for="username">Username <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="username" name="username" class="form-control" ng-model="vm.credentials.username" ng-pattern="vm.usernameRegex" placeholder="Username" lowercase required>
           <div ng-messages="vm.userForm.username.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Username is required.</p>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="aadhaar_no">Aadhaar No.</label>
+          <label for="aadhaar_no">Aadhaar No. <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="aadhaar_no" name="aadhaar_no" class="form-control" ng-model="vm.credentials.aadhaar_no" placeholder="Aadhaar No." required>
           <div ng-messages="vm.userForm.aadhaar_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Aadhaar Number is required.</p>
@@ -75,7 +75,7 @@
           <input type="text" id="esi_no" name="esi_no" class="form-control" ng-model="vm.credentials.esi_no" placeholder="ESI No.">
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="phone_no">Phone No.</label>
+          <label for="phone_no">Phone No. <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input type="text" id="phone_no" name="phone_no" class="form-control" ng-model="vm.credentials.phone_no" placeholder="Phone No." required>
           <div ng-messages="vm.userForm.phone_no.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Phone Number is required.</p>
@@ -86,7 +86,7 @@
           <input type="text" id="alternate_no" name="alternate_no" class="form-control" ng-model="vm.credentials.alternate_no" placeholder="Alternate No.">
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="types">Types</label>
+          <label for="types">Types <span style="color:green;font-weight:bolder;">  * </span> </label>
           <select class="form-control" id="types" ng-model="vm.credentials.user_type" ng-list required>
               <option disabled selected value="">-- choose a Type --</option>
               <option value="permanent">Permanent</option>
@@ -98,7 +98,7 @@
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
-          <label for="address">Address</label>
+          <label for="address">Address <span style="color:green;font-weight:bolder;">  * </span> </label>
           <textarea rows="2" type="text" id="address" name="address" class="form-control" ng-model="vm.credentials.address" placeholder="Address" required></textarea>
           <div ng-messages="vm.userForm.address.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Address is required.</p>
@@ -106,7 +106,7 @@
         </div>
         <div class="col-md-6">
           <div class="form-group" show-errors>
-            <label for="password">Password</label>
+            <label for="password">Password <span style="color:green;font-weight:bolder;">  * </span> </label>
               <input type="password" id="password" name="password" class="form-control" ng-model="vm.credentials.password" placeholder="Password" uib-popover="{{vm.getPopoverMsg()}}" popover-trigger="outsideClick" password-validator required>
             <div ng-messages="vm.userForm.password.$error" role="alert">
               <p class="help-block error-text" ng-message="required">Password is required.</p>

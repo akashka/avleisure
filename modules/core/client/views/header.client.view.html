@@ -43,7 +43,8 @@
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
+              data-toggle="tooltip" data-placement="bottom" title="New Enquiries">
             <i data-count={{vm.notifications.enquiries.length}} class="glyphicon glyphicon-bell notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -56,7 +57,8 @@
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
+              data-toggle="tooltip" data-placement="bottom" title="New Bookings">
             <i data-count={{vm.notifications.bookings.length}} class="glyphicon glyphicon-send notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -69,7 +71,8 @@
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
+              data-toggle="tooltip" data-placement="bottom" title="Ongoing Trips">
             <i data-count={{vm.notifications.trips.length}} class="glyphicon glyphicon-road notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -82,7 +85,8 @@
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
+              data-toggle="tooltip" data-placement="bottom" title="Payment Reminders">
             <i data-count={{vm.notifications.cheques.length}} class="glyphicon glyphicon-credit-card notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">

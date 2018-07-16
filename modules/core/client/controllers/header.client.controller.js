@@ -28,7 +28,30 @@
       vm.enquiry = EnquiriesService.query();
       $timeout(function() {
         getNotifications();
+        if(vm.authentication.user.roles[0] != 'admin') filterData();
       }, 1000);
+    }
+
+    var filterData = function() {
+        vm.notifications.cheques = [];
+        for(var e=0; e<vm.notifications.enquiries.length; e++) {
+          if(vm.notifications.enquiries[e].user.email != vm.authentication.user.email) {
+              vm.notifications.enquiries.splice(e,1);
+              e--;
+          }
+        }
+        for(var b=0; b<vm.notifications.bookings.length; b++) {
+          if(vm.notifications.bookings[b].user.email != vm.authentication.user.email) {
+              vm.notifications.bookings.splice(b,1);
+              b--;
+          }
+        }
+        for(var t=0; t<vm.notifications.trips.length; t++) {
+          if(vm.notifications.trips[t].user.email != vm.authentication.user.email) {
+              vm.notifications.bookings.splice(t,1);
+              t--;
+          }
+        }
     }
 
     vm.notifications = {
@@ -86,7 +109,7 @@
         for(var t=0; t<vm.trips.length; t++) {
           var trip = vm.trips[t];
           if(!(trip.trip_end_date != undefined && trip.trip_end_date != null && trip.trip_end_date != ""
-            && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != ""))
+            && trip.trip_end_by != undefined && trip.trip_end_by != null && trip.trip_end_by != "") && trip.trip_started == true)
                 vm.notifications.trips.push(trip);
         }
     }

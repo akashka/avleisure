@@ -8,21 +8,21 @@ var itineriesPolicy = require('../policies/itineries.server.policy'),
 
 module.exports = function (app) {
   // Itineries collection routes
-  app.route('/api/itineries').all(itineriesPolicy.isAllowed)
+  app.route('/api/itineries')
     .get(itineries.list)
     .post(itineries.create);
 
-  app.route('/api/itineries/create').all(itineriesPolicy.isAllowed)
+  app.route('/api/itineries/create')
     .get(itineries.list)
     .post(itineries.create);
 
   // Single itinery routes
-  app.route('/api/itineries/:itineryId').all(itineriesPolicy.isAllowed)
+  app.route('/api/itineries/:itineryId')
     .get(itineries.read)
     .put(itineries.update)
     .delete(itineries.delete);
 
-  app.route('/api/getCities/:alphacode').all()
+  app.route('/api/getCities/:alphacode')
     .get(itineries.getCities)
 
   // Finish by binding the itinery middleware

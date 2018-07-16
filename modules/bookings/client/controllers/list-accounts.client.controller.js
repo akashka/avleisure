@@ -77,7 +77,7 @@
 		vm.calculatePaidAmount = function(amt) {
 			var total = 0;
 			for(var a=0; a<amt.length; a++) {
-				total += Number(amt.amount_paid);
+				total += Number(amt[a].amount_paid);
 			}
 			return total;
 		}
@@ -85,7 +85,7 @@
 		vm.calculatePendingAmount = function(amt, booked) {
 			var total = 0;
 			for(var a=0; a<amt.length; a++) {
-				total += Number(amt.amount_paid);
+				total += Number(amt[a].amount_paid);
 			}
 			return (Number(booked) - total);
 		}
@@ -123,7 +123,7 @@
 			for(var i=0; i<booking.expenses.length; i++) {
 				expenses += Number(booking.expenses[i].total_amount);
 			}	
-			return (Number(booking.booking_amount) - (onTripExpense + expenses));
+			return (Number(booking.total_booking_amount) - (onTripExpense + expenses));
 		}
 
 		vm.findName = function(tm) {
