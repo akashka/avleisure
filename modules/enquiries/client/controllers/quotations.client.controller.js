@@ -10,7 +10,13 @@
   function QuotationsController($scope, $state, $window, Authentication, Notification, EnquiriesService, ItineriesService, $timeout) {
     var vm = this;
 
-    vm.enquiries = EnquiriesService.query();
+    EnquiriesService.query().$promise.then(function(response){
+        vm.enquiries = response;
+        if($state.params.enquiryId != "")  {  
+            vm.search.enquiry_id = $state.params.enquiryId;
+            vm.searches();
+        }
+    });
     vm.authentication = Authentication;
     vm.itineries = ItineriesService.query();
     vm.enquiry = null;
@@ -284,13 +290,6 @@
 			}
     }
 
-    $timeout( function(){
-      if($state.params.enquiryId != "")  {  
-          vm.search.enquiry_id = $state.params.enquiryId;
-          vm.searches();
-      }
-    }, 1000 );
-
     vm.findItinery = function(id) {
       for(var v = 0; v < vm.itineries.length; v++) {
         if(vm.itineries[v]._id === id) {
@@ -467,6 +466,10 @@
         quotations.total_total += Number(quotations.food_total);
         quotations.total_total += Number(quotations.accomodation_total);
         quotations.total_total += Number(quotations.transport_total);
+    }
+
+    vm.sendMail = function(quotation) {
+      console.log("To Do - Send a mail to school");
     }
 
   }

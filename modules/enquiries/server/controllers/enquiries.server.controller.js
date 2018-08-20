@@ -1,16 +1,90 @@
 'use strict';
 
-/**
- * Module dependencies
- */
+/* Module dependencies */
 var path = require('path'),
   mongoose = require('mongoose'),
   Enquiry = mongoose.model('Enquiry'),
+  Itinery = mongoose.model('Itinery'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+var moment = require('moment');
+var nodemailer = require('nodemailer');
+var fs = require('fs');
+var request = require('request-promise');
+var curl = require('curlrequest');
+var sgMail = require('@sendgrid/mail');
+var _ = require('lodash-node');
+var json2csv = require('json2csv');
+var base64 = require('base-64');
 
-/**
- * Create an enquiry
- */
+var smsUrl = "http://alerts.valueleaf.com/api/v4/?api_key=A172d1e496771a5758651f00704e4ad18";
+var adminNumber = ["7259596963", "7259596963"];
+var adminEmail = "akash.ka01@gmail.in";
+var senderID = "LILWON";
+
+var apiKey = "SG";
+apiKey += ".41G";
+apiKey += "-EH6mS";
+apiKey += "-WT7ZWg_5bH";
+apiKey += "-g";
+apiKey += ".gEep1FU0lKjI8";
+apiKey += "D4gd4zpY7a5HR7";
+apiKey += "Up9jmE0AENHKO09A";
+sgMail.setApiKey(apiKey);
+
+
+var sendEnquiryMail = function(enquiry) {
+    console.log("Sending enquiry mail to School");
+    Itinery.find().exec(function(err, itineries) {
+      if (err) { res.send(err); }
+      var attachments = [];
+      for(var e=0; e<enquiry.enquiries.length; e++) {
+        for(var i=0; i<itineries.length; i++) {
+          if(itineries[i]._id == enquiry.enquiries[e].itineries)  attachments.push(itineries[i]);
+        }
+      }
+
+      var stringTemplate = fs.readFileSync(path.join(__dirname, '../helpers') + '/school_enquiry.html', "utf8");
+      var mailOptions = {
+        to: enquiry.school_email_id,
+        from: 'info@avleisures.com',
+        subject: 'Enquiry successfully received at AV Leisures',
+        html: stringTemplate,
+        attachments: []
+      };
+
+      for(var l=0; l<itinery.length; l++) {
+        mailOptions.attachments.push({
+          content: itinery[l],
+          filename: 'itinery' + l,
+          contentId: 'itinery' + l
+        });
+      }
+
+      sgMail.send(mailOptions, function(err) {
+        if(err) console.log(err);
+      });
+    });
+};
+
+var sendEnquirySms = function(enquiry) {
+    console.log("Sending SMS to school");
+
+    var messageData = "Thank you for your enquiry at AV Leisure. " +
+          "We assure to give you the best quotes in the shortest time possible. " +
+          "Meanwhile please check your mails for itinery. " +
+          "For more details you can contact us.";
+
+    var formData = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.phone_number + "&sender=" + senderID;
+
+    curl.request(formData, function optionalCallback(err, body) {
+      if (err) {
+        return console.error('Sending SMS to school failed: ', err);
+      }
+      console.log('Successfully sent SMS to school');
+    });
+}
+
+/* Create an enquiry */
 exports.create = function (req, res) {
   var enquiry = new Enquiry(req.body);
       enquiry.user = req.user;
@@ -20,14 +94,14 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
+          sendEnquiryMail(enquiry);
+          sendEnquirySms(enquiry);
           res.json(enquiry);
         }
       });
 };
 
-/**
- * Show the current enquiry
- */
+/* Show the current enquiry */
 exports.read = function (req, res) {
   // convert mongoose document to JSON
   var enquiry = req.enquiry ? req.enquiry.toJSON() : {};
@@ -39,9 +113,7 @@ exports.read = function (req, res) {
   res.json(enquiry);
 };
 
-/**
- * Update an enquiry
- */
+/* Update an enquiry */
 exports.update = function (req, res) {
   var enquiry = req.enquiry;
 
@@ -72,9 +144,7 @@ exports.update = function (req, res) {
   });
 };
 
-/**
- * Delete an enquiry
- */
+/* Delete an enquiry */
 exports.delete = function (req, res) {
   var enquiry = req.enquiry;
 
@@ -89,9 +159,7 @@ exports.delete = function (req, res) {
   });
 };
 
-/**
- * List of Enquiries
- */
+/* List of Enquiries */
 exports.list = function (req, res) {
   Enquiry.find().sort('-created').populate('user', 'displayName').exec(function (err, enquiries) {
     if (err) {
@@ -104,9 +172,7 @@ exports.list = function (req, res) {
   });
 };
 
-/**
- * Enquiry middleware
- */
+/* Enquiry middleware */
 exports.enquiryByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {

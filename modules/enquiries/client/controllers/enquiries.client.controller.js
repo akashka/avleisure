@@ -10,11 +10,8 @@
   function EnquiriesController($scope, EnquiriesService, Authentication, $timeout, $state, ItineriesService) {
     var vm = this;
 
-    vm.enquiry = EnquiriesService.query();
-    vm.itineries = ItineriesService.query();
-    vm.authentication = Authentication;
-
-    $timeout( function(){
+    EnquiriesService.query().$promise.then(function(response){
+      vm.enquiry = response;
 			if($state.params.enquiryId) {
 				var allEnquiries = (vm.enquiry);
 				for(var i=0; i<allEnquiries.length; i++) {
@@ -23,7 +20,9 @@
 					}
 				}
 			}
-		}, 1000 );
+    });
+    vm.itineries = ItineriesService.query();
+    vm.authentication = Authentication;
 
     vm.findItineryName = function(itinery) {
         for(var v=0; v<vm.itineries.length; v++) {

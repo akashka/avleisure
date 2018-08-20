@@ -53,6 +53,7 @@
             <th>Credit (&#8377;)</th>
             <th>Debit (&#8377;)</th>
             <th>Balance (&#8377;)</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -70,6 +71,10 @@
               <span ng-if="!transaction.credit">{{transaction.amount}}</span>
             </td>
             <td>{{transaction.balance}}</td>
+            <td> 
+              <span style="padding:0;" ng-if="transaction.location != ''" ng-click="vm.openMap(transaction.location)" 
+                    class="btn btn-link"> <i class="glyphicon glyphicon-map-marker"> MAP </i> </span>
+            </td>
           </tr>
         </tbody>
     </table>

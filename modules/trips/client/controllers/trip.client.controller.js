@@ -6,22 +6,13 @@
 	function TripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout, UsersService, BookingsService, EnquiriesService) {
 		var vm = this;
 		vm.trip = trip;
-		vm.allTrips = TripsService.query();
 		vm.itineries = ItineriesService.query();
 		vm.authentication = Authentication;
 		vm.users = UsersService.query();
 		vm.bookings = BookingsService.query();
 		vm.enquiries = EnquiriesService.query();
-		vm.form = {};
-		vm.remove = remove;
-		vm.save = save;
-		vm.rmTrip  = rmTrip;
-		vm.updateTransactions = updateTransactions;
-		vm.amount = '';
-		vm.school_name = '';
-		vm.trip.executive_id = [];
-
-		$timeout( function(){
+		TripsService.query().$promise.then(function(response){
+			vm.allTrips = response;
 			if($state.params.tripId) {
 				var allTrips = (vm.allTrips);
 				for(var i=0; i<allTrips.length; i++) {
@@ -43,7 +34,18 @@
 					v--;
 				}
 			}
-		}, 1000 );
+			if (navigator.geolocation) {
+				navigator.geolocation.watchPosition(showPosition);
+			}
+		});
+		vm.form = {};
+		vm.remove = remove;
+		vm.save = save;
+		vm.rmTrip  = rmTrip;
+		vm.updateTransactions = updateTransactions;
+		vm.amount = '';
+		vm.school_name = '';
+		vm.trip.executive_id = [];
 
 		vm.selectDate = function ( $event, num ) {
 			if ( num == 1 ) {
@@ -105,7 +107,7 @@
 
 		// add new trips in tripForm
 		function updateTransactions(transactionType){
-		if(transactionType === 'receivedAmount'){
+			if(transactionType === 'receivedAmount'){
 				if(vm.trip.transactions == undefined) vm.trip.transactions = [];
 				vm.trip.transactions.push({
 					amount:vm.amount,
@@ -114,6 +116,7 @@
 					sub_category: '',
 					remarks: vm.remarks,
 					image:'',
+					location: $scope.location,
 					transaction_date: new Date()
 				});
 			};
@@ -169,6 +172,11 @@
 				vm.school_name = '';
 				vm.isBookingIdCorrect = false;
 			}
+		}
+
+		$scope.location = "";
+		function showPosition(position) {
+			$scope.location = position.coords.latitude + "," + position.coords.longitude; 
 		}
 
 	}

@@ -6,13 +6,8 @@
 	function PassbookTripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout, UsersService ) {
 		var vm = this;
 		vm.trip = trip;
-		vm.allTrips = TripsService.query();
-		vm.itineries = ItineriesService.query();
-		vm.authentication = Authentication;
-		vm.users = UsersService.query();
-		vm.balance = 0;
-
-		$timeout(function() {
+		TripsService.query().$promise.then(function(response){
+			vm.allTrips = response;
 			if($state.params.tripId) {
 				var allTrips = vm.allTrips;
 				for(var i=0; i<allTrips.length; i++) {
@@ -29,7 +24,11 @@
 					}
 				}
 			}
-		}, 1000);
+		});
+		vm.itineries = ItineriesService.query();
+		vm.authentication = Authentication;
+		vm.users = UsersService.query();
+		vm.balance = 0;
 
 		vm.findExecutiveName = function(executive_id) {
 			for(var i=0; i<vm.users.length; i++) {
@@ -57,6 +56,11 @@
 			else sum -= Number(transactions[i].amount);
 			}
 			return sum;
+		}
+
+		vm.openMap = function(latlong) {
+			var url = 'http://maps.google.com/maps?q=loc:' + latlong;
+      		window.open(url, '_blank');
 		}
 
 	}

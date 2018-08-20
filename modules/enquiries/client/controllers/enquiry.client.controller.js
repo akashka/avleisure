@@ -80,7 +80,7 @@
 
 				if (navigator.geolocation) {
 					navigator.geolocation.watchPosition(showPosition);
-				}
+				} 
 			}
 			// vm.enquiry.enquiry_by.push(vm.authentication.user);
 		}, 1000 );

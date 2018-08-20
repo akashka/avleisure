@@ -7,12 +7,8 @@
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
-		vm.bookings = BookingsService.query();
-		vm.authentication = Authentication;
-		vm.form = {};
-        vm.save = save;
-        
-        $timeout(function() {
+		BookingsService.query().$promise.then(function(response){
+			vm.bookings = response;
 			if($state.params.bookingId) {
 				var allBookings = vm.bookings;
 				for(var i=0; i<allBookings.length; i++) {
@@ -21,7 +17,10 @@
 					}
 				}
 			}
-        }, 1000);
+		});
+		vm.authentication = Authentication;
+		vm.form = {};
+        vm.save = save;
         
         vm.expense = {
             category: "",

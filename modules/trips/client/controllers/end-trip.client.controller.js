@@ -6,15 +6,8 @@
 	function EndTripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout, UsersService ) {
 		var vm = this;
 		vm.trip = trip;
-		vm.allTrips = TripsService.query();
-		vm.itineries = ItineriesService.query();
-		vm.authentication = Authentication;
-		vm.users = UsersService.query();
-		vm.form = {};
-		vm.save = save;
-		vm.remarks = "";
-
-		$timeout(function() {
+		TripsService.query().$promise.then(function(response){
+			vm.allTrips = response;
 			if($state.params.tripId) {
 				var allTrips = vm.allTrips;
 				for(var i=0; i<allTrips.length; i++) {
@@ -23,7 +16,16 @@
 					}
 				}
 			}
-		}, 1000);
+			if (navigator.geolocation) {
+				navigator.geolocation.watchPosition(showPosition);
+			}
+		});
+		vm.itineries = ItineriesService.query();
+		vm.authentication = Authentication;
+		vm.users = UsersService.query();
+		vm.form = {};
+		vm.save = save;
+		vm.remarks = "";
 
 		vm.findExecutiveName = function(executive_id) {
 			for(var i=0; i<vm.users.length; i++) {
@@ -61,6 +63,7 @@
 					sub_category: '',
 					remarks: vm.remarks,
 					image:'',
+					location: $scope.location,
 					transaction_date: new Date()
 			});
 			TripsService.createOrUpdate(vm.trip).then( successCallback ).catch( errorCallback );
@@ -76,6 +79,11 @@
 					title: '<i class="glyphicon glyphicon-remove"></i> Trips save error!'
 				} );
 			}
+		}
+
+		$scope.location = "";
+		function showPosition(position) {
+			$scope.location = position.coords.latitude + "," + position.coords.longitude; 
 		}
 
 	}

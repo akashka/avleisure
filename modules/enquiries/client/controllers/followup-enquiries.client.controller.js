@@ -10,21 +10,20 @@
   function EnquiriesFollowupController($scope, EnquiriesService, Authentication, $timeout, $state, UsersService, ItineriesService) {
     var vm = this;
 
-    vm.enquiry = EnquiriesService.query();
-    vm.users = UsersService.query();
-    vm.itineries = ItineriesService.query();
-    vm.authentication = Authentication;
-
-    $timeout( function(){
+    EnquiriesService.query().$promise.then(function(response){
+			vm.enquiry = response;
 			if($state.params.enquiryId) {
-				var allEnquiries = (vm.enquiry);
+				var allEnquiries = vm.enquiry;
 				for(var i=0; i<allEnquiries.length; i++) {
 					if(allEnquiries[i]._id == $state.params.enquiryId) {
 						vm.enquiry = allEnquiries[i];
 					}
 				}
 			}
-    }, 1000 );
+		});
+    vm.users = UsersService.query();
+    vm.itineries = ItineriesService.query();
+    vm.authentication = Authentication;
 
     vm.multiselectSettings = { 
 			checkBoxes: true, 

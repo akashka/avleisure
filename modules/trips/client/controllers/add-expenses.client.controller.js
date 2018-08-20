@@ -6,7 +6,20 @@
 	function ExpensesTripsAdminController( $scope, $state, $window, trip, Authentication, Notification, TripsService, ItineriesService, $timeout, UsersService ) {
 		var vm = this;
 		vm.trip = trip;
-		vm.allTrips = TripsService.query();
+		TripsService.query().$promise.then(function(response){
+			vm.allTrips = response;
+			if($state.params.tripId) {
+				var allTrips = vm.allTrips;
+				for(var i=0; i<allTrips.length; i++) {
+					if(allTrips[i]._id == $state.params.tripId) {
+						vm.trip = allTrips[i];
+					}
+				}
+			}
+			if (navigator.geolocation) {
+				navigator.geolocation.watchPosition(showPosition);
+			}
+		});
 		vm.itineries = ItineriesService.query();
 		vm.authentication = Authentication;
 		vm.users = UsersService.query();
@@ -20,19 +33,9 @@
 			image: "",
 			remarks: "",
 			sub_category: "",
+			location: "",
 			transaction_date: new Date()
 		};
-
-		$timeout(function() {
-			if($state.params.tripId) {
-				var allTrips = vm.allTrips;
-				for(var i=0; i<allTrips.length; i++) {
-					if(allTrips[i]._id == $state.params.tripId) {
-						vm.trip = allTrips[i];
-					}
-				}
-			}
-		}, 1000);
 
 		vm.findExecutiveName = function(executive_id) {
 			for(var i=0; i<vm.users.length; i++) {
@@ -73,6 +76,10 @@
 					title: '<i class="glyphicon glyphicon-remove"></i> Trips save error!'
 				} );
 			}
+		}
+
+		function showPosition(position) {
+			vm.expense.location = position.coords.latitude + "," + position.coords.longitude; 
 		}
 
 	}

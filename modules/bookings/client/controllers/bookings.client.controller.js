@@ -12,15 +12,13 @@
 
     vm.booking = booking;
     vm.authentication = Authentication;
-    vm.trips = TripsService.query();
-    vm.itineries = ItineriesService.query();
-
-    $timeout(function() {
+    TripsService.query().$promise.then(function(response){
+        vm.trips = response;
         vm.trip = _.find(vm.trips, function(o) { 
             return o.booking_id == vm.booking.booking_id; 
         });
-        console.log(vm.trip);
-    }, 1000);
+    });
+    vm.itineries = ItineriesService.query();
 
     vm.findDestination = function(_id) {
       for(var i=0; i<vm.itineries.length; i++) {
