@@ -48,17 +48,19 @@ var sendEnquiryMail = function(enquiry) {
         to: enquiry.school_email_id,
         from: 'info@avleisures.com',
         subject: 'Enquiry successfully received at AV Leisures',
-        html: stringTemplate,
-        attachments: []
+        html: stringTemplate
+        // attachments: []
       };
 
-      for(var l=0; l<itinery.length; l++) {
-        mailOptions.attachments.push({
-          content: itinery[l],
-          filename: 'itinery' + l,
-          contentId: 'itinery' + l
-        });
-      }
+      // console.log(attachments);
+
+      // for(var l=0; l<attachments.length; l++) {
+      //   mailOptions.attachments.push({
+      //     content: attachments[l],
+      //     filename: 'itinery' + l,
+      //     contentId: 'itinery' + l
+      //   });
+      // }
 
       sgMail.send(mailOptions, function(err) {
         if(err) console.log(err);
@@ -74,7 +76,8 @@ var sendEnquirySms = function(enquiry) {
           "Meanwhile please check your mails for itinery. " +
           "For more details you can contact us.";
 
-    var formData = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.phone_number + "&sender=" + senderID;
+    var formData = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.school_phone_no + "&sender=" + senderID;
+    console.log(formData);
 
     curl.request(formData, function optionalCallback(err, body) {
       if (err) {
@@ -94,8 +97,8 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          sendEnquiryMail(enquiry);
           sendEnquirySms(enquiry);
+          sendEnquiryMail(enquiry);
           res.json(enquiry);
         }
       });

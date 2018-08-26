@@ -181,7 +181,7 @@
         }
         vm.trips = angular.copy(vm.allTrips);        
         $scope.$apply();
-    }, 1000);
+    }, 500);
 
   }
 }());
