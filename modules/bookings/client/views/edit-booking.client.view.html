@@ -129,7 +129,8 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required ng-change = "vm.calBookingAmount(vm.booking.booking_amount)">
+                <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required ng-change = "vm.calBookingAmount(vm.booking.booking_amount)"
+                  awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
             </p>                        
           </div>
           <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
@@ -144,7 +145,8 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="total_booking_amount" type="text" ng-model="vm.booking.total_booking_amount" id="total_booking_amount" class="form-control" placeholder="Total Booking Amount" required ng-change = "vm.convert(vm.booking.total_booking_amount)">
+                <input name="total_booking_amount" type="text" ng-model="vm.booking.total_booking_amount" id="total_booking_amount" class="form-control" placeholder="Total Booking Amount" required ng-change = "vm.convert(vm.booking.total_booking_amount)"
+                  awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
             </p>                        
           </div>
           <div ng-messages="vm.form.bookingForm.total_booking_amount.$error" role="alert">
@@ -159,7 +161,8 @@
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="bill_amount" data-ng-model="vm.booking.billing.bill_amount" id="bill_amount" class="form-control" placeholder="Enter Bill Amount">
+                <input name="bill_amount" data-ng-model="vm.booking.billing.bill_amount" id="bill_amount" class="form-control" placeholder="Enter Bill Amount"
+                  awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
             </p>                        
           </div>
         </div>

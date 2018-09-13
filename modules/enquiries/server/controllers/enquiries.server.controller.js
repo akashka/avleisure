@@ -15,11 +15,13 @@ var sgMail = require('@sendgrid/mail');
 var _ = require('lodash-node');
 var json2csv = require('json2csv');
 var base64 = require('base-64');
+var utf8 = require('utf8');
+var h2p = require('html2plaintext')
 
 var smsUrl = "http://alerts.valueleaf.com/api/v4/?api_key=A172d1e496771a5758651f00704e4ad18";
-var adminNumber = ["7259596963", "7259596963"];
+var adminNumber = ["7259596963"];
 var adminEmail = "akash.ka01@gmail.in";
-var senderID = "LILWON";
+var senderID = "LILWO";
 
 var apiKey = "SG";
 apiKey += ".41G";
@@ -32,76 +34,94 @@ apiKey += "Up9jmE0AENHKO09A";
 sgMail.setApiKey(apiKey);
 
 
-var sendEnquiryMail = function(enquiry) {
-    console.log("Sending enquiry mail to School");
-    Itinery.find().exec(function(err, itineries) {
-      if (err) { res.send(err); }
-      var attachments = [];
-      for(var e=0; e<enquiry.enquiries.length; e++) {
-        for(var i=0; i<itineries.length; i++) {
-          if(itineries[i]._id == enquiry.enquiries[e].itineries)  attachments.push(itineries[i]);
-        }
+var sendEnquiryMail = function (enquiry) {
+  console.log("Sending enquiry mail to School");
+  Itinery.find().exec(function (err, itineries) {
+    if (err) { res.send(err); }
+    var attachments = [];
+    for (var e = 0; e < enquiry.enquiries.length; e++) {
+      for (var i = 0; i < itineries.length; i++) {
+        if (itineries[i]._id == enquiry.enquiries[e].itineries) attachments.push(itineries[i]);
       }
+    }
 
-      var stringTemplate = fs.readFileSync(path.join(__dirname, '../helpers') + '/school_enquiry.html', "utf8");
-      var mailOptions = {
-        to: enquiry.school_email_id,
-        from: 'info@avleisures.com',
-        subject: 'Enquiry successfully received at AV Leisures',
-        html: stringTemplate
-        // attachments: []
-      };
+    console.log(attachments);
 
-      // console.log(attachments);
+    var stringTemplate = fs.readFileSync(path.join(__dirname, '../helpers') + '/school_enquiry.html', "utf8");
+    var mailOptions = {
+      to: enquiry.school_email_id,
+      cc: enquiry.alternate_email_id,
+      bcc: adminEmail,
+      from: 'info@avleisures.com',
+      subject: 'Enquiry successfully received at AV Leisures',
+      html: stringTemplate,
+      attachments: []
+    };
 
-      // for(var l=0; l<attachments.length; l++) {
-      //   mailOptions.attachments.push({
-      //     content: attachments[l],
-      //     filename: 'itinery' + l,
-      //     contentId: 'itinery' + l
-      //   });
-      // }
-
-      sgMail.send(mailOptions, function(err) {
-        if(err) console.log(err);
+    for (var l = 0; l < attachments.length; l++) {
+      mailOptions.attachments.push({
+        content: base64.encode(h2p(utf8.encode(attachments[l].description))),
+        filename: attachments[l].title + '.txt'
       });
+    }
+
+    console.log(mailOptions);
+
+    sgMail.send(mailOptions, function (err) {
+      if (err) {
+        debugger;
+        console.log(err);
+        console.log(err.response);
+        console.log(err.response.headers);
+        console.log(err.response.body);
+      }
     });
+  });
 };
 
-var sendEnquirySms = function(enquiry) {
-    console.log("Sending SMS to school");
+var sendEnquirySms = function (enquiry) {
+  console.log("Sending SMS to school");
 
-    var messageData = "Thank you for your enquiry at AV Leisure. " +
-          "We assure to give you the best quotes in the shortest time possible. " +
-          "Meanwhile please check your mails for itinery. " +
-          "For more details you can contact us.";
+  var messageData = "Thank you for your enquiry at AV Leisure. " +
+    "We assure to give you the best quotes in the shortest time possible. " +
+    "Meanwhile please check your mails for itinery. " +
+    "For more details you can contact us.";
 
-    var formData = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.school_phone_no + "&sender=" + senderID;
-    console.log(formData);
+  var formData = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.school_phone_no + "&sender=" + senderID;
+  var formData1 = smsUrl + "&method=sms&message=" + encodeURIComponent(messageData) + "&to=" + enquiry.alternate_phone_no + "&sender=" + senderID;
+  console.log(formData);
 
-    curl.request(formData, function optionalCallback(err, body) {
-      if (err) {
-        return console.error('Sending SMS to school failed: ', err);
-      }
-      console.log('Successfully sent SMS to school');
-    });
+  curl.request(formData, function optionalCallback(err, body) {
+    if (err) {
+      return console.error('Sending SMS to school failed: ', err);
+    }
+    console.log('Successfully sent SMS to school');
+  });
+
+  curl.request(formData1, function optionalCallback(err, body) {
+    if (err) {
+      return console.error('Sending SMS to school failed: ', err);
+    }
+    console.log('Successfully sent SMS to school');
+  });
 }
 
 /* Create an enquiry */
 exports.create = function (req, res) {
   var enquiry = new Enquiry(req.body);
-      enquiry.user = req.user;
-      enquiry.save(function (err) {
-        if (err) {
-          return res.status(422).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          sendEnquirySms(enquiry);
-          sendEnquiryMail(enquiry);
-          res.json(enquiry);
-        }
+  enquiry.user = req.user;
+  enquiry.save(function (err) {
+    if (err) {
+      return res.status(422).send({
+        message: errorHandler.getErrorMessage(err)
       });
+    } else {
+      debugger;
+      sendEnquiryMail(enquiry);
+      sendEnquirySms(enquiry);
+      res.json(enquiry);
+    }
+  });
 };
 
 /* Show the current enquiry */
@@ -121,7 +141,7 @@ exports.update = function (req, res) {
   var enquiry = req.enquiry;
 
   // enquiry._id = req.body._id;
-  enquiry.user  = req.body.user;
+  enquiry.user = req.body.user;
   enquiry.enquiry_id = req.body.enquiry_id;
   enquiry.school_name = req.body.school_name;
   enquiry.school_address = req.body.school_address;
@@ -196,3 +216,24 @@ exports.enquiryByID = function (req, res, next, id) {
     next();
   });
 };
+
+/* Send email / sms on update */
+exports.sendEmailSms = function (req, res) {
+  var enquiry = new Enquiry(req.body);
+  sendEnquiryMail(enquiry);
+  sendEnquirySms(enquiry);
+};
+
+var sendQuotationMail = function(enquiry) {
+
+}
+
+var sendQuotationSms = function(enquiry) {
+
+}
+
+exports.sendQuotations = function(req, res) {
+  var enquiry = new Enquiry(req.body);
+  sendQuotationMail(enquiry);
+  sendQuotationSms(enquiry);
+}

@@ -57,7 +57,7 @@
 			if(vm.trip.trip_end_date == "" || vm.trip.trip_end_date == undefined)
 					vm.trip.trip_end_date = new Date();
 			vm.trip.transactions.push({
-					amount:vm.calculateBalance(vm.trip.transactions),
+					amount: 0,
 					credit: false,
 					category: 'Closing Account',
 					sub_category: '',

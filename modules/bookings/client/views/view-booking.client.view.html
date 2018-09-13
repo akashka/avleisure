@@ -74,8 +74,9 @@
             <div class="col-md-2"> Amount </div>
             <div class="col-md-2"> Payment Date </div>
             <div class="col-md-2"> Payment Mode </div>
-            <div class="col-md-3"> Payment Info </div>
+            <div class="col-md-2"> Payment Info </div>
             <div class="col-md-3"> Remarks </div>
+            <div class="col-md-1">  </div>
     </div>
     <div class="row" ng-if="vm.booking.amount_paid.length <= 0" 
         style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Payments found
@@ -84,8 +85,11 @@
             <div class="col-md-2"> &#8377; {{exp.amount_paid}} </div>
             <div class="col-md-2"> {{exp.payment_date | date:'dd/MMM/yyyy'}} </div>
             <div class="col-md-2"> {{exp.payment_mode[0]}} </div>
-            <div class="col-md-3"> {{exp.cheque_number}} {{exp.transaction_number}}</div>
+            <div class="col-md-2"> {{exp.cheque_number}} {{exp.transaction_number}}</div>
             <div class="col-md-3"> {{exp.remarks}} </div>
+            <div class="col-md-1"> 
+              <i class="glyphicon glyphicon-ok" style="color:green;" ng-show="exp.cleared"></i>
+            </div>
     </div>
   </div>
 
@@ -100,7 +104,7 @@
     <div class="row" style="border: 1px solid grey;">
             <div class="col-md-1"> Category </div>
             <div class="col-md-1"> Vendor </div>
-            <div class="col-md-2"> Address </div>
+            <div class="col-md-1"> Address </div>
             <div class="col-md-1"> Phone </div>
             <div class="col-md-1"> Booked on </div>
             <div class="col-md-1"> Booking for </div>
@@ -108,6 +112,7 @@
             <div class="col-md-1"> Advance Amount </div>
             <div class="col-md-1"> Balance Amount </div>
             <div class="col-md-2"> Remarks </div>
+            <div class="col-md-1"> </div>
     </div>
     <div class="row" ng-if="vm.booking.expenses.length <= 0" 
         style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Pre Trip Expense found
@@ -115,7 +120,7 @@
     <div class="row" ng-repeat="exp in vm.booking.expenses" style="border: 1px solid grey;">
             <div class="col-md-1"> {{exp.category[0]}} </div>
             <div class="col-md-1"> {{exp.vendor_name}} </div>
-            <div class="col-md-2"> {{exp.vendor_address}} </div>
+            <div class="col-md-1"> {{exp.vendor_address}} </div>
             <div class="col-md-1"> {{exp.vendor_phone}} </div>
             <div class="col-md-1"> {{exp.booking_on | date:'dd/MMM/yyyy'}} </div>
             <div class="col-md-1"> {{exp.booking_date | date:'dd/MMM/yyyy'}} </div>
@@ -123,6 +128,9 @@
             <div class="col-md-1"> &#8377; {{exp.advance_amount}} </div>
             <div class="col-md-1"> &#8377; {{exp.total_amount - exp.advance_amount}} </div>
             <div class="col-md-2"> {{exp.remarks}} </div>
+            <div class="col-md-1"> 
+              <i class="glyphicon glyphicon-ok" style="color:green;" ng-show="exp.cleared"></i>
+            </div>
     </div>
   </div>
 

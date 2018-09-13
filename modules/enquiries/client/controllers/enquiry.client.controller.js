@@ -49,7 +49,7 @@
 		vm.transportOptions = ["A/C bus", "Non A/C bus", "A/C train", "Non A/C train", "Flight"];
 		vm.foodOptions = ["Self catering", "Hotel"];
 		vm.accomodationOptions = ["A/C", "Non A/C", "Dormitory"];
-		vm.sharingOptions = ["Twin", "Tripple", "Quadruple"];
+		vm.sharingOptions = ["Not Applicable", "Twin", "Tripple", "Quadruple"];
 		vm.packageOptions = ["Resort Package", "Day Return Package", "Outstation", "International"];
 		vm.multiselectSettings = { template: '{{option}}', smartButtonTextConverter(skip, option) { return option; },  smartButtonMaxItems:4, checkBoxes: true};
 		// vm.usermultiselectSettings = { template: '{{option.displayName}}', smartButtonTextConverter(skip, option) { return option; },  smartButtonMaxItems: 3 };

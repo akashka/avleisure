@@ -1,42 +1,53 @@
 <section>
   <div class="page-header">
     <div class="row">
-        <div class="col-md-6"> <h1>EXPENSES</h1> </div>
-        <div class="col-md-4" style="float: right; margin-top: 2em">
-          <a class="btn btn-primary" ui-sref="bookings.list">
+      <div class="col-md-6">
+        <h1>EXPENSES</h1>
+      </div>
+      <div class="col-md-4" style="float: right; margin-top: 2em">
+        <a class="btn btn-primary" ui-sref="bookings.list">
             <i class="glyphicon glyphicon-check"> LIST BOOKINGS</i>
           </a>
-        </div>
+      </div>
     </div>
   </div>
 
   <div class="col-md-12" style="border: 1px solid grey;">
     <div class="row" style="border: 1px solid grey;">
-            <div class="col-md-1"> Category </div>
-            <div class="col-md-1"> Vendor </div>
-            <div class="col-md-2"> Address </div>
-            <div class="col-md-1"> Phone </div>
-            <div class="col-md-1"> Booked on </div>
-            <div class="col-md-1"> Booking for </div>
-            <div class="col-md-1"> Total Amount </div>
-            <div class="col-md-1"> Advance Amount </div>
-            <div class="col-md-1"> Balance Amount </div>
-            <div class="col-md-2"> Remarks </div>
+      <div class="col-md-1"> Category </div>
+      <div class="col-md-1"> Vendor </div>
+      <div class="col-md-1"> Address </div>
+      <div class="col-md-1"> Phone </div>
+      <div class="col-md-1"> Booked on </div>
+      <div class="col-md-1"> Booking for </div>
+      <div class="col-md-1"> Total Amount </div>
+      <div class="col-md-1"> Advance Amount </div>
+      <div class="col-md-1"> Balance Amount </div>
+      <div class="col-md-2"> Remarks </div>
+      <div class="col-md-1"></div>
     </div>
-    <div class="row" ng-if="vm.booking.expenses.length <= 0" 
-        style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;"> No Expenses found
+    <div class="row" ng-if="vm.booking.expenses.length <= 0" style="text-align:center; font-size:22px; font-weight: bold; border: 1px solid grey;">
+      No Expenses found
     </div>
     <div class="row" ng-repeat="exp in vm.booking.expenses" style="border: 1px solid grey;">
-            <div class="col-md-1"> {{exp.category[0]}} </div>
-            <div class="col-md-1"> {{exp.vendor_name}} </div>
-            <div class="col-md-2"> {{exp.vendor_address}} </div>
-            <div class="col-md-1"> {{exp.vendor_phone}} </div>
-            <div class="col-md-1"> {{exp.booking_on | date:'dd/MMM/yyyy'}} </div>
-            <div class="col-md-1"> {{exp.booking_date | date:'dd/MMM/yyyy'}} </div>
-            <div class="col-md-1"> &#8377; {{exp.total_amount}} </div>
-            <div class="col-md-1"> &#8377; {{exp.advance_amount}} </div>
-            <div class="col-md-1"> &#8377; {{exp.total_amount - exp.advance_amount}} </div>
-            <div class="col-md-2"> {{exp.remarks}} </div>
+      <div class="col-md-1"> {{exp.category[0]}} </div>
+      <div class="col-md-1"> {{exp.vendor_name}} </div>
+      <div class="col-md-1"> {{exp.vendor_address}} </div>
+      <div class="col-md-1"> {{exp.vendor_phone}} </div>
+      <div class="col-md-1"> {{exp.booking_on | date:'dd/MMM/yyyy'}} </div>
+      <div class="col-md-1"> {{exp.booking_date | date:'dd/MMM/yyyy'}} </div>
+      <div class="col-md-1"> &#8377; {{exp.total_amount}} </div>
+      <div class="col-md-1"> &#8377; {{exp.advance_amount}} </div>
+      <div class="col-md-1"> &#8377; {{exp.total_amount - exp.advance_amount}} </div>
+      <div class="col-md-2"> {{exp.remarks}} </div>
+      <div class="col-md-1" style="padding-left:0;padding-right:0;">
+        <a class="btn btn-success btn-sm" ng-click="expenseCleared(exp)" style="margin-top:3px;" ng-hide="exp.cleared">
+            <i class="glyphicon glyphicon-ok"></i>
+        </a>
+        <a class="btn btn-danger btn-sm" ng-click="deleteExpense(exp)" style="margin-top:3px;">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -62,21 +73,24 @@
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="vendor_name">Vendor Name: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="vendor_name" type="text" ng-model="vm.expense.vendor_name" id="vendor_name" class="form-control" placeholder="Vendor Name" required autofocus>
+          <input name="vendor_name" type="text" ng-model="vm.expense.vendor_name" id="vendor_name" class="form-control" placeholder="Vendor Name"
+            required autofocus>
           <div ng-messages="vm.form.expenseForm.vendor_name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Vendor Name is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="vendor_address">Vendor Address: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="vendor_address" type="text" ng-model="vm.expense.vendor_address" id="vendor_address" class="form-control" placeholder="Vendor Address" required>
+          <input name="vendor_address" type="text" ng-model="vm.expense.vendor_address" id="vendor_address" class="form-control" placeholder="Vendor Address"
+            required>
           <div ng-messages="vm.form.expenseForm.vendor_address.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Vendor Address is required.</p>
           </div>
         </div>
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="vendor_phone">Vendor Phone: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="vendor_phone" type="text" ng-model="vm.expense.vendor_phone" id="vendor_phone" class="form-control" placeholder="Vendor Phone" required>
+          <input name="vendor_phone" type="text" ng-model="vm.expense.vendor_phone" id="vendor_phone" class="form-control" placeholder="Vendor Phone"
+            required>
           <div ng-messages="vm.form.expenseForm.vendor_phone.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Vendor Phone is required.</p>
           </div>
@@ -84,7 +98,8 @@
         <div class="form-group col-md-6" style="margin-bottom: 5px ! important;">
           <label class="control-label" for="booking_date">Booking Date: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <p class="input-group">
-            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.expense.booking_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
+            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.expense.booking_date"
+              is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" ng-required="true" />
             <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -94,11 +109,12 @@
           <label class="control-label" for="total_amount">Total Amount: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div>
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="total_amount" type="text" ng-model="vm.expense.total_amount" id="total_amount" class="form-control" placeholder="Total Amount" required>
-            </p>                        
+              <input name="total_amount" type="text" ng-model="vm.expense.total_amount" id="total_amount" class="form-control" placeholder="Total Amount"
+                required awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
+            </p>
           </div>
           <div ng-messages="vm.form.expenseForm.total_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Total Amount is required.</p>
@@ -108,11 +124,12 @@
           <label class="control-label" for="advance_amount">Advance Amount: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div>
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="advance_amount" type="text" ng-model="vm.expense.advance_amount" id="advance_amount" class="form-control" placeholder="Advance Amount" required>
-            </p>                        
+              <input name="advance_amount" type="text" ng-model="vm.expense.advance_amount" id="advance_amount" class="form-control" placeholder="Advance Amount"
+                required awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
+            </p>
           </div>
           <div ng-messages="vm.form.expenseForm.advance_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Advance Amount is required.</p>

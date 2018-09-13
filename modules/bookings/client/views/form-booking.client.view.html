@@ -1,12 +1,14 @@
 <section>
   <div class="page-header">
     <div class="row">
-        <div class="col-md-6"> <h1>New Booking</h1> </div>
-        <div class="col-md-4" style="float: right; margin-top: 2em">
-          <a class="btn btn-primary" ui-sref="bookings.list">
+      <div class="col-md-6">
+        <h1>New Booking</h1>
+      </div>
+      <div class="col-md-4" style="float: right; margin-top: 2em">
+        <a class="btn btn-primary" ui-sref="bookings.list">
             <i class="glyphicon glyphicon-check"> LIST BOOKINGS</i>
           </a>
-        </div>
+      </div>
     </div>
   </div>
 
@@ -23,7 +25,8 @@
       <div class="form-group">
         <label for="school_name" class="col-sm-5 control-label">School Name:</label>
         <div class="col-sm-7">
-          <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" placeholder="Enter School Name" />
+          <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" placeholder="Enter School Name"
+          />
         </div>
       </div>
     </div>
@@ -41,27 +44,29 @@
 
         <div class="form-group col-md-6" style="margin-bottom: 5px ! important;" show-errors>
           <label class="control-label" for="booking_date">Execution Date: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <p class="input-group" >
-            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.booking_date" is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" autofocus />
+          <p class="input-group">
+            <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.booking_date"
+              is-open="vm.dateset.lr_date.isOpened" datepicker-options="vm.dateOptions" autofocus />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="vm.selectDate($event, 1)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </p>
           <div ng-messages="vm.form.bookingForm.booking_date.$error" role="alert">
-              <p class="help-block error-text" ng-message="required">Execution Date is required.</p>
+            <p class="help-block error-text" ng-message="required">Execution Date is required.</p>
           </div>
         </div>
-        
+
         <div class="form-group col-md-6" show-errors>
-            <label class="control-label" for="booking_time">Execution Time: <span style="color:green;font-weight:bolder;">  * </span> </label>
-            <p class="input-group bootstrap-timepicker timepicker" style="margin:0;">
-              <div uib-timepicker ng-model="vm.booking.booking_time" hour-step="1" minute-step="15" show-meridian=true show-spinners=false></div>
-            </p>
+          <label class="control-label" for="booking_time">Execution Time: <span style="color:green;font-weight:bolder;">  * </span> </label>
+          <p class="input-group bootstrap-timepicker timepicker" style="margin:0;">
+            <div uib-timepicker ng-model="vm.booking.booking_time" hour-step="1" minute-step="15" show-meridian=true show-spinners=false></div>
+          </p>
         </div>
-        
+
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="school_name">School Name: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="school_name" type="text" ng-model="vm.booking.school_name" id="school_name" class="form-control" placeholder="School Name" required>
+          <input name="school_name" type="text" ng-model="vm.booking.school_name" id="school_name" class="form-control" placeholder="School Name"
+            required>
           <div ng-messages="vm.form.bookingForm.school_name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking school name is required.</p>
           </div>
@@ -69,15 +74,17 @@
 
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="contact_person">Contact Person: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="contact_person" type="text" ng-model="vm.booking.contact_person" id="contact_person" class="form-control" placeholder="Contact Person" required>
+          <input name="contact_person" type="text" ng-model="vm.booking.contact_person" id="contact_person" class="form-control" placeholder="Contact Person"
+            required>
           <div ng-messages="vm.form.bookingForm.contact_person.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking contact person is required.</p>
           </div>
         </div>
-        
+
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="contact_email">Contact Email: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="contact_email" type="text" ng-model="vm.booking.contact_email" id="contact_email" class="form-control" placeholder="Contact Email" required>
+          <input name="contact_email" type="text" ng-model="vm.booking.contact_email" id="contact_email" class="form-control" placeholder="Contact Email"
+            required>
           <div ng-messages="vm.form.bookingForm.contact_email.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking contact email is required.</p>
           </div>
@@ -85,7 +92,8 @@
 
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="contact_phone">Contact Phone: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="contact_phone" type="text" ng-model="vm.booking.contact_phone" id="contact_phone" class="form-control" placeholder="Contact Phone" required>
+          <input name="contact_phone" type="text" ng-model="vm.booking.contact_phone" id="contact_phone" class="form-control" placeholder="Contact Phone"
+            required>
           <div ng-messages="vm.form.bookingForm.contact_phone.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking contact phone is required.</p>
           </div>
@@ -93,7 +101,8 @@
 
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="no_of_students">No. of Students: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="no_of_students" type="text" ng-model="vm.booking.no_of_students" id="no_of_students" class="form-control" placeholder="No. of Students" required>
+          <input name="no_of_students" type="text" ng-model="vm.booking.no_of_students" id="no_of_students" class="form-control" placeholder="No. of Students"
+            required>
           <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
             <p class="help-block error-text" ng-message="required">No. of Students is required.</p>
           </div>
@@ -101,7 +110,8 @@
 
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="no_of_staff">No. of Staff: <span style="color:green;font-weight:bolder;">  * </span> </label>
-          <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff" required>
+          <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff"
+            required>
           <div ng-messages="vm.form.bookingForm.no_of_students.$error" role="alert">
             <p class="help-block error-text" ng-message="required">No. of Staff is required.</p>
           </div>
@@ -143,19 +153,23 @@
           </div>
         </div>
 
-        <div class="form-group col-md-12" style="border-bottom: 1px solid grey;"> 
-          <div class="col-md-6"><h4>DETAILS OF FINALIZED AMOUNT WITH SCHOOL </h4></div> 
+        <div class="form-group col-md-12" style="border-bottom: 1px solid grey;">
+          <div class="col-md-6">
+            <h4>DETAILS OF FINALIZED AMOUNT WITH SCHOOL </h4>
+          </div>
         </div>
 
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="booking_amount">Booking Amount (Per Person): <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount" required ng-change = "vm.calBookingAmount(vm.booking.booking_amount)">
-            </p>                        
+              <input name="booking_amount" type="text" ng-model="vm.booking.booking_amount" id="booking_amount" class="form-control" placeholder="Booking Amount"
+                required ng-change="vm.calBookingAmount(vm.booking.booking_amount)" awnum num-sep="," num-int="10" num-fract="0"
+                num-thousand="true" num-thousand-sep=",">
+            </p>
           </div>
           <div ng-messages="vm.form.bookingForm.booking_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Booking Amount is required.</p>
@@ -166,38 +180,41 @@
           <label class="control-label" for="total_booking_amount">Booking Amount (Total): <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date" disabled> &#8377; </button>
                 </span>
-                <input name="total_booking_amount" type="text" ng-model="vm.booking.total_booking_amount" id="total_booking_amount" class="form-control" placeholder="Total Booking Amount" required ng-change = "vm.convert(vm.booking.total_booking_amount)">
-            </p>                        
+              <input name="total_booking_amount" type="text" ng-model="vm.booking.total_booking_amount" id="total_booking_amount" class="form-control"
+                placeholder="Total Booking Amount" required ng-change="vm.convert(vm.booking.total_booking_amount)" awnum num-sep=","
+                num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
+            </p>
           </div>
           <div ng-messages="vm.form.bookingForm.total_booking_amount.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Total Booking Amount is required.</p>
           </div>
         </div>
-        
+
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="bill_amount">Billing Amount: </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> &#8377; </button>
                 </span>
-                <input name="bill_amount" data-ng-model="vm.booking.billing.bill_amount" id="bill_amount" class="form-control" placeholder="Enter Bill Amount">
-            </p>                        
+              <input name="bill_amount" data-ng-model="vm.booking.billing.bill_amount" id="bill_amount" class="form-control" placeholder="Enter Bill Amount"
+                awnum num-sep="," num-int="10" num-fract="0" num-thousand="true" num-thousand-sep=",">
+            </p>
           </div>
         </div>
-        
+
         <div class="form-group col-md-6" show-errors>
           <label class="control-label" for="gst_percentage">GST Percentage: </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
-                <span class="input-group-btn">
+              <span class="input-group-btn">
                     <button type="button" class="btn btn-default btn-date"> % </button>
                 </span>
-                <input name="amount_paid" data-ng-model="vm.booking.billing.gst_percentage" id="gst_percentage" class="form-control" placeholder="GST Percentage">
-            </p>                        
+              <input name="amount_paid" data-ng-model="vm.booking.billing.gst_percentage" id="gst_percentage" class="form-control" placeholder="GST Percentage">
+            </p>
           </div>
         </div>
 

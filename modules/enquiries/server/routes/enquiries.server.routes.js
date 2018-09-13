@@ -22,6 +22,12 @@ module.exports = function (app) {
     .put(enquiries.update)
     .delete(enquiries.delete);
 
+  app.route('/api/enquiries/sendEmailSms')
+    .post(enquiries.sendEmailSms);
+
+  app.route('/api/enquiries/sendQuotations')
+    .post(enquiries.sendQuotations);
+
   // Finish by binding the enquiry middleware
   app.param('enquiryId', enquiries.enquiryByID);
 };

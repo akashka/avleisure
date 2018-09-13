@@ -13,7 +13,8 @@
     </div>
     <nav class="navbar-collapse" uib-collapse="!vm.isCollapsed" role="navigation">
       <ul class="nav navbar-nav" ng-if="vm.menu.shouldRender(vm.authentication.user);">
-        <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type" ng-class="{ dropdown: item.type === 'dropdown' }" ui-sref-active="active" class="{{item.class}}" uib-dropdown="item.type === 'dropdown'">
+        <li ng-repeat="item in vm.menu.items | orderBy: 'position'" ng-if="item.shouldRender(vm.authentication.user);" ng-switch="item.type"
+          ng-class="{ dropdown: item.type === 'dropdown' }" ui-sref-active="active" class="{{item.class}}" uib-dropdown="item.type === 'dropdown'">
           <a ng-switch-when="dropdown" class="dropdown-toggle" uib-dropdown-toggle role="button">{{::item.title}}&nbsp;<span class="caret"></span></a>
           <ul ng-switch-when="dropdown" class="dropdown-menu">
             <li ng-repeat="subitem in item.items | orderBy: 'position'" ng-if="subitem.shouldRender(vm.authentication.user);">
@@ -43,8 +44,19 @@
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
-              data-toggle="tooltip" data-placement="bottom" title="New Enquiries">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button">
+            <i class="fa fa-calculator" style="font-size:18px;color:#40b4c1;"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
+            <iframe width="219" height="302" src="https://calculator-1.com/outdoor/?f=666666&r=666666" scrolling="no" frameborder="0"></iframe>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
+        <li class="dropdown" uib-dropdown>
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button" data-toggle="tooltip" data-placement="bottom"
+            title="New Enquiries">
             <i data-count={{vm.notifications.enquiries.length}} class="glyphicon glyphicon-bell notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -52,13 +64,13 @@
               <a ui-sref="quotations.view({enquiryId: item.enquiry_id})" ng-bind="item.school_name"></a>
             </li>
           </ul>
-        </li>            
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
-              data-toggle="tooltip" data-placement="bottom" title="New Bookings">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button" data-toggle="tooltip" data-placement="bottom"
+            title="New Bookings">
             <i data-count={{vm.notifications.bookings.length}} class="glyphicon glyphicon-send notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -66,13 +78,13 @@
               <a ui-sref="bookings.view({bookingId: item._id})" ng-bind="item.school_name"></a>
             </li>
           </ul>
-        </li>            
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
-              data-toggle="tooltip" data-placement="bottom" title="Ongoing Trips">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button" data-toggle="tooltip" data-placement="bottom"
+            title="Ongoing Trips">
             <i data-count={{vm.notifications.trips.length}} class="glyphicon glyphicon-road notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -80,13 +92,13 @@
               <a ui-sref="trips.view-passbook({tripId: item._id})" ng-bind="vm.findSchoolName(item.booking_id)"></a>
             </li>
           </ul>
-        </li>            
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right" ng-show="vm.authentication.user">
         <li class="dropdown" uib-dropdown>
-          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button"
-              data-toggle="tooltip" data-placement="bottom" title="Payment Reminders">
+          <a href="#notifications-panel" class="dropdown-toggle" uib-dropdown-toggle role="button" data-toggle="tooltip" data-placement="bottom"
+            title="Payment Reminders">
             <i data-count={{vm.notifications.cheques.length}} class="glyphicon glyphicon-credit-card notification-icon"></i>
           </a>
           <ul class="dropdown-menu dropdown-container dropdown-position-bottomright" role="menu" style="width: 250px;padding: 10px;right: -200%;">
@@ -94,7 +106,7 @@
               <a ui-sref="bookings.view({bookingId: item._id})" ng-bind="item.school_name"></a>
             </li>
           </ul>
-        </li>            
+        </li>
       </ul>
 
     </nav>

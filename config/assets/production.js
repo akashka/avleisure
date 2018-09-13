@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/angular-typeahead/dist/angular-typeahead.js',
         'public/lib/textAngular/dist/textAngular-rangy.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
-        'public/lib/textAngular/dist/textAngular.min.js'        
+        'public/lib/textAngular/dist/textAngular.min.js',
+        'public/lib/angular-dynamic-number/release/dynamic-number.min.js'                
         // endbower
       ]
     },

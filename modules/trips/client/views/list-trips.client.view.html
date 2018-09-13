@@ -63,7 +63,7 @@
             <td>
                 <span ng-repeat="executive in trip.executive_id">{{executive.displayName}}  <br></span>
             </td>
-            <td ng-style="{color: (vm.findTripStatus(trip) == 'Ongoing' ? 'yellow' : (vm.findTripStatus(trip) == 'Upcoming' ? 'green' : 'red'))}">
+            <td ng-style="{color: (vm.findTripStatus(trip) == 'Ongoing' ? 'brown' : (vm.findTripStatus(trip) == 'Upcoming' ? 'green' : 'red'))}">
                 {{vm.findTripStatus(trip)}}
             </td>
             <td ng-style="{color: (vm.calculateBalance(trip.transactions) <= 0 && vm.findTripStatus(trip) == 'Ongoing' ? 'red' : '')}">

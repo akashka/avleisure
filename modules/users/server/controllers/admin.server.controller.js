@@ -24,16 +24,16 @@ exports.update = function (req, res) {
   // For security purposes only merge these parameters
   user.firstName = req.body.firstName;
   user.lastName = req.body.lastName;
-  user.displayName = user.firstName + ' ' + user.lastName;
+  user.displayName = req.body.firstName + ' ' + req.body.lastName;
   user.roles = req.body.roles;
-  user.aadhaar_no = user.aadhaar_no;
-  user.pan_no = user.pan_no;
-  user.pf_no = user.pf_no;
-  user.esi_no = user.esi_no;
-  user.phone_no = user.phone_no;
-  user.alternate_no = user.alternate_no;
-  user.address = user.address;
-  user.user_type = user.user_type;
+  user.aadhaar_no = req.body.aadhaar_no;
+  user.pan_no = req.body.pan_no;
+  user.pf_no = req.body.pf_no;
+  user.esi_no = req.body.esi_no;
+  user.phone_no = req.body.phone_no;
+  user.alternate_no = req.body.alternate_no;
+  user.address = req.body.address;
+  user.user_type = req.body.user_type;
 
   user.save(function (err) {
     if (err) {
