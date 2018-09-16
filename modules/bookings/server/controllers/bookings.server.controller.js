@@ -6,7 +6,12 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Booking = mongoose.model('Booking'),
-  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
+  errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  PDFDocument = require('pdfkit'),
+  fs = require('fs'),
+  moment = require('moment');
+var htmlToPdf = require('html-to-pdf');
+var conversion = require("phantom-html-to-pdf")();
 
 /**
  * Create an booking
@@ -129,3 +134,60 @@ exports.bookingByID = function (req, res, next, id) {
     next();
   });
 };
+
+var calculateBillAmount = function (billing) {
+  var amt = billing.bill_amount - (billing.gst_percentage * billing.bill_amount / 100);
+  return (amt.toFixed(0));
+}
+
+var calculateGstAmount = function (billing) {
+  var amt = billing.gst_percentage * billing.bill_amount / 100;
+  return (amt.toFixed(0));
+}
+
+// Bill Generate
+exports.downloadBill = function (req, res) {
+  var id = req.params.bookingId;
+  console.log(id);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).send({
+      message: 'Booking is invalid'
+    });
+  }
+
+  Booking.findById(id).exec(function (err, booking) {
+    if (err) {
+      return next(err);
+    } else if (!booking) {
+      return res.status(404).send({
+        message: 'No booking with that identifier has been found'
+      });
+    }
+
+    var stringTemplate = fs.readFileSync(path.join(__dirname, '../helpers') + '/bill.html', "utf8");
+    stringTemplate = stringTemplate.replace('[[InvoiceNo]]', (booking.booking_id != undefined) ? booking.booking_id : "");
+    stringTemplate = stringTemplate.replace('[[InvoiceDate]]', (booking.created != undefined) ? moment(booking.created).format('dd/MMM/yyyy') : "");
+    stringTemplate = stringTemplate.replace('[[BillerName]]', (booking.contact_person != undefined) ? booking.contact_person : "");
+    stringTemplate = stringTemplate.replace('[[BillerAddress]]', (booking.school_name != undefined) ? booking.school_name : "");
+    stringTemplate = stringTemplate.replace('[[ItineryName]]', (booking.destination != undefined) ? booking.destination : "");
+    stringTemplate = stringTemplate.replace('[[TotalStudentsTeachers]]', (booking.no_of_students + booking.no_of_staff));
+    stringTemplate = stringTemplate.replace('[[BillAmount]]', calculateBillAmount(booking.billing));
+    stringTemplate = stringTemplate.replace('[[GstPercentage]]', booking.billing.gst_percentage);
+    stringTemplate = stringTemplate.replace('[[GstAmount]]', calculateGstAmount(booking.billing));
+    stringTemplate = stringTemplate.replace('[[TotalAmount]]', booking.billing.bill_amount);
+
+    console.log(stringTemplate);
+
+    conversion({ html: stringTemplate }, function (err, pdf) {
+      var output = fs.createWriteStream('./output.pdf');
+      pdf.stream.pipe(output);
+      let filename = "invoice";
+      filename = encodeURIComponent(filename) + '.pdf';
+      var file = fs.readFileSync('./output.pdf');
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+      pdf.stream.pipe(res);
+    });
+
+  });
+}

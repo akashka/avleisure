@@ -5,9 +5,9 @@
     .module('enquiries')
     .controller('EnquiriesController', EnquiriesController);
 
-  EnquiriesController.$inject = ['$scope', 'EnquiriesService', 'Authentication', '$timeout', '$state', 'ItineriesService'];
+  EnquiriesController.$inject = ['$scope', 'EnquiriesService', 'Authentication', '$timeout', '$state', 'ItineriesService', '$http'];
 
-  function EnquiriesController($scope, EnquiriesService, Authentication, $timeout, $state, ItineriesService) {
+  function EnquiriesController($scope, EnquiriesService, Authentication, $timeout, $state, ItineriesService, $http) {
     var vm = this;
 
     EnquiriesService.query().$promise.then(function(response){

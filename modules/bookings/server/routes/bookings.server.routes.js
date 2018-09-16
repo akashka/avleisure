@@ -16,6 +16,9 @@ module.exports = function (app) {
     .get(bookings.list)
     .post(bookings.create);
 
+  app.route('/api/downloadBill/:bookingId')
+    .get(bookings.downloadBill);
+
   // Single bookings routes
   app.route('/api/bookings/:bookingId')
     .get(bookings.read)

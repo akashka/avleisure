@@ -59,8 +59,20 @@ var sendEnquiryMail = function (enquiry) {
     };
 
     for (var l = 0; l < attachments.length; l++) {
+      var bac = utf8.encode(attachments[l].description);
+      console.log('bac');
+      console.log(bac);
+      console.log('--------------------------------------------------------------------');
+      var xyz = h2p(bac);
+      console.log('xyz');
+      console.log(xyz);
+      console.log('--------------------------------------------------------------------');
+      var uvw = base64.encode(xyz);
+      console.log('uvw');
+      console.log(uvw);
+      console.log('--------------------------------------------------------------------');
       mailOptions.attachments.push({
-        content: base64.encode(h2p(utf8.encode(attachments[l].description))),
+        content: uvw,
         filename: attachments[l].title + '.txt'
       });
     }
@@ -116,9 +128,9 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      debugger;
-      sendEnquiryMail(enquiry);
-      sendEnquirySms(enquiry);
+      // debugger;
+      // sendEnquiryMail(enquiry);
+      // sendEnquirySms(enquiry);
       res.json(enquiry);
     }
   });
@@ -222,6 +234,7 @@ exports.sendEmailSms = function (req, res) {
   var enquiry = new Enquiry(req.body);
   sendEnquiryMail(enquiry);
   sendEnquirySms(enquiry);
+  res.json(enquiry);
 };
 
 var sendQuotationMail = function(enquiry) {

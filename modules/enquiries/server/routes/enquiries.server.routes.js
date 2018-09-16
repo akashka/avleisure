@@ -22,7 +22,7 @@ module.exports = function (app) {
     .put(enquiries.update)
     .delete(enquiries.delete);
 
-  app.route('/api/enquiries/sendEmailSms')
+  app.route('/api/enquiriesSendEmailSms')
     .post(enquiries.sendEmailSms);
 
   app.route('/api/enquiries/sendQuotations')

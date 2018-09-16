@@ -1,9 +1,9 @@
 (function () {
 	'use strict';
 	angular.module('bookings').controller('AccountsListController', AccountsListController);
-	AccountsListController.$inject = ['$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService', '$timeout', 'TripsService'];
+	AccountsListController.$inject = ['$scope', '$state', '$window', 'bookingResolve', 'Authentication', 'Notification', 'BookingsService', 'EnquiriesService', 'UsersService', '$timeout', 'TripsService', '$http'];
 
-	function AccountsListController($scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout, TripsService) {
+	function AccountsListController($scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout, TripsService, $http) {
 		var vm = this;
 		vm.users = UsersService.query();
 		vm.enquiries = EnquiriesService.query();
@@ -131,6 +131,11 @@
 				if (vm.users[i]._id == tm) return vm.users[i].displayName;
 			}
 			return "";
+		}
+
+		vm.printBill = function (id) {
+			var fileurl = "/api/downloadBill/" + id;
+			window.open(fileurl, '_blank', '');
 		}
 
 		$(document).ready(function () {

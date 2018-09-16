@@ -50,7 +50,7 @@
             <td>{{booking.billing[0].bill_amount}}</td>
             <td>{{booking.billing[0].gst_percentage}}</td>
             <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
-             <td> <a class="btn btn-info">PRINT BILL</a> </td> 
+             <td> <a class="btn btn-info" ng-click="vm.printBill(booking._id)">PRINT BILL</a> </td> 
           </tr>
         </tbody>
     </table>
