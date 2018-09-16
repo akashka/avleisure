@@ -16,7 +16,7 @@ var _ = require('lodash-node');
 var json2csv = require('json2csv');
 var base64 = require('base-64');
 var utf8 = require('utf8');
-var h2p = require('html2plaintext')
+// var h2p = require('html2plaintext')
 
 var smsUrl = "http://alerts.valueleaf.com/api/v4/?api_key=A172d1e496771a5758651f00704e4ad18";
 var adminNumber = ["7259596963"];
@@ -63,7 +63,7 @@ var sendEnquiryMail = function (enquiry) {
       console.log('bac');
       console.log(bac);
       console.log('--------------------------------------------------------------------');
-      var xyz = h2p(bac);
+      var xyz = (bac);
       console.log('xyz');
       console.log(xyz);
       console.log('--------------------------------------------------------------------');
