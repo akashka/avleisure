@@ -37,8 +37,7 @@ module.exports = {
         'public/lib/c3/c3.min.js',
         'public/lib/textAngular/dist/textAngular-rangy.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
-        'public/lib/textAngular/dist/textAngular.min.js',        
-        'public/lib/angular-dynamic-number/release/dynamic-number.min.js'        
+        'public/lib/textAngular/dist/textAngular.min.js'        
         // endbower
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
