@@ -21,7 +21,7 @@ var h2p = require('html2plaintext')
 var smsUrl = "http://alerts.valueleaf.com/api/v4/?api_key=A172d1e496771a5758651f00704e4ad18";
 var adminNumber = ["7259596963"];
 var adminEmail = "akash.ka01@gmail.in";
-var senderID = "LILWO";
+var senderID = "LILWON";
 
 var apiKey = "SG";
 apiKey += ".41G";
