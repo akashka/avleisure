@@ -85,6 +85,7 @@
       vm.itemsPerPage = 15;
       vm.currentPage = 1;
       vm.figureOutItemsToDisplay();
+      vm.reset();
     }
 
     vm.figureOutItemsToDisplay = function () {

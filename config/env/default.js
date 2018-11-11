@@ -1,5 +1,11 @@
 'use strict';
 
+const BUCKET_NAME = 'avleisure';
+const IAM_USER_KEY = 'AKIAJ5YI3ULII2UU4HWA';
+const IAM_USER_SECRET1 = 'V717KGCwHmm';
+const IAM_USER_SECRET2 = 'AZ2FzCAaMV3DAJ';
+const IAM_USER_SECRET3 = 'OSskeDj1nw9XI5h';
+
 module.exports = {
   app: {
     title: 'A V Leisure',
@@ -47,14 +53,15 @@ module.exports = {
   ],
   aws: {
     s3: {
-      accessKeyId: process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-      bucket: process.env.S3_BUCKET
+      accessKeyId: IAM_USER_KEY,
+      secretAccessKey: IAM_USER_SECRET1 + IAM_USER_SECRET2 + IAM_USER_SECRET3,
+      bucket: BUCKET_NAME
     }
   },
   uploads: {
     // Storage can be 'local' or 's3'
-    storage: process.env.UPLOADS_STORAGE || 'local',
+    // storage: process.env.UPLOADS_STORAGE || 'local',
+    storage: process.env.UPLOADS_STORAGE || 's3',
     profile: {
       image: {
         dest: './modules/users/client/img/profile/uploads/',
