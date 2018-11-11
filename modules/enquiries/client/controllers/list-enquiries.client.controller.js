@@ -138,7 +138,9 @@
       var isQuotationGiven = false;
       var isBookingDone = false;
       for (var e = 0; e < enquiry.enquiries.length; e++) {
-        if (enquiry.enquiries[e].quotations != undefined || enquiry.enquiries[e].quotations.length >= 0) isQuotationGiven = true;
+        if (enquiry.enquiries[e].quotations != undefined && enquiry.enquiries[e].quotations != null){
+          if(enquiry.enquiries[e].quotations.length >= 0) isQuotationGiven = true;
+        }
       }
       var enq = _.find(vm.allBookings, function (o) {
         return o.enquiry_id == enquiry.enquiry_id
