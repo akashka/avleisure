@@ -148,6 +148,7 @@
                   amount: 0
                 });
               }
+              if(vm.enquiry.enquiries[v].extras == undefined) vm.enquiry.enquiries[v].extras = [];
               for(var c=0; c<vm.enquiry.enquiries[v].extras.length; c++) {
                 vm.enquiry.enquiries[v].quotations[0].extras.push({
                   amount: 0
