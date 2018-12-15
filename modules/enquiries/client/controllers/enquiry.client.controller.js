@@ -1,9 +1,9 @@
 (function () {
 	'use strict';
 	angular.module('enquiries').controller('EnquiriesAdminController', EnquiriesAdminController);
-	EnquiriesAdminController.$inject = ['$scope', '$state', '$window', 'enquiryResolve', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout', 'AdminService', '$http'];
+	EnquiriesAdminController.$inject = ['$scope', '$state', '$window', 'enquiryResolve', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout', 'AdminService', '$http', 'Upload'];
 
-	function EnquiriesAdminController($scope, $state, $window, enquiry, Authentication, Notification, EnquiriesService, ItineriesService, $timeout, AdminService, $http) {
+	function EnquiriesAdminController($scope, $state, $window, enquiry, Authentication, Notification, EnquiriesService, ItineriesService, $timeout, AdminService, $http, Upload) {
 		var vm = this;
 		vm.enquiry = {
 			enquiry_id: "",
@@ -204,7 +204,56 @@
 		vm.openMap = function (latlong) {
 			var url = 'http://maps.google.com/maps?q=loc:' + latlong;
 			window.open(url, '_blank');
-		}
+    }
+
+    vm.upload = function(file, errFiles) {
+        vm.f = file;
+        vm.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: 'https://s3.console.aws.amazon.com/s3/buckets/avleisure/?region=us-east-1', //S3 upload url including bucket name
+                method: 'POST',
+                data: {
+                    key: file.name, // the key to store the file on S3, could be file name or customized
+                    AWSAccessKeyId: 'AKIAJ5YI3ULII2UU4HWA',
+                    acl: 'private', // sets the access to the uploaded file in the bucket: private, public-read, ...
+                    policy: $scope.policy, // base64-encoded json policy (see article below)
+                    signature: ('AKIAJ5YI3ULII2UU4HWA' + 'V717KGCwHmm' + 'AZ2FzCAaMV3DAJ' + 'OSskeDj1nw9XI5h'), // base64-encoded signature based on policy string (see article below)
+                    "Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+                    filename: file.name, // this is needed for Flash polyfill IE8-9
+                    file: file
+                }
+            });
+
+            file.upload.then(function (response) {
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+        }
+    }
+
+    // vm.upload = function (dataUrl, errfiles) {
+    //   Upload.upload({
+    //     url: '/api/users/picture',
+    //     data: {
+    //       newProfilePicture: dataUrl
+    //     }
+    //   }).then(function (response) {
+    //     $timeout(function () {
+    //       onSuccessItem(response.data);
+    //     });
+    //   }, function (response) {
+    //     if (response.status > 0) onErrorItem(response.data);
+    //   }, function (evt) {
+    //     vm.progress = parseInt(100.0 * evt.loaded / evt.total, 10);
+    //   });
+    // };
 
 	}
 }());

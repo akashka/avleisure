@@ -13,7 +13,7 @@
     "angular-ui-notification": "~0.2.0",
     "angular-ui-router": "~0.2.18",
     "bootstrap": "~3.3.6",
-    "ng-file-upload": "~12.1.0",
+    "ng-file-upload": "^12.2.13",
     "owasp-password-strength-test": "~1.3.0",
     "textAngular": "~1.5.16",
     "angular-moment": "^1.2.0",
@@ -33,5 +33,8 @@
     "jquery": {
       "main": []
     }
+  },
+  "resolutions": {
+    "ng-file-upload": "^12.2.13"
   }
 }

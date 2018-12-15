@@ -6,13 +6,13 @@
     .controller('QuotationsController', QuotationsController);
 
   QuotationsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'Notification', 'EnquiriesService', 'ItineriesService', '$timeout'];
- 
+
   function QuotationsController($scope, $state, $window, Authentication, Notification, EnquiriesService, ItineriesService, $timeout) {
     var vm = this;
 
     EnquiriesService.query().$promise.then(function(response){
         vm.enquiries = response;
-        if($state.params.enquiryId != "")  {  
+        if($state.params.enquiryId != "")  {
             vm.search.enquiry_id = $state.params.enquiryId;
             vm.searches();
         }
@@ -22,7 +22,7 @@
     vm.enquiry = null;
     vm.save = save;
     vm.isSearched = false;
-    vm.itineryDescription = ''; 
+    vm.itineryDescription = '';
 
     vm.show_transport = false;
     vm.show_accomodation = false;
@@ -70,6 +70,9 @@
         if(searched.length > 0) {
             vm.enquiry = searched[0];
             for(var v=0; v<vm.enquiry.enquiries.length; v++) {
+              if(vm.enquiry.enquiries[v].quotations == undefined || vm.enquiry.enquiries[v].quotations == null) {
+                vm.enquiry.enquiries[v].quotations = [];
+              }
               vm.enquiry.enquiries[v].quotations.unshift({
                   createdon: new Date(),
                   itinery: 0,
@@ -114,7 +117,7 @@
                   no_of_days: 0,
                   no_of_person: 0,
                   remarks: '',
-                  per_amount: 0                  
+                  per_amount: 0
                 });
               }
               for(var c=0; c<vm.enquiry.enquiries[v].transport.length; c++) {
@@ -165,7 +168,7 @@
             if(vm.enquiries[l]._id != vm.enquiry._id) {
               for(var m=0; m<vm.enquiries[l].enquiries.length; m++) {
                   var xyz = vm.enquiries[l].enquiries[m];
-                  if(xyz.accomodation == vm.enquiry.enquiries[e].accomodation && 
+                  if(xyz.accomodation == vm.enquiry.enquiries[e].accomodation &&
                       xyz.food == vm.enquiry.enquiries[e].food &&
                       xyz.itineries == vm.enquiry.enquiries[e].itineries &&
                       xyz.package_type == vm.enquiry.enquiries[e].package_type &&
@@ -177,7 +180,7 @@
                       }
               }
             }
-          }      
+          }
       }
     }
 
@@ -218,7 +221,7 @@
       arr.amount += Number(arr.tax);
       arr.amount += Number(arr.others);
       arr.amount += (Number(arr.charge) * Number(arr.seating));
-      arr.per_amount = Number(arr.amount) / Number(arr.seating);      
+      arr.per_amount = Number(arr.amount) / Number(arr.seating);
     }
 
     vm.addtoamt = function(arr) {
@@ -232,11 +235,12 @@
         arr.amount += Number(arr.tax);
         arr.amount += Number(arr.others);
         arr.amount += (Number(arr.no_of_days) * Number(arr.no_of_person));
-        arr.per_amount = Number(arr.amount) / Number(arr.no_of_person); 
+        arr.per_amount = Number(arr.amount) / Number(arr.no_of_person);
     }
 
     vm.calculateEachTotal = function(arr) {
       var sum = 0;
+
       for(var a=0; a<arr.length; a++) {
         sum += Number(arr[a].amount);
       }
@@ -271,7 +275,7 @@
     }
 
     function save() {
-      
+
 			// Create a new enquiry, or update the current instance
 			EnquiriesService.createOrUpdate(vm.enquiry).then( successCallback ).catch( errorCallback );
 
@@ -357,7 +361,7 @@
             no_of_days: 0,
             no_of_person: 0,
             remarks: '',
-            per_amount: 0                  
+            per_amount: 0
           });
         }
     }

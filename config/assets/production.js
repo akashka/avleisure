@@ -14,7 +14,7 @@ module.exports = {
         'public/lib/font-awesome/web-fonts-with-css/css/font-awesome.min.css'
         // endbower
       ],
-      js: [ 
+      js: [
         // bower:js
         'public/lib/pdfmake/build/pdfmake.min.js',
         'public/lib/pdfmake/build/vfs_fonts.js',
@@ -37,7 +37,8 @@ module.exports = {
         'public/lib/angular-typeahead/dist/angular-typeahead.js',
         'public/lib/textAngular/dist/textAngular-rangy.min.js',
         'public/lib/textAngular/dist/textAngular-sanitize.min.js',
-        'public/lib/textAngular/dist/textAngular.min.js'
+        'public/lib/textAngular/dist/textAngular.min.js',
+        'public/lib/ng-file-upload/ng-file-upload.min.js'
         // endbower
       ]
     },
