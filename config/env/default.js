@@ -11,19 +11,16 @@ module.exports = {
     title: 'A V Leisure',
     description: 'A V Leisure',
     keywords: 'A V Leisure',
-    googleAnalyticsTrackingID: 'GOOGLE_ANALYTICS_TRACKING_ID'
+    googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   db: {
-    uri: 'mongodb://admin:Abcd123$01@ds237770.mlab.com:37770/avleisure',
-    options: {},
-    // Enable mongoose debug mode
-    debug: false
+    promise: global.Promise
   },
-  port: 80,
-  host: '0.0.0.0',
+  port: process.env.PORT || 3000,
+  host: process.env.HOST || '0.0.0.0',
   // DOMAIN config should be set to the fully qualified application accessible
   // URL. For example: https://www.myapp.com (including port if required).
-  domain: '185.237.96.184',
+  domain: process.env.DOMAIN,
   // Session Cookie settings
   sessionCookie: {
     // session expiration is set by default to 24 hours
@@ -37,7 +34,7 @@ module.exports = {
     secure: false
   },
   // sessionSecret should be changed for security measures and concerns
-  sessionSecret: 'MEAN',
+  sessionSecret: process.env.SESSION_SECRET || 'MEAN',
   // sessionKey is the cookie session name
   sessionKey: 'sessionId',
   sessionCollection: 'sessions',
@@ -63,7 +60,8 @@ module.exports = {
   },
   uploads: {
     // Storage can be 'local' or 's3'
-    storage: 's3',
+    // storage: process.env.UPLOADS_STORAGE || 'local',
+    storage: process.env.UPLOADS_STORAGE || 's3',
     profile: {
       image: {
         dest: './modules/users/client/img/profile/uploads/',
