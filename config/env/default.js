@@ -14,10 +14,14 @@ module.exports = {
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   db: {
-    promise: global.Promise
+    // uri: process.env.MONGOHQ_URL || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/avleisure',
+    uri: 'mongodb://admin:Abcd123$01@ds237770.mlab.com:37770/avleisure',
+    options: {},
+    // Enable mongoose debug mode
+    debug: process.env.MONGODB_DEBUG || false
   },
-  port: process.env.PORT || 3000,
-  host: process.env.HOST || '0.0.0.0',
+  port: 80,
+  host: '0.0.0.0',
   // DOMAIN config should be set to the fully qualified application accessible
   // URL. For example: https://www.myapp.com (including port if required).
   domain: process.env.DOMAIN,
