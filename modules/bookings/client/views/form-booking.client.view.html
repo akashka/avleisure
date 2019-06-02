@@ -42,7 +42,7 @@
     <form name="vm.form.bookingForm" ng-submit="vm.save(vm.form.bookingForm.$valid)" novalidate>
       <fieldset>
 
-        <div class="form-group col-md-6" style="margin-bottom: 5px ! important;" show-errors>
+        <div class="form-group col-md-6" style="margin-bottom: 5px ! important;" >
           <label class="control-label" for="booking_date">Execution Date: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <p class="input-group">
             <input type="text" class=" input-group form-control" uib-datepicker-popup="dd-MMM-yyyy" ng-model="vm.booking.booking_date"
@@ -56,14 +56,14 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="booking_time">Execution Time: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <p class="input-group bootstrap-timepicker timepicker" style="margin:0;">
             <div uib-timepicker ng-model="vm.booking.booking_time" hour-step="1" minute-step="15" show-meridian=true show-spinners=false></div>
           </p>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="school_name">School Name: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="school_name" type="text" ng-model="vm.booking.school_name" id="school_name" class="form-control" placeholder="School Name"
             required>
@@ -72,7 +72,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="contact_person">Contact Person: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="contact_person" type="text" ng-model="vm.booking.contact_person" id="contact_person" class="form-control" placeholder="Contact Person"
             required>
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="contact_email">Contact Email: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="contact_email" type="text" ng-model="vm.booking.contact_email" id="contact_email" class="form-control" placeholder="Contact Email"
             required>
@@ -90,7 +90,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="contact_phone">Contact Phone: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="contact_phone" type="text" ng-model="vm.booking.contact_phone" id="contact_phone" class="form-control" placeholder="Contact Phone"
             required>
@@ -99,7 +99,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="no_of_students">No. of Students: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="no_of_students" type="text" ng-model="vm.booking.no_of_students" id="no_of_students" class="form-control" placeholder="No. of Students"
             required>
@@ -108,7 +108,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="no_of_staff">No. of Staff: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <input name="no_of_staff" type="text" ng-model="vm.booking.no_of_staff" id="no_of_staff" class="form-control" placeholder="No. of Staff"
             required>
@@ -117,7 +117,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="class">Class: </label>
           <input name="class" type="text" ng-model="vm.booking.class" id="class" class="form-control" placeholder="class">
           <div ng-messages="vm.form.bookingForm.class.$error" role="alert">
@@ -135,7 +135,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="destination">Destination: <span style="color:green;font-weight:bolder;">  * </span> </label>
           <select class="form-control" id="itinery" ng-model="vm.booking.destination" ng-options="obj._id as obj.title for obj in vm.itineries">
               <option value=""disabled>Select Destination</option>                
@@ -145,7 +145,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="remarks">Remarks: </label>
           <input name="remarks" type="text" ng-model="vm.booking.remarks" id="remarks" class="form-control" placeholder="Remarks">
           <div ng-messages="vm.form.bookingForm.remarks.$error" role="alert">
@@ -159,7 +159,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="booking_amount">Booking Amount (Per Person): <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
@@ -176,7 +176,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="total_booking_amount">Booking Amount (Total): <span style="color:green;font-weight:bolder;">  * </span> </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
@@ -193,7 +193,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="bill_amount">Billing Amount: </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">
@@ -206,7 +206,7 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6" show-errors>
+        <div class="form-group col-md-6" >
           <label class="control-label" for="gst_percentage">GST Percentage: </label>
           <div class="col-sm-12 row">
             <p class="input-group date" style="margin:0;">

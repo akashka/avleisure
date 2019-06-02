@@ -48,7 +48,7 @@
             <th ng-click="vm.sortTable(1)">Enquiry ID</th>
             <th ng-click="vm.sortTable(2)">Enquired By</th>
             <th ng-click="vm.sortTable(3)">School Name</th>
-            <th ng-click="vm.sortTable(4)">Email</th>
+            <!-- <th ng-click="vm.sortTable(4)">Email</th> -->
             <th ng-click="vm.sortTable(5)">Phone Number</th>
             <th ng-click="vm.sortTable(6)">Contact Person</th>
             <th ng-click="vm.sortTable(7)">Same School</th>
@@ -67,7 +67,7 @@
                 <span ng-repeat="enq in enquiry.enquiry_by">{{enq.displayName}}, <br> </span>
             </td>
             <td>{{enquiry.school_name}}</td>
-            <td>{{enquiry.school_email_id}}</td>
+            <!-- <td>{{enquiry.school_email_id}}</td> -->
             <td>{{enquiry.school_phone_no}}</td>
             <td>{{enquiry.school_contact_person}}</td>
             <td>{{vm.countSimilarSchool(enquiry.school_name)}}</td>

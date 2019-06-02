@@ -6,7 +6,11 @@
 	function BookingsAdminController( $scope, $state, $window, booking, Authentication, Notification, BookingsService, EnquiriesService, UsersService, $timeout, TripsService, ItineriesService ) {
 		var vm = this;
 		vm.users = UsersService.query();
-		vm.enquiries = EnquiriesService.query();
+		EnquiriesService.query().$promise.then(function (response) {
+			vm.enquiries = response;
+			vm.searches();
+		});
+
 		vm.bookings = BookingsService.query();
 		vm.trips = TripsService.query();
 		vm.itineries = ItineriesService.query();

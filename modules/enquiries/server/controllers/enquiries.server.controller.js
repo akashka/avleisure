@@ -33,7 +33,6 @@ apiKey += "D4gd4zpY7a5HR7";
 apiKey += "Up9jmE0AENHKO09A";
 sgMail.setApiKey(apiKey);
 
-
 var sendEnquiryMail = function (enquiry) {
   console.log("Sending enquiry mail to School");
   Itinery.find().exec(function (err, itineries) {
@@ -44,8 +43,6 @@ var sendEnquiryMail = function (enquiry) {
         if (itineries[i]._id == enquiry.enquiries[e].itineries) attachments.push(itineries[i]);
       }
     }
-
-    console.log(attachments);
 
     var stringTemplate = fs.readFileSync(path.join(__dirname, '../helpers') + '/school_enquiry.html', "utf8");
     var mailOptions = {
@@ -59,29 +56,17 @@ var sendEnquiryMail = function (enquiry) {
     };
 
     for (var l = 0; l < attachments.length; l++) {
-      var bac = utf8.encode(attachments[l].description);
-      console.log('bac');
-      console.log(bac);
-      console.log('--------------------------------------------------------------------');
-      var xyz = (bac);
-      console.log('xyz');
-      console.log(xyz);
-      console.log('--------------------------------------------------------------------');
-      var uvw = base64.encode(xyz);
-      console.log('uvw');
-      console.log(uvw);
-      console.log('--------------------------------------------------------------------');
+      let FN = fs.readFileSync(path.join(__dirname, '../../../itineries/server/controllers') + ('/' + attachments[l].title + '.docx'));
+      var base64File = new Buffer(FN).toString('base64');
       mailOptions.attachments.push({
-        content: uvw,
-        filename: attachments[l].title + '.txt'
+        content: base64File,
+        filename: attachments[l].title + '.docx',
+        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
       });
     }
 
-    console.log(mailOptions);
-
     sgMail.send(mailOptions, function (err) {
       if (err) {
-        debugger;
         console.log(err);
         console.log(err.response);
         console.log(err.response.headers);
@@ -128,7 +113,6 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      // debugger;
       // sendEnquiryMail(enquiry);
       // sendEnquirySms(enquiry);
       res.json(enquiry);

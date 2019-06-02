@@ -101,6 +101,8 @@
     }
 
     vm.buildPager();
+    vm.reset();
+    vm.searches();
 
     vm.sortTable = function (n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
