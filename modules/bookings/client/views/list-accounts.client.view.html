@@ -19,7 +19,7 @@
             <th ng-click="vm.sortTable(3)">Tour Manager</th>
             <th ng-click="vm.sortTable(4)">School Name</th>
             <th ng-click="vm.sortTable(5)">Booking Amount(&#8377;)</th>
-            <th ng-click="vm.sortTable(6)">Amount Paid (&#8377;)</th>
+            <th ng-click="vm.sortTable(6)">Amount Received (&#8377;)</th>
             <th ng-click="vm.sortTable(7)">Amount Pending(&#8377;)</th>
             <th ng-click="vm.sortTable(8)">Pre Trip Expenses(&#8377;)</th>
             <th ng-click="vm.sortTable(9)">On Trip Expenses(&#8377;)</th>
@@ -29,7 +29,7 @@
             <th ng-click="vm.sortTable(13)">GST Percentage(%)</th>
             <th> </th>
             <th> </th>
-          </tr> 
+          </tr>
         </thead>
         <tbody>
           <tr ng-repeat="booking in vm.bookings">
@@ -50,7 +50,7 @@
             <td>{{booking.billing[0].bill_amount}}</td>
             <td>{{booking.billing[0].gst_percentage}}</td>
             <td> <a class="btn btn-primary" ui-sref="bookings.view({bookingId: booking._id})">VIEW</a> </td>
-             <td> <a class="btn btn-info" ng-click="vm.printBill(booking._id)">PRINT BILL</a> </td> 
+             <td> <a class="btn btn-info" ng-click="vm.printBill(booking._id)">PRINT BILL</a> </td>
           </tr>
         </tbody>
     </table>
