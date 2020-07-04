@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label for="enquiry_id" class="col-sm-5 control-label">Enquiry Id:</label>
                 <div class="col-sm-7">
-                    <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id" 
+                    <input id="enquiry_id" type="text" class="form-control" ng-model="vm.search.enquiry_id"
                         placeholder="Enter Enquiry Id"/>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="school_name" class="col-sm-5 control-label">School Name:</label>
                 <div class="col-sm-7">
-                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name" 
+                    <input id="school_name" type="text" class="form-control" ng-model="vm.search.school_name"
                         placeholder="Enter School Name"/>
                 </div>
             </div>
@@ -45,13 +45,13 @@
         <thead>
           <tr>
             <th ng-click="vm.sortTable(0)">Enquiry Date</th>
-            <th ng-click="vm.sortTable(1)">Enquiry ID</th>
-            <th ng-click="vm.sortTable(2)">Enquired By</th>
-            <th ng-click="vm.sortTable(3)">School Name</th>
+            <!-- <th ng-click="vm.sortTable(1)">Enquiry ID</th> -->
+            <th ng-click="vm.sortTable(1)">Enquired By</th>
+            <th ng-click="vm.sortTable(2)">School Name</th>
             <!-- <th ng-click="vm.sortTable(4)">Email</th> -->
-            <th ng-click="vm.sortTable(5)">Phone Number</th>
-            <th ng-click="vm.sortTable(6)">Contact Person</th>
-            <th ng-click="vm.sortTable(7)">Same School</th>
+            <th ng-click="vm.sortTable(3)">Phone Number</th>
+            <th ng-click="vm.sortTable(4)">Contact Person</th>
+            <th ng-click="vm.sortTable(5)">Same School</th>
             <th> </th>
             <th> </th>
             <th> </th>
@@ -62,7 +62,7 @@
         <tbody>
           <tr ng-repeat="enquiry in vm.enquiries" ng-class="vm.findBackgroundClass(enquiry)" title="{{vm.findBackgroundClass(enquiry)}}" style="color: white;">
             <td>{{enquiry.created | date:'dd/MMM/yyyy'}}</td>
-            <td>{{enquiry.enquiry_id}}</td>
+            <!-- <td>{{enquiry.enquiry_id}}</td> -->
             <td>
                 <span ng-repeat="enq in enquiry.enquiry_by">{{enq.displayName}}, <br> </span>
             </td>
@@ -72,12 +72,12 @@
             <td>{{enquiry.school_contact_person}}</td>
             <td>{{vm.countSimilarSchool(enquiry.school_name)}}</td>
             <td> <a class="btn btn-warning" ui-sref="enquiries.view({enquiryId: enquiry._id})">VIEW</a> </td>
-            <td> <a class="btn btn-danger" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td> 
-            <td> <a class="btn btn-primary" ui-sref="enquiries.followup({enquiryId: enquiry._id})">FOLLOWUP</a> </td> 
-            <td> 
-                <a class="btn btn-info" ui-sref="quotations.view({enquiryId: enquiry.enquiry_id})" ng-if="vm.isUserAdmin">QUOTATIONS</a> 
-            </td> 
-            <td> <a class="btn btn-success" ui-sref="bookings.createnew({enquiryId: enquiry.enquiry_id})">BOOKINGS</a> </td> 
+            <td> <a class="btn btn-danger" ui-sref="enquiries.edit({enquiryId: enquiry._id})">EDIT</a> </td>
+            <td> <a class="btn btn-primary" ui-sref="enquiries.followup({enquiryId: enquiry._id})">FOLLOWUP</a> </td>
+            <td>
+                <a class="btn btn-info" ui-sref="quotations.view({enquiryId: enquiry.enquiry_id})" ng-if="vm.isUserAdmin">QUOTATIONS</a>
+            </td>
+            <td> <a class="btn btn-success" ui-sref="bookings.createnew({enquiryId: enquiry.enquiry_id})">BOOKINGS</a> </td>
           </tr>
         </tbody>
     </table>

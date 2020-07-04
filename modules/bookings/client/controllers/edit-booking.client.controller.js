@@ -15,7 +15,7 @@
 		vm.form = {};
 		vm.remove = remove;
 		vm.save = save;
-		
+
 		vm.multiselectSettings = {displayProp: 'displayName', idProp: '_id', externalIdProp: '_id',  smartButtonMaxItems: 3, checkBoxes: true};
 		vm.booking.tour_managers = [];
 
@@ -49,7 +49,7 @@
 				vm.booking_amount = parseInt(vm.booking.booking_amount);
 			}
 		}
-	
+
 		// Remove existing booking
 		function remove() {
 			if ( $window.confirm( 'Are you sure you want to delete?' ) ) {
@@ -71,11 +71,11 @@
 				return false;
 			}
 
-			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' || 
+			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' ||
 					vm.booking.booking_time == '' || vm.booking.booking_time == null ||
 					moment(vm.booking.booking_date).isBefore(moment())) {
 				$scope.message = "Please select valid Execution Date and Time!"
-				return false;				
+				return false;
 			}
 
 			vm.booking.booking_date = moment(vm.booking.booking_date).set({
@@ -143,7 +143,7 @@
 		}
 
 		$timeout( function(){
-			if($state.params.bookingId != "")  {  
+			if($state.params.bookingId != "")  {
 				for(var i = 0; i < vm.bookings.length; i++) {
 					if(vm.bookings[i]._id == $state.params.bookingId) {
 						vm.booking.created = vm.bookings[i].created;
@@ -168,11 +168,11 @@
 						vm.booking.tour_managers = [];
 						for(var u=0; u<vm.users.length; u++) {
 							for(var t=0; t<vm.bookings[i].tour_managers.length; t++) {
-								if(vm.bookings[i].tour_managers[t]._id == vm.users[u]._id) 
+								if(vm.bookings[i].tour_managers[t]._id == vm.users[u]._id)
 									vm.booking.tour_managers.push(vm.users[u]);
 							}
 						}
-						
+
 						vm.booking.destination = vm.bookings[i].destination;
 						vm.booking.billing = vm.bookings[i].billing[0];
 						vm.booking.expenses = vm.bookings[i].expenses;
@@ -186,7 +186,7 @@
 
 		vm.calBookingAmount = function(booking_amount) {
 			var amt = 0;
-			if(vm.booking.no_of_staff != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_staff);
+			// if(vm.booking.no_of_staff != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_staff);
 			if(vm.booking.no_of_students != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_students);
 			vm.booking.total_booking_amount = amt;
 		}

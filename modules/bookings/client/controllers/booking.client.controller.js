@@ -57,7 +57,7 @@
 				vm.booking_amount = parseInt(vm.booking.booking_amount);
 			}
 		}
-	
+
 		vm.searches = function () {
 			vm.enquiry = null;
 			var searched = [];
@@ -108,11 +108,11 @@
 				return false;
 			}
 
-			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' || 
+			if(vm.booking.booking_date == undefined || vm.booking.booking_date == '' ||
 					vm.booking.booking_time == '' || vm.booking.booking_time == null ||
 					moment(vm.booking.booking_date).isBefore(moment())) {
 				$scope.message = "Please select valid Execution Date and Time!"
-				return false;				
+				return false;
 			}
 
 			vm.booking.booking_date = moment(vm.booking.booking_date).set({
@@ -183,7 +183,7 @@
 		}
 
 		$timeout( function(){
-			if($state.params.enquiryId != "")  {  
+			if($state.params.enquiryId != "")  {
 				vm.search.enquiry_id = $state.params.enquiryId;
 				vm.searches();
 			}
@@ -191,7 +191,7 @@
 
 		vm.calBookingAmount = function(booking_amount) {
 			var amt = 0;
-			if(vm.booking.no_of_staff != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_staff);
+			// if(vm.booking.no_of_staff != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_staff);
 			if(vm.booking.no_of_students != undefined) amt += Number(booking_amount) * Number(vm.booking.no_of_students);
 			vm.booking.total_booking_amount = amt;
 		}
